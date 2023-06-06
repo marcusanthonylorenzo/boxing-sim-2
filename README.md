@@ -30,6 +30,11 @@ Next.js - Tailwind - Postgres/Supabase
             - chin: number
             - body: number
             - mental: number
+            - dangerState: () => 
+                //calculate parameter for which the boxers attributes change ie
+                if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
+            - desperationState: () =>
+                //same, some fighters are different, some are same
 
     - isChampion: boolean
     - wins: number
@@ -71,4 +76,14 @@ Next.js - Tailwind - Postgres/Supabase
 
 ## Services:
     - fightEngine
-        - 
+        - engagement
+        - exchange
+
+    - commentary: object {}
+        - prefight
+        - playByPlay
+        - dangerState
+        - desperationState
+        - TKO
+        - KO
+        - judgesDecision
