@@ -5,6 +5,13 @@ import onError from "../../../middlewares/errors";
 // import the notes controller for postingNotes and fetching all notes
 import { postNote, getAllNotes } from "../../../controllers/NotesController";
 
+// const express = require('express');
+// const app = express();
+// const http = require('http');
+// const server = http.createServer(app);
+// const { Server } = require("socket.io");
+// const io = new Server(server);
+
 // initiate next-connect with error middleware
 const handler = nc({ onError });
 

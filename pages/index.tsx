@@ -1,5 +1,6 @@
 import type { NextPage, GetServerSideProps } from "next";
-
+import { getClient } from "../lib/client";
+import { gql } from "@apollo/client";
 import React, { Key, useState, useEffect, useId } from "react";
 
 import Head from "next/head";
@@ -18,7 +19,13 @@ import { noteProps } from "../constants/models";
 interface homeProps {
   results: noteProps[];
 }
-const Home: NextPage<homeProps> = ({ results }) => {
+
+const query = gql`query Now {
+  now(id: "1")
+}`;
+
+const Home: NextPage<homeProps> =  ({ results }) => {
+
   const [notes, setNotes] = useState<noteProps[]>(results);
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
@@ -108,9 +115,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
     }
   };
 
-
-  
-
   useEffect(() => console.log(results), [results]);
 
   return (
@@ -158,7 +162,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
 // will make the initial call to populate the results
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { origin } = absoluteUrl(req);
-
   
   const apiURL = `${origin}/api/notes`;
   const { data } = await axios.get(apiURL);
@@ -168,5 +171,27 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
   };
 };
+
+// export async function getStaticProps() {
+//     // const { data } = await client.query({
+//     //   query: gql`
+//     //     query NextLaunch {
+//     //       launchNext {
+//     //         mission_name
+//     //         launch_date_local
+//     //         launch_site {
+//     //           site_name_long
+//     //         }
+//     //       }
+//     //     }
+//     //   `,
+//     // });
+    
+//   return {
+//     // props: {
+//     //   nextLaunch: data.launchNext,
+//     // },
+//  };
+// }
 
 export default Home;

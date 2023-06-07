@@ -1,5 +1,5 @@
 # BOXING SIM 2.0
-Next.js - ApolloClient - TypeScript - Tailwind - Postgres/Supabase
+Next.js - Socket.io - TypeScript - Tailwind - Postgres/Supabase
 
 ## Ideas:
     - Use Socket.io to update in real time?
