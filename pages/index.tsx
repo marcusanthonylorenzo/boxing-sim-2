@@ -2,6 +2,7 @@ import type { NextPage, GetServerSideProps } from "next";
 
 import React, { Key, useState, useEffect, useId } from "react";
 import io from "socket.io-client";
+import { useQuery } from '@tanstack/react-query'
 import { generateRandomValue } from "../services/generateRandom";
 
 import Head from "next/head";
