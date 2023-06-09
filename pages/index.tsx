@@ -1,6 +1,7 @@
 import type { NextPage, GetServerSideProps } from "next";
 
 import React, { Key, useState, useEffect, useId } from "react";
+import io from "socket.io-client";
 
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -14,6 +15,14 @@ import EditModal from "../components/EditModal";
 
 import { AddIcon } from "../icons/AddIcon";
 import { noteProps } from "../constants/models";
+
+
+const socket = io("https://api.localhost:3003", {
+  withCredentials: true,
+  // extraHeaders: {
+  //   "my-custom-header": "abcd"
+  // }
+});
 
 interface homeProps {
   results: noteProps[];
@@ -109,7 +118,20 @@ const Home: NextPage<homeProps> = ({ results }) => {
   };
 
 
-  
+  async function socketInitializer() {
+  }
+
+  socket.on('connection', () => {
+    console.log('connected client')
+  })
+
+  useEffect(() => {
+    socket.connect()
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => console.log(results), [results]);
 
@@ -158,8 +180,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
 // will make the initial call to populate the results
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { origin } = absoluteUrl(req);
-
-  
   const apiURL = `${origin}/api/notes`;
   const { data } = await axios.get(apiURL);
   return {
