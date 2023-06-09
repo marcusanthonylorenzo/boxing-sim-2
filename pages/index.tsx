@@ -2,6 +2,7 @@ import type { NextPage, GetServerSideProps } from "next";
 
 import React, { Key, useState, useEffect, useId } from "react";
 import io from "socket.io-client";
+import { generateRandomValue } from "../services/generateRandom";
 
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -15,7 +16,6 @@ import EditModal from "../components/EditModal";
 
 import { AddIcon } from "../icons/AddIcon";
 import { noteProps } from "../constants/models";
-
 
 const socket = io("https://api.localhost:3003", {
   withCredentials: true,

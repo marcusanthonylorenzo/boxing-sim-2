@@ -17,12 +17,13 @@ const getAllNotes = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRes
 
 // route for post a note
 const postNote = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { title, content, color } = req.body;
+  const { title, content, color, createdAt } = req.body;
   const note = await prisma.note.create({
     data: {
       title,
       content,
       color,
+      createdAt
     },
   });
   res.status(200).json({

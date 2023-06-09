@@ -8,10 +8,90 @@ datasource db {
 }
 
 model Note {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   title     String
   content   String?
   color     String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 }
+
+model Boxer {
+  id String @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  isUser Boolean
+  firstName String
+  lastName String
+  nickname String?
+  birthday Int
+  hometown String
+  isChampion Boolean
+  wins Int
+  losses Int
+  draws Int
+  ranking Int?
+
+  //when retrieving from db, controller convert to json? sort into nested properties
+    agility Int
+    power Int
+    handSpeed Int
+    accuracy Int
+    aggression Int
+
+    reflex Int
+    footwork Int
+    evasion Int
+    blocking Int
+    reaction Int //higher Int, higher % of offensive 
+    
+    conditioning Int
+    hp Int
+    recovery Int
+    chin Int
+    body Int
+    mental Int
+    awareness Int
+    fightIQ Int
+    dangerState Int
+    //calculate parameter for which the boxers attributes change ie
+    // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
+    desperationState Int
+
+}
+
+// model Attributes {
+//     offensive AttributesOffensive
+//     defensive AttributesDefensive
+//     health AttributesHealth
+// }
+// type AttributesOffensive {
+//     agility Int
+//     power Int
+//     handSpeed Int
+//     accuracy Int
+//     aggression Int
+// }
+
+// type AttributesDefensive {
+//     reflex Int
+//     footwork Int
+//     evasion Int
+//     blocking Int
+//     reaction Int //higher Int, higher % of offensive reaction
+// }
+
+// type AttributesHealth {
+//     conditioning Int
+//     hp Int
+//     recovery Int
+//     chin Int
+//     body Int
+//     mental Int
+//     awareness Int
+//     fightIQ Int
+//     dangerState Int
+//     //calculate parameter for which the boxers attributes change ie
+//     // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
+//     desperationState Int
+// }
