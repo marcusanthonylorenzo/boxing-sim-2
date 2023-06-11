@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import { noteProps } from "../constants/models";
+import { Boxer } from "../constants/BoxerModel";
 
 type Props = {
-  onHandleAddNote: (note: noteProps) => void;
+  onHandleAddNote: (boxer?: Boxer) => void;
   showAddModal: boolean;
   setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -18,7 +18,8 @@ const AddModal = ({ onHandleAddNote, showAddModal, setAddModalVisibility }: Prop
   // handle on submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleAddNote({ title, content, color });
+    onHandleAddNote();
+    // onHandleAddNote({ first_name, last_name, wins, is_user, created_at, id });
     setTitle("");
     setContent("");
     setAddModalVisibility(!showAddModal);

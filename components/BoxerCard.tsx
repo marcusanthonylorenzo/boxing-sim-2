@@ -1,13 +1,13 @@
 import React from "react";
 import { EditIcon } from "../icons/EditIcon";
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { noteProps } from "../constants/models";
+import { Boxer as BoxerType } from "../constants/BoxerModel";
 import { Boxer } from "@prisma/client";
 
 interface BoxerCardT {
   data: Boxer;
-  onSelectEditedNote: (selectNote: noteProps) => void;
-  onDeleteNote: (id: string) => Promise<void>;
+  onSelectEditedNote: (selectNote: BoxerType | undefined) => void;
+  onDeleteNote: (id: number) => Promise<void>;
 }
 
 const BoxerCard = ({ data, onSelectEditedNote, onDeleteNote }: BoxerCardT) => {
