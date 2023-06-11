@@ -122,3 +122,12 @@ Next.js - ApolloClient - TypeScript - Tailwind - Postgres/Supabase
     - coaches: object {} 
         - training
         - coachesCorner
+
+
+# DB
+    - Boxer
+        - to Fight History
+
+    - Fight History
+        - foreign key: Boxer
+        - foreign key: Boxer

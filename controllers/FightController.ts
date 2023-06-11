@@ -1,0 +1,5 @@
+const updateFightHistory = () => {
+    
+}
+
+export { updateFightHistory }
