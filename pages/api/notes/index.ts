@@ -4,6 +4,7 @@ import nc from "next-connect";
 import onError from "../../../middlewares/errors";
 // import the notes controller for postingNotes and fetching all notes
 import { postNote, getAllNotes } from "../../../controllers/NotesController";
+import { createBoxer } from "../../../controllers/BoxerController"
 
 // initiate next-connect with error middleware
 const handler = nc({ onError });
@@ -13,5 +14,8 @@ const handler = nc({ onError });
 handler.get(getAllNotes);
 // handle post request for posting a note
 handler.post(postNote);
+
+//Boxer creation
+handler.post(createBoxer)
 
 export default handler;

@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model Note {
@@ -18,24 +19,23 @@ model Note {
 
 model Boxer {
   id String @id @default(cuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  isUser Boolean
-  firstName String
-  lastName String
+  created_at DateTime @default(now()) @map("created_at")
+  updated_at DateTime @updatedAt @map("updated_at")
+  is_user Boolean
+  first_name String
+  last_name String
   nickname String?
   birthday Int
   hometown String
-  isChampion Boolean
+  is_champion Boolean
   wins Int
   losses Int
   draws Int
   ranking Int?
 
-  //when retrieving from db, controller convert to json? sort into nested properties
     agility Int
     power Int
-    handSpeed Int
+    hand_speed Int
     accuracy Int
     aggression Int
 
@@ -43,7 +43,7 @@ model Boxer {
     footwork Int
     evasion Int
     blocking Int
-    reaction Int //higher Int, higher % of offensive 
+    reaction Int 
     
     conditioning Int
     hp Int
@@ -52,12 +52,9 @@ model Boxer {
     body Int
     mental Int
     awareness Int
-    fightIQ Int
-    dangerState Int
-    //calculate parameter for which the boxers attributes change ie
-    // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
-    desperationState Int
-
+    fight_iq Int
+    danger_state Int
+    desperation_state Int
 }
 
 // model Attributes {

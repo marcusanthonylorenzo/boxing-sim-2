@@ -1,14 +1,14 @@
 export interface Boxer {
     id: number
-    createdAt: string
-    updatedAt: Date | string
-    isUser: boolean
-    firstName: string
-    lastName: string
+    created_at: string
+    updated_at: Date | string
+    is_user: boolean
+    first_name: string
+    last_name: string
     nickname: string
     birthday: number //03161997 = 03-16-1997
     hometown: string
-    isChampion: boolean
+    is_champion: boolean
     wins: number
     losses: number
     draws: number
@@ -18,7 +18,7 @@ export interface Boxer {
     //     offensive: {
             agility: number
             power: number
-            handSpeed: number
+            hand_speed: number
             accuracy: number
             aggression: number
         // }
@@ -37,11 +37,11 @@ export interface Boxer {
             body: number
             mental: number
             awareness: number
-            fightIQ: number
-            dangerState: number
+            fight_iq: number
+            danger_state: number
             //calculate parameter for which the boxers attributes change ie
             // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
-            desperationState: number
+            desperation_state: number
             //same, some fighters are different, some are same
     //     }
     // }

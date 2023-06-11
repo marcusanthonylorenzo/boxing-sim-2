@@ -2,8 +2,8 @@ import type { NextPage, GetServerSideProps } from "next";
 
 import React, { Key, useState, useEffect, useId } from "react";
 import io from "socket.io-client";
-import { useQuery } from '@tanstack/react-query'
-import { generateRandomValue } from "../services/generateRandom";
+import { useQuery, useMutation } from '@tanstack/react-query'
+import { generateRandomBoxer, generateRandomValue } from "../services/generateRandom";
 
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -18,12 +18,13 @@ import EditModal from "../components/EditModal";
 import { AddIcon } from "../icons/AddIcon";
 import { noteProps } from "../constants/models";
 
-const socket = io("https://api.localhost:3003", {
-  withCredentials: true,
-  // extraHeaders: {
-  //   "my-custom-header": "abcd"
-  // }
-});
+// const socket = io("https://api.localhost:3003", {
+//   withCredentials: true,
+//   // extraHeaders: {
+//   //   "my-custom-header": "abcd"
+//   // }
+// });
+
 
 interface homeProps {
   results: noteProps[];
@@ -36,7 +37,39 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const router = useRouter();
   const tempPostId = useId();
 
+  // const createBoxerMutation = useMutation({
+  //   mutationFn: (newBoxer) => {
+  //     const { data } = axios.post('/api/boxers', newBoxer)
+  //     return data
+  // })
+
+  const createNewBoxer = async (newBoxerData?: any) => {
+    try {
+      let newBoxer = newBoxerData !== undefined || newBoxerData === null ? await newBoxerData : await generateRandomBoxer();
+      console.log(`new boxer`, {...newBoxer})
+
+      const { data } = await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', newBoxer,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
+        }
+      })
+      console.log(`response`, data)
+      if (data) {
+        // router.reload();
+        console.log(`boxer created!`)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    // createBoxerMutation.mutate(newBoxer)
+  }
+
   const handleAddNote = async ({ title, content, color }: noteProps) => {
+
+    createNewBoxer();
     // add Note optimistically to ui
     let oldNotesState = notes;
     try {
@@ -51,12 +84,10 @@ const Home: NextPage<homeProps> = ({ results }) => {
           updatedAt: new Date(),
         },
       ];
-      // sets the new note to state locally
       setNotes(addNotes);
-      // axios for post object of values
       const { data } = await axios.post(`/api/notes`, { title, content, color });
       if (data) {
-        router.reload();
+        // router.reload();
       }
     } catch (error) {
       console.error(error);
@@ -119,20 +150,20 @@ const Home: NextPage<homeProps> = ({ results }) => {
   };
 
 
-  async function socketInitializer() {
-  }
+  // async function socketInitializer() {
+  // }
 
-  socket.on('connection', () => {
-    console.log('connected client')
-  })
+  // socket.on('connection', () => {
+  //   console.log('connected client')
+  // })
 
-  useEffect(() => {
-    socket.connect()
+  // useEffect(() => {
+  //   socket.connect()
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   useEffect(() => console.log(results), [results]);
 

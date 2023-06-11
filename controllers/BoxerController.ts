@@ -4,24 +4,23 @@ import prisma from "../lib/prisma"; // prisma client
 
 const createBoxer = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
     const { 
-        id, createdAt, updatedAt, isUser,
-        firstName, lastName, nickname,
-        birthday, hometown, isChampion,
+        id, created_at, updated_at, is_user, first_name, last_name, nickname,
+        birthday, hometown, is_champion,
         wins, losses, draws, ranking,
         attributes: {
             offensive: {
-                agility, power, handSpeed, accuracy, aggression
+                agility, power, hand_speed, accuracy, aggression
             },
             defensive: {
                 reflex, footwork, evasion, blocking, reaction
             },
             health: {
                 conditioning, hp, recovery, chin, body,
-                mental, awareness, fightIQ,
-                dangerState,
+                mental, awareness, fight_iq,
+                danger_state,
                 //calculate parameter for which the boxers attributes change ie
                 // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
-                desperationState,
+                desperation_state,
                 //same, some fighters are different, some are same
             }
         }
@@ -29,18 +28,16 @@ const createBoxer = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRes
 
     const boxer = await prisma.boxer.create({
       data: {
-        id, createdAt, updatedAt, isUser,
-        firstName, lastName, nickname,
-        birthday, hometown, isChampion,
+        id, created_at, updated_at, is_user, first_name, last_name, nickname,
+        birthday, hometown, is_champion,
         wins, losses, draws, ranking,
-            agility, power, handSpeed, accuracy, aggression,
+            agility, power, hand_speed, accuracy, aggression,
             reflex, footwork, evasion, blocking, reaction,
             conditioning, hp, recovery, chin, body,
-            mental, awareness, fightIQ,
-            dangerState,
+            mental, awareness, fight_iq, danger_state,
             //calculate parameter for which the boxers attributes change ie
             // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
-            desperationState,
+            desperation_state,
             //same, some fighters are different, some are same
       },
     });
@@ -49,3 +46,5 @@ const createBoxer = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRes
       data: boxer,
     });
   });
+
+export { createBoxer }
