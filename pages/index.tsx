@@ -11,7 +11,7 @@ import axios from "axios";
 import absoluteUrl from "next-absolute-url";
 import { useRouter } from "next/router";
 
-import StickyNote from "../components/StickyNote";
+import BoxerCard from "../components/BoxerCard";
 import AddModal from "../components/AddModal";
 import EditModal from "../components/EditModal";
 
@@ -25,6 +25,11 @@ import { noteProps } from "../constants/models";
 //   // }
 // });
 
+const headersConfig = {
+      'Content-Type': 'application/json',
+      apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
+}
 
 interface homeProps {
   results: noteProps[];
@@ -46,16 +51,16 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
       let newBoxer = newBoxerData !== undefined || newBoxerData === null ? await newBoxerData : await generateRandomBoxer();
-      console.log(`new boxer`, {...newBoxer})
+      // console.log(`new boxer`, {...newBoxer})
 
       const { data } = await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', newBoxer,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
-        }
-      })
+        { headers: headersConfig }
+        // headers: {
+        //   'Content-Type': 'application/json',
+        //   apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
+        //   'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
+        // }
+        )
       console.log(`response`, data)
       if (data) {
         // router.reload();
@@ -165,7 +170,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   //   };
   // }, []);
 
-  useEffect(() => console.log(results), [results]);
+  // useEffect(() => console.log(results), [results]);
 
   return (
     <div className={styles.container}>
@@ -197,7 +202,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">
           {notes?.map((note: noteProps, index: Key | null | undefined) => (
-            <StickyNote
+            <BoxerCard
               key={index}
               data={note}
               onSelectEditedNote={handleSelectEditedNote}
@@ -211,12 +216,12 @@ const Home: NextPage<homeProps> = ({ results }) => {
 };
 // will make the initial call to populate the results
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { origin } = absoluteUrl(req);
-  const apiURL = `${origin}/api/notes`;
-  const { data } = await axios.get(apiURL);
+  // const { origin } = absoluteUrl(req);
+  // const apiURL = `${origin}/api/boxers`;
+  const { data } = await axios.get("https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers", { headers: headersConfig })
   return {
     props: {
-      results: data.data.notes,
+      results: data,
     },
   };
 };

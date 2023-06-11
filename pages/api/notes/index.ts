@@ -9,13 +9,13 @@ import { createBoxer } from "../../../controllers/BoxerController"
 // initiate next-connect with error middleware
 const handler = nc({ onError });
 
-// handler request from "api/notes" endpoint
+// // handler request from "api/notes" endpoint
 // handle post request for posting a note
 handler.get(getAllNotes);
-// handle post request for posting a note
+// // handle post request for posting a note
 handler.post(postNote);
 
-//Boxer creation
+// //Boxer creation
 handler.post(createBoxer)
 
 export default handler;

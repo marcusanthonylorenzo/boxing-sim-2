@@ -22,7 +22,7 @@ const generateRandomBoxer = () => {
         hometown: getHometown,
         is_champion: false,
         wins: generateRandomValue(0, 35),
-        losses: generateRandomValue(0, 25),
+        losses: generateRandomValue(0, 20),
         draws: generateRandomValue(0, 6),
         ranking: 0,
 
