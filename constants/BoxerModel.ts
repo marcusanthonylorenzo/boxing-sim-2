@@ -1,11 +1,11 @@
 export interface Boxer {
-    id: number
+    id: number | string
     created_at: Date
     updated_at: Date
     is_user: boolean
     first_name?: string
     last_name?: string
-    nickname?: string | undefined
+    nickname?: string
     birthday?: number //03161997 = 03-16-1997
     hometown?: string
     is_champion?: boolean

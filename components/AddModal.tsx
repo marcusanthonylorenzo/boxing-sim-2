@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { Boxer } from "../constants/BoxerModel";
 
 type Props = {
-  onHandleAddNote: (boxer?: Boxer) => void;
+  onHandleAddBoxer: (boxer?: Boxer) => void;
   showAddModal: boolean;
   setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 
-const AddModal = ({ onHandleAddNote, showAddModal, setAddModalVisibility }: Props) => {
+const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Props) => {
   // handle field data
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -18,8 +18,8 @@ const AddModal = ({ onHandleAddNote, showAddModal, setAddModalVisibility }: Prop
   // handle on submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleAddNote();
-    // onHandleAddNote({ first_name, last_name, wins, is_user, created_at, id });
+    onHandleAddBoxer();
+    // onHandleAddBoxer({ first_name, last_name, wins, is_user, created_at, id });
     setTitle("");
     setContent("");
     setAddModalVisibility(!showAddModal);

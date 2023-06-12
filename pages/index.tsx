@@ -8,7 +8,7 @@ import { generateRandomBoxer, generateRandomValue } from "../services/generateRa
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
-// import absoluteUrl from "next-absolute-url";
+import absoluteUrl from "next-absolute-url";
 import { useRouter } from "next/router";
 
 import BoxerCard from "../components/BoxerCard";
@@ -30,6 +30,7 @@ const headersConfig = {
       apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
       'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
 }
+const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers";
 
 interface homeProps {
   results: Boxer[];
@@ -50,20 +51,15 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
-      let newBoxer = newBoxerData !== undefined || newBoxerData === null ? await newBoxerData : await generateRandomBoxer();
-      // console.log(`new boxer`, {...newBoxer})
+      let newBoxer = newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer();
 
       const { data } = await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', newBoxer,
-        { headers: headersConfig }
-        // headers: {
-        //   'last_name-Type': 'application/json',
-        //   apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
-        //   'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
-        // }
-        )
+        { headers: headersConfig });
+
       if (data) {
         router.reload();
         console.log(`boxer created!`)
+        return data
       }
     } catch (error) {
       console.error(error);
@@ -71,41 +67,56 @@ const Home: NextPage<homeProps> = ({ results }) => {
     // createBoxerMutation.mutate(newBoxer)
   }
 
-  const handleAddNote = async ({ first_name, last_name, wins, is_user, created_at, id }: Boxer) => {
+  const handleAddBoxer = async (
+    boxerArg?: Boxer
+    ) => {
 
-    createNewBoxer();
-    // add Note optimistically to ui
+    let validBoxerData;  
     let oldboxersState = boxers;
-    try {
-      const addboxers = [
-        ...boxers,
-        {
-          id,
-          first_name,
-          last_name,
-          wins,
-          is_user,
-          created_at,
-          updated_at: new Date(),
-        },
-      ];
-      setBoxers(addboxers);
-      const { data } = await axios.post(`/api/boxers`, { first_name, last_name, wins });
-      if (data) {
-        router.reload();
+
+    if (!boxerArg) {
+      const data = createNewBoxer()
+      validBoxerData = data
+      console.log(`no boxerArg`, data)
+      router.reload();
+
+    } else {
+      validBoxerData = boxerArg
+
+      try {
+          console.log(`valid boxer data`, validBoxerData)
+          const { first_name, last_name, wins, is_user, created_at, id } = validBoxerData;
+
+          const addboxers = [
+            ...boxers,
+            {
+              id,
+              first_name,
+              last_name,
+              wins,
+              is_user,
+              created_at,
+              updated_at: new Date(),
+            },
+          ];
+          setBoxers(addboxers);
+          const { data } = await createNewBoxer(validBoxerData);
+          if (data) {
+            router.reload();
+          }
+        } catch (error) {
+          console.error(error);
+          setBoxers(oldboxersState);
+        }
       }
-    } catch (error) {
-      console.error(error);
-      setBoxers(oldboxersState);
-    }
   };
 
-  const handleEditNote = async ({ first_name, last_name, wins, id }: Boxer) => {
+  const handleEditNote = async ({ first_name, last_name, wins, id }: Boxer ) => {
     // add Note optimistically to ui
     let oldboxersState = boxers;
     try {
       // manipulate the edit in the 
-      const editboxers = boxers.map((boxer: { id: number; }) => {
+      const editboxers = boxers.map((boxer: { id: string | number; }) => {
         if (boxer.id === selectEditedNote?.id) {
           return {
             ...boxer,
@@ -141,24 +152,27 @@ const Home: NextPage<homeProps> = ({ results }) => {
     setUpdateModalVisibility(!showUpdateModal);
   };
 
-  const handleDeleteNote = async (id: number) => {
+  const handleDeleteNote = async (id: number | string) => {
     try {
       //delete note base on id
-      const removeItem = boxers.filter((note: { id?: number; }) => note.id !== id);
+      const removeItem = boxers.filter((boxer: { id?: string | number; }) => boxer.id !== id);
       setBoxers(removeItem);
       // set id to dynamically delete call
+      await axios.delete(`/api/boxers/${id}`)
 
-      // await axios.delete('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', boxers,
+      // await axios.delete('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers',
       // {
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
-      //     'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
-      //   }
+      //   data: {
+      //     id: id
+      //   },
+      //   headers:  {
+      //     apiKey: headersConfig.apiKey,
+      //     Authorization: headersConfig.Authorization
+      //   },
       // })
       router.reload();
     } catch (error) {
-      console.error(error);
+      console.error(error); 
     }
   };
 
@@ -191,7 +205,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
       <main className={styles.main}>
         {showAddModal && (
           <AddModal
-            onHandleAddNote={handleAddNote}
+            onHandleAddBoxer={handleAddBoxer}
             showAddModal={showAddModal}
             setAddModalVisibility={setAddModalVisibility}
           />
@@ -225,9 +239,11 @@ const Home: NextPage<homeProps> = ({ results }) => {
 };
 // will make the initial call to populate the results
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  // const { origin } = absoluteUrl(req);
-  // const apiURL = `${origin}/api/boxers`;
-  const { data } = await axios.get("https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers", { headers: headersConfig })
+  const { origin } = absoluteUrl(req);
+  const apiURL = `${origin}/api/boxers`;
+  // const { data } = await axios.get(apiURL, { headers: headersConfig })
+
+  const { data } = await axios.get(supabaseAPI, { headers: headersConfig })
   return {
     props: {
       results: data,

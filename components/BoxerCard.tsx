@@ -7,15 +7,13 @@ import { Boxer } from "@prisma/client";
 interface BoxerCardT {
   data: Boxer;
   onSelectEditedNote: (selectNote: BoxerType | undefined) => void;
-  onDeleteNote: (id: number) => Promise<void>;
+  onDeleteNote: (id: number | string) => Promise<void>;
 }
 
 const BoxerCard = ({ data, onSelectEditedNote, onDeleteNote }: BoxerCardT) => {
   // const { id, title, content, color, createdAt } = data;
 
-  console.log(data)
-
-
+  // console.log(data)
   return (
     <div
       className={`w-54 h-64 flex flex-col justify-between  rounded-lg border  mb-6 py-5 px-4 -rotate-1 shadow-md`}
@@ -30,7 +28,7 @@ const BoxerCard = ({ data, onSelectEditedNote, onDeleteNote }: BoxerCardT) => {
             <DeleteIcon className="w-8 h-8 hover:scale-125" />
           </div>
         </div>
-        <p className="text-gray-800 text-sm">{data.wins}</p>
+        <p className="text-gray-800 text-sm">{data.id}</p>
       </div>
       <div>
         <div className="flex items-center justify-between text-gray-800">

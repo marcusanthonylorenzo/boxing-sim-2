@@ -2,6 +2,17 @@ import catchAsyncErrors from "../middlewares/catchAsyncErrors";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../lib/prisma"; // prisma client
 
+const getAllBoxers = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+  const boxers = await prisma.boxer.findMany();
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      boxers,
+    },
+  });
+});
+
 const createBoxer = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
     const { 
         id, created_at, updated_at, is_user, first_name, last_name, nickname,
@@ -47,4 +58,20 @@ const createBoxer = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRes
     });
   });
 
-export { createBoxer }
+  const deleteBoxer = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+    const { id } = req.query;
+    await prisma.boxer.delete({
+      where: {
+        id: id.toString(),
+      },
+    });
+
+    console.log(` delete`, id )
+  
+    res.status(200).json({
+      status: "success",
+      data: null,
+    });
+  });
+
+export { getAllBoxers, createBoxer, deleteBoxer }
