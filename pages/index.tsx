@@ -52,9 +52,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
       let newBoxer = newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer();
-
-      const { data } = await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', newBoxer,
-        { headers: headersConfig });
+      const { data } = await axios.post('api/Box', newBoxer)
 
       if (data) {
         router.reload();
@@ -78,7 +76,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
       const data = createNewBoxer()
       validBoxerData = data
       console.log(`no boxerArg`, data)
-      router.reload();
+      // router.reload();
 
     } else {
       validBoxerData = boxerArg
@@ -237,12 +235,10 @@ const Home: NextPage<homeProps> = ({ results }) => {
     </div>
   );
 };
-// will make the initial call to populate the results
+
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { origin } = absoluteUrl(req);
   const apiURL = `${origin}/api/boxers`;
-  // const { data } = await axios.get(apiURL, { headers: headersConfig })
-
   const { data } = await axios.get(supabaseAPI, { headers: headersConfig })
   return {
     props: {

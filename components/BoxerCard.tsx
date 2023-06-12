@@ -11,13 +11,10 @@ interface BoxerCardT {
 }
 
 const BoxerCard = ({ data, onSelectEditedNote, onDeleteNote }: BoxerCardT) => {
-  // const { id, title, content, color, createdAt } = data;
-
-  // console.log(data)
+ 
   return (
     <div
       className={`w-54 h-64 flex flex-col justify-between  rounded-lg border  mb-6 py-5 px-4 -rotate-1 shadow-md`}
-      // style={{ backgroundColor: color }}
       >
       <div className="">
         <div className="flex">

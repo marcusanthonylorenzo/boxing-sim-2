@@ -1,21 +1,44 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import nc from "next-connect";
-// handle server error middleware
-import onError from "../../../middlewares/errors";
-// import the notes controller for postingNotes and fetching all notes
-import { postNote, getAllNotes } from "../../../controllers/NotesController";
+// // // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// import nextConnect, { createEdgeRouter } from "next-connect";
+// import onError from "../../../middlewares/errors";
 import { getAllBoxers, createBoxer, deleteBoxer } from "../../../controllers/BoxerController"
+import { NextApiRequest, NextApiResponse } from 'next';
+import axios from "axios";
 
-// initiate next-connect with error middleware
-const handler = nc({ onError });
 
-// // handler request from "api/notes" endpoint
-// handle post request for posting a note
-handler.get(getAllBoxers);
-// // handle post request for posting a note
-handler.post(postNote);
+const headersConfig = {
+    'last_name-Type': 'application/json',
+    apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
+    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
+}
 
-// //Boxer creation
-handler.post(createBoxer)
+// Controller methods
+const getHandler = (req: NextApiRequest, res: NextApiResponse) => {
+  // Handle GET request logic here
+  res.status(200).json({ message: 'GET request handled successfully' });
+};
 
-export default handler;
+const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  // Handle POST request logic here
+  res.status(200).json({ message: 'POST request handled successfully' });
+};
+
+// API route handler
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+  if (req.method === 'GET') {
+    getHandler(req, res);
+
+
+  } else if (req.method === 'POST') {
+    postHandler(req, res);
+
+    console.log(`post handler`, req.body.first_name)
+    axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req,
+    { headers: headersConfig })
+
+    
+  } else {
+    res.status(405).json({ error: 'Method Not Allowed' });
+  }
+}
