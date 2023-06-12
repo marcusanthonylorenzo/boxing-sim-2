@@ -11,6 +11,8 @@ interface BoxerCardT {
 }
 
 const BoxerCard = ({ data, onSelectEditedNote, onDeleteNote }: BoxerCardT) => {
+
+  console.log(data)
  
   return (
     <div

@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     postHandler(req, res);
 
     console.log(`post handler`, req.body.first_name)
-    axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req,
+    axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
     { headers: headersConfig })
 
     

@@ -74,8 +74,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
     if (!boxerArg) {
       const data = createNewBoxer()
       validBoxerData = data
-      console.log(`no boxerArg`, data)
-      // router.reload();
+      router.reload();
 
     } else {
       validBoxerData = boxerArg
