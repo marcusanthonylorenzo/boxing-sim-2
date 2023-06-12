@@ -35,11 +35,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(`id delete`, req.body.id)
 
     // console.log(`post handler`, req.body.first_name)
-    axios.delete(`https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers`, 
+    axios.delete(`https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers?id=eq.${req.body.id}`,
     { 
-        data: {
-          id: req.body.id
-        },
         headers: {
             apiKey: headersConfig.apiKey,
             Authorization: headersConfig.Authorization
