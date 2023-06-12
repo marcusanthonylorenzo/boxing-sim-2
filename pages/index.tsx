@@ -80,7 +80,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
       validBoxerData = boxerArg
 
       try {
-          console.log(`valid boxer data`, validBoxerData)
           const { first_name, last_name, wins, is_user, created_at, id } = validBoxerData;
 
           const addboxers = [
