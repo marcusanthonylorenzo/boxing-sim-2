@@ -1,9 +1,9 @@
 # BOXING SIM 2.0
-Next.js - ApolloClient - TypeScript - Tailwind - Postgres/Supabase
+Next.js - React Query - TypeScript - Tailwind - Postgres/Supabase
 
 ## Ideas:
-    - Use Socket.io to update in real time?
-    - Tailwind UI? 
+    - Use Socket.io to update in real time? Supabase allows subscriptions?
+    - Tailwind UI? Need designs.
 
 ## Containers: Mostly contain stateless data, used to wrap, pass props and update children (Boxers, Fight PBP, etc)
     - Start { CreateBoxer }
