@@ -1,5 +1,4 @@
 import type { NextPage, GetServerSideProps } from "next";
-
 import React, { Key, useState, useEffect, useId } from "react";
 import io from "socket.io-client";
 import { useQuery, useMutation } from '@tanstack/react-query'
@@ -52,7 +51,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
       let newBoxer = newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer();
-      const { data } = await axios.post('api/Box', newBoxer)
+      const { data } = await axios.post('api/boxers', newBoxer)
 
       if (data) {
         router.reload();
@@ -156,18 +155,12 @@ const Home: NextPage<homeProps> = ({ results }) => {
       const removeItem = boxers.filter((boxer: { id?: string | number; }) => boxer.id !== id);
       setBoxers(removeItem);
       // set id to dynamically delete call
-      await axios.delete(`/api/boxers/${id}`)
-
-      // await axios.delete('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers',
-      // {
-      //   data: {
-      //     id: id
-      //   },
-      //   headers:  {
-      //     apiKey: headersConfig.apiKey,
-      //     Authorization: headersConfig.Authorization
-      //   },
-      // })
+      await axios.delete(`/api/boxers/${id}`,
+        { 
+          data: {
+            id: id
+          }  
+        })
       router.reload();
     } catch (error) {
       console.error(error); 
