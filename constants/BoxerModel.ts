@@ -5,14 +5,14 @@ export interface Boxer {
     is_user: boolean
     first_name?: string
     last_name?: string
-    nickname?: string
+    nickname?: string | null
     birthday?: number //03161997 = 03-16-1997
     hometown?: string
     is_champion?: boolean
     wins?: number
     losses?: number
     draws?: number
-    ranking?: number
+    ranking?: number | null
 
     // attributes: {
     //     offensive: {

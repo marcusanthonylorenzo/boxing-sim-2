@@ -1,19 +1,16 @@
 import React from "react";
 import { EditIcon } from "../icons/EditIcon";
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { Boxer as BoxerType } from "../constants/BoxerModel";
-import { Boxer } from "@prisma/client";
+import { Boxer } from "../constants/BoxerModel";
+// import { Boxer } from "@prisma/client";
 
 interface BoxerCardT {
   data: Boxer;
-  onSelectEditedNote: (selectNote: BoxerType | undefined) => void;
+  onUpdateBoxer: (selectNote: Boxer) => void;
   onDeleteNote: (id: number | string) => Promise<void>;
 }
 
-const BoxerCard = ({ data, onSelectEditedNote, onDeleteNote }: BoxerCardT) => {
-
-  console.log(data)
- 
+const BoxerCard = ({ data, onUpdateBoxer, onDeleteNote }: BoxerCardT) => { 
   return (
     <div
       className={`w-54 h-64 flex flex-col justify-between  rounded-lg border  mb-6 py-5 px-4 -rotate-1 shadow-md`}
@@ -35,7 +32,7 @@ const BoxerCard = ({ data, onSelectEditedNote, onDeleteNote }: BoxerCardT) => {
           <button
             className="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 ring-offset-pink-300   focus:ring-black hover:scale-125"
             aria-label="edit note"
-            onClick={() => onSelectEditedNote(data)}
+            onClick={() => onUpdateBoxer(data)}
             role="button">
             <EditIcon className="icon icon-tabler icon-tabler-pencil hover:scale-125" />
           </button>

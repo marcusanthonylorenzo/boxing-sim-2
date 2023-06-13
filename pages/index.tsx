@@ -38,7 +38,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const [boxers, setBoxers] = useState<Boxer[]>(results);
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
-  const [selectEditedNote, setSelectEditedNote] = useState<Boxer>();
+  const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
   const router = useRouter();
   // const tempPostId = useId();
 
@@ -81,7 +81,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
       try {
           const { first_name, last_name, wins, is_user, created_at, id } = validBoxerData;
-
           const addboxers = [
             ...boxers,
             {
@@ -106,53 +105,43 @@ const Home: NextPage<homeProps> = ({ results }) => {
       }
   };
 
-  const handleEditNote = async ({ first_name, last_name, wins, id }: Boxer ) => {
-    // add Note optimistically to ui
+  const handleUpdateBoxer = async (boxer: Boxer) => {
     let oldboxersState = boxers;
+
     try {
-      // manipulate the edit in the 
       const editboxers = boxers.map((boxer: { id: string | number; }) => {
-        if (boxer.id === selectEditedNote?.id) {
+        if (boxer.id === updateBoxer?.id) {
           return {
             ...boxer,
-            first_name,
-            last_name,
-            wins,
             updatedAt: new Date(),
           };
         }
         return boxer;
       });
-      // Set edited Array to state
-      // setBoxers(editboxers);
-      // pass note edits to a put to api endpoint 
-      const { data } = await axios.put(`/api/boxers/${selectEditedNote?.id}`, {
-        first_name,
-        last_name,
-        wins,
+      // edit with composition?
+      const { data } = await axios.put(`/api/boxers/${updateBoxer?.id}`, {
+        boxer
       });
       if (data) {
         router.reload();
       }
       setUpdateModalVisibility(!showUpdateModal);
-      setSelectEditedNote(undefined);
+      setUpdateBoxer(null);
     } catch (error) {
       setBoxers(oldboxersState);
       console.error(error);
     }
   };
 
-  const handleSelectEditedNote = (selectNote: Boxer | undefined) => {
-    setSelectEditedNote(selectNote);
-    setUpdateModalVisibility(!showUpdateModal);
-  };
+  // const handleSelectUpdateBoxer = (selectBoxer: Boxer | null) => {
+  //   setUpdateBoxer(selectBoxer);
+  //   setUpdateModalVisibility(!showUpdateModal);
+  // };
 
   const handleDeleteNote = async (id: number | string) => {
     try {
-      //delete note base on id
       const removeItem = boxers.filter((boxer: { id?: string | number; }) => boxer.id !== id);
       setBoxers(removeItem);
-      // set id to dynamically delete call
       await axios.delete(`/api/boxers/${id}`,
         { 
           data: {
@@ -164,7 +153,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
       console.error(error); 
     }
   };
-
 
   // async function socketInitializer() {
   // }
@@ -199,15 +187,17 @@ const Home: NextPage<homeProps> = ({ results }) => {
             setAddModalVisibility={setAddModalVisibility}
           />
         )}
-        {/* {showUpdateModal && (
-          // <EditModal
-          //   onHandleEditNote={handleEditNote}
-          //   setSelectEditedNote={setSelectEditedNote}
-          //   selectEditedNote={selectEditedNote}
-          //   showUpdateModal={showUpdateModal}
-          //   setUpdateModalVisibility={setUpdateModalVisibility} 
-          // />
+{/*         
+        {showUpdateModal && (
+          <EditModal
+            onHandleUpdateBoxer={handleUpdateBoxer}
+            selectUpdateBoxer={setUpdateBoxer}
+            updateBoxer={updateBoxer}
+            showUpdateModal={showUpdateModal}
+            setUpdateModalVisibility={setUpdateModalVisibility} 
+          />
         )} */}
+
         <div className="mb-5" onClick={() => setAddModalVisibility(!showAddModal)}>
           <AddIcon className="w-16 hover:scale-125 hover:duration-700 ease-in-out duration-700 ease-out-in" />
         </div>
@@ -216,7 +206,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
             <BoxerCard
               key={index}
               data={boxer}
-              onSelectEditedNote={handleSelectEditedNote}
+              onUpdateBoxer={handleUpdateBoxer}
               onDeleteNote={handleDeleteNote}
             />
           ))}
@@ -228,8 +218,8 @@ const Home: NextPage<homeProps> = ({ results }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { origin } = absoluteUrl(req);
-  const apiURL = `${origin}/api/boxers`;
+  // const { origin } = absoluteUrl(req);
+  // const apiURL = `${origin}/api/boxers`;
   const { data } = await axios.get(supabaseAPI, { headers: headersConfig })
   return {
     props: {

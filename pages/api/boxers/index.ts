@@ -28,7 +28,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'GET') {
     getHandler(req, res);
-
+    // const { data } = await axios.get('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', { headers: headersConfig })
+    console.log(`handler GET method`)
 
   } else if (req.method === 'POST') {
     postHandler(req, res);
@@ -37,7 +38,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
     { headers: headersConfig })
 
-    
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
   }

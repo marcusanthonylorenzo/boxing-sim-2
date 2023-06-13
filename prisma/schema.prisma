@@ -5,11 +5,10 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
 }
 
 model Note {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
   title     String
   content   String?
   color     String
@@ -18,77 +17,38 @@ model Note {
 }
 
 model Boxer {
-  id String @id @default(cuid())
-  created_at DateTime @default(now()) @map("created_at")
-  updated_at DateTime @updatedAt @map("updated_at")
-  is_user Boolean
-  first_name String
-  last_name String
-  nickname String?
-  birthday Int
-  hometown String
-  is_champion Boolean
-  wins Int
-  losses Int
-  draws Int
-  ranking Int?
-
-    agility Int
-    power Int
-    hand_speed Int
-    accuracy Int
-    aggression Int
-
-    reflex Int
-    footwork Int
-    evasion Int
-    blocking Int
-    reaction Int 
-    
-    conditioning Int
-    hp Int
-    recovery Int
-    chin Int
-    body Int
-    mental Int
-    awareness Int
-    fight_iq Int
-    danger_state Int
-    desperation_state Int
+  id                String   @id @default(cuid())
+  created_at        DateTime @default(now()) @map("created_at")
+  updated_at        DateTime @updatedAt @map("updated_at")
+  nickname          String?
+  birthday          Int
+  hometown          String
+  wins              Int
+  losses            Int
+  draws             Int
+  ranking           Int?
+  agility           Int
+  power             Int
+  accuracy          Int
+  aggression        Int
+  reflex            Int
+  footwork          Int
+  evasion           Int
+  blocking          Int
+  reaction          Int
+  conditioning      Int
+  hp                Int
+  recovery          Int
+  chin              Int
+  body              Int
+  mental            Int
+  awareness         Int
+  danger_state      Int
+  desperation_state Int
+  fight_iq          Int
+  first_name        String
+  hand_speed        Int
+  is_champion       Boolean
+  is_user           Boolean
+  last_name         String
 }
-
-// model Attributes {
-//     offensive AttributesOffensive
-//     defensive AttributesDefensive
-//     health AttributesHealth
-// }
-// type AttributesOffensive {
-//     agility Int
-//     power Int
-//     handSpeed Int
-//     accuracy Int
-//     aggression Int
-// }
-
-// type AttributesDefensive {
-//     reflex Int
-//     footwork Int
-//     evasion Int
-//     blocking Int
-//     reaction Int //higher Int, higher % of offensive reaction
-// }
-
-// type AttributesHealth {
-//     conditioning Int
-//     hp Int
-//     recovery Int
-//     chin Int
-//     body Int
-//     mental Int
-//     awareness Int
-//     fightIQ Int
-//     dangerState Int
-//     //calculate parameter for which the boxers attributes change ie
-//     // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
-//     desperationState Int
-// }
