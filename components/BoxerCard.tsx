@@ -5,19 +5,25 @@ import { Boxer } from "../constants/BoxerModel";
 // import { Boxer } from "@prisma/client";
 
 interface BoxerCardT {
+  styleProps?: {
+    cardBgColor?: string
+  },
   data: Boxer;
   onUpdateBoxer: (selectNote: Boxer) => void;
   onDeleteBoxer: (id: number | string) => Promise<void>;
+  onClickHandler: () => void;
 }
 
-const BoxerCard = ({ data, onUpdateBoxer, onDeleteBoxer }: BoxerCardT) => { 
+const BoxerCard = ({ styleProps, data, onUpdateBoxer, onDeleteBoxer, onClickHandler }: BoxerCardT) => { 
 
   const componentId = `BoxerCard-${data.id}`
 
   return (
     <div id={componentId}
       className={`flex flex-col justify-between
-        w-54 h-64 rounded-lg border mb-6 py-8 px-6 -rotate-1 shadow-md`}>
+        w-54 h-64 rounded-lg border mb-6 py-8 px-6 -rotate-1 shadow-md
+        bg-${styleProps?.cardBgColor}`}
+      onClick={() => onClickHandler()}>
       <div className="">
         <div className="flex">
           <div id={`${componentId}-titleDiv-fullname`} className="w-32 py-2 mr-20">

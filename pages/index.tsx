@@ -40,6 +40,8 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
   const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
+  const [clickedBoxerCards, setClickedBoxerCards] = useState<Array<Boxer>>([])
+
   const router = useRouter();
   // const tempPostId = useId();
 
@@ -153,6 +155,11 @@ const Home: NextPage<homeProps> = ({ results }) => {
     }
   };
 
+  const unclickBoxerCard = async (boxer: Boxer, indexOfClickedCard: number) => {
+    // console.log(`idx`, indexOfClickedCard)
+    await setClickedBoxerCards(prev => prev.splice(indexOfClickedCard, 1))
+  }
+
   // async function socketInitializer() {
   // }
 
@@ -213,6 +220,20 @@ const Home: NextPage<homeProps> = ({ results }) => {
               data={boxer}
               onUpdateBoxer={handleUpdateBoxer}
               onDeleteBoxer={handleDeleteBoxer}
+              onClickHandler={() => {
+                const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
+                console.log(alreadyClicked)
+                if (!alreadyClicked || clickedBoxerCards.length === 0) {
+                  setClickedBoxerCards((prev) => [...prev, boxer])
+                  console.log(`${boxer.first_name} clicked`)
+                 } else if (alreadyClicked) {
+                  setClickedBoxerCards(current => current.filter(cardNotUnclicked=> cardNotUnclicked.id !== boxer.id ))
+                  console.log(`${boxer.first_name}, unclicked`)
+                }
+              }}
+              styleProps={{
+                // cardBgColor: clickedBoxerCards.some(each => each.id !== boxer.id) ? `transparent`: `green-500`
+              }}
             />
           ))}
         </div>
