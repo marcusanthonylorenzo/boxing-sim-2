@@ -7,10 +7,10 @@ import { Boxer } from "../constants/BoxerModel";
 interface BoxerCardT {
   data: Boxer;
   onUpdateBoxer: (selectNote: Boxer) => void;
-  onDeleteNote: (id: number | string) => Promise<void>;
+  onDeleteBoxer: (id: number | string) => Promise<void>;
 }
 
-const BoxerCard = ({ data, onUpdateBoxer, onDeleteNote }: BoxerCardT) => { 
+const BoxerCard = ({ data, onUpdateBoxer, onDeleteBoxer }: BoxerCardT) => { 
   return (
     <div
       className={`w-54 h-64 flex flex-col justify-between  rounded-lg border  mb-6 py-5 px-4 -rotate-1 shadow-md`}
@@ -20,7 +20,7 @@ const BoxerCard = ({ data, onUpdateBoxer, onDeleteNote }: BoxerCardT) => {
           <div className="w-32">
             <h4 className="text-gray-900 font-bold mb-3">{data.first_name + " " + data.last_name}</h4>
           </div>
-          <div onClick={() => onDeleteNote(data.id!)} className="float-right">
+          <div onClick={() => onDeleteBoxer(data.id!)} className="float-right">
             <DeleteIcon className="w-8 h-8 hover:scale-125" />
           </div>
         </div>

@@ -11,8 +11,8 @@ import absoluteUrl from "next-absolute-url";
 import { useRouter } from "next/router";
 
 import BoxerCard from "../components/BoxerCard";
-import AddModal from "../components/AddModal";
-import EditModal from "../components/EditModal";
+import AddModal from "../components/modals/AddModal";
+import EditModal from "../components/modals/EditModal";
 import IsLoadingModal from "../components/events/IsLoadingModal";
 
 import { AddIcon } from "../icons/AddIcon";
@@ -137,7 +137,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   //   setUpdateModalVisibility(!showUpdateModal);
   // };
 
-  const handleDeleteNote = async (id: number | string) => {
+  const handleDeleteBoxer = async (id: number | string) => {
     try {
       const removeItem = boxers.filter((boxer: { id?: string | number; }) => boxer.id !== id);
       setBoxers(removeItem);
@@ -192,7 +192,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
             <IsLoadingModal props={{ text: `CREATING NEW BOXER`}}/>
           )
         }
-      
 {/*         
         {showUpdateModal && (
           <EditModal
@@ -213,7 +212,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
               key={index}
               data={boxer}
               onUpdateBoxer={handleUpdateBoxer}
-              onDeleteNote={handleDeleteNote}
+              onDeleteBoxer={handleDeleteBoxer}
             />
           ))}
         </div>

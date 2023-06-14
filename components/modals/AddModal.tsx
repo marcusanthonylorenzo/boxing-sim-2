@@ -1,101 +1,90 @@
-import React, { useEffect, useState } from "react";
-import { Boxer } from "../constants/BoxerModel";
+import React, { useState } from "react";
 
-interface UpdatePropT {
-  onHandleUpdateBoxer: (boxer: Boxer) => void;
-  selectUpdateBoxer: Boxer | null;
-  showUpdateModal: boolean;
-  setSelectUpdateBoxer: React.Dispatch<React.SetStateAction<Boxer>>;
-  setUpdateModalVisibility: (visibility: boolean) => void;
-}
+import { Boxer } from "../../constants/BoxerModel";
 
-const EditModal = ({
-  onHandleUpdateBoxer,
-  selectUpdateBoxer,
-  showUpdateModal,
-  setSelectUpdateBoxer,
-  setUpdateModalVisibility,
+type Props = {
+  onHandleAddBoxer: (boxer?: Boxer) => void;
+  showAddModal: boolean;
+  setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-}: UpdatePropT) => {
-  const [first_name, setFirst_Name] = useState<string | undefined>(selectUpdateBoxer?.first_name);
-  const [id, setId] = useState<string | number>(selectUpdateBoxer?.id!);
-  const [color, setColor] = useState<string | undefined>("#F9A8D4"); // refactor later
 
-  // handle event
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Props) => {
+  // handle field data
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [color, setColor] = useState<string>("#F9A8D4");
+
+  // handle on submit
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // onHandleUpdateBoxer((prevBoxer : Boxer) => {
-    //   return {...prevBoxer,
-    //     [`first_name`]: first_name } 
-    // });
-    setUpdateModalVisibility(!showUpdateModal);
-    setFirst_Name("");
-    setId("");
+    onHandleAddBoxer();
+    // onHandleAddBoxer({ first_name, last_name, wins, is_user, created_at, id });
+    setTitle("");
+    setContent("");
+    setAddModalVisibility(!showAddModal);
   };
+
+  
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative w-auto my-6 mx-auto max-w-3xl">
-          {/*id*/}
+          {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold">Edit boxer</h3>
+              <h3 className="text-3xl font-semibold">Add Note</h3>
               <button
-                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none hover:text-red-500"
-                onClick={() => setUpdateModalVisibility(!showUpdateModal)}>
+                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                onClick={() => setAddModalVisibility(!showAddModal)}>
                 Close
               </button>
             </div>
             {/*body*/}
             <div className="relative p-6 flex-auto">
-              <form>
+              <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                    first_name
-                  </label>
+                  <label className="block text-gray-700 text-sm font-bold mb-2">Title</label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="first_name"
+                    id="title"
                     type="text"
-                    placeholder="first_name"
-                    value={first_name}
-                    name="first_name"
-                    onChange={(e) => setFirst_Name(e.target.value)}
+                    placeholder="Title"
+                    value={title}
+                    name="title"
+                    onChange={(e) => setTitle(e.target.value)}
                     required
                   />
                 </div>
                 <div className="mb-6">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                    id
-                  </label>
-                  <input
+                  <label className="block text-gray-700 text-sm font-bold mb-2">Content</label>
+                  <textarea
                     className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="id"
-                    type="text"
-                    value={id}
-                    name="id"
-                    onChange={(e) => setId(e.target.value)}
+                    id="content"
+                    rows={4}
+                    value={content}
+                    name="content"
+                    onChange={(e) => setContent(e.target.value)}
                     required
                   />
                 </div>
                 <div className="mb-6">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Pick boxer Color
+                    Pick Note Color
                   </label>
                   <input
                     className="w-12 shadow appearance-none border  rounded w-full  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="color"
                     type="color"
                     value={color}
-                    name="id"
+                    name="content"
                     onChange={(e) => setColor(e.target.value)}
                     required
                   />
                 </div>
                 <div className="flex items-center justify-between">
                   <button
-                    onClick={(e) => handleSubmit(e)}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit">
                     Submit
@@ -111,4 +100,4 @@ const EditModal = ({
   );
 };
 
-export default EditModal;
+export default AddModal;
