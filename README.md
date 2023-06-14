@@ -1,5 +1,5 @@
 # BOXING SIM 2.0
-Next.js - React Query - TypeScript - Tailwind - Postgres/Supabase
+Next.js - React Query - TypeScript - Tailwind - Postgres/Supabase - ![Trello](https://trello.com/b/SgfstIJl/box-sim-20)
 
 ## Table of Contents:
     - Demo
