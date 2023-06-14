@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import BoxerCard from "../components/BoxerCard";
 import AddModal from "../components/AddModal";
 import EditModal from "../components/EditModal";
+import IsLoadingModal from "../components/events/IsLoadingModal";
 
 import { AddIcon } from "../icons/AddIcon";
 import { Boxer } from "../constants/BoxerModel";
@@ -184,7 +185,14 @@ const Home: NextPage<homeProps> = ({ results }) => {
             showAddModal={showAddModal}
             setAddModalVisibility={setAddModalVisibility}
           />
-        )}
+        )        
+        }
+        {
+          createBoxerMutation.isLoading && (
+            <IsLoadingModal props={{ text: `CREATING NEW BOXER`}}/>
+          )
+        }
+      
 {/*         
         {showUpdateModal && (
           <EditModal
