@@ -18,6 +18,7 @@ const generateRandomBoxer = () => {
         first_name: faker.person.firstName(),
         last_name: faker.person.lastName(),
         nickname: faker.company.catchPhrase(),
+        weightclass: generateRandomValue(105, 315),
         birthday: generateRandomValue(), //03161997 = 03-16-1997
         hometown: getHometown,
         is_champion: false,
