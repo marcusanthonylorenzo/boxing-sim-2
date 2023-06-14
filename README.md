@@ -162,8 +162,11 @@ Render and update inside containers
         - to Fight History
 
     - Fight History
+        - primary key: uuid
+        - created_at: new Date
         - foreign key: Boxer
         - foreign key: Boxer
+        - play_by_play: [{}] //Array of Objects, jsonb
 
     - (TBD) Calendar
         - Day: Int4

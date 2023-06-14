@@ -42,31 +42,31 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const router = useRouter();
   // const tempPostId = useId();
 
-  // const createBoxerMutation = useMutation({
-  //   mutationFn: (newBoxer) => {
-  //     const { data } = axios.post('/api/boxers', newBoxer)
-  //     return data
-  // })
+  const createBoxerMutation = useMutation({
+    mutationFn: async (newBoxer) => {
+      const { data } = await axios.post('/api/boxers', newBoxer);
+      return data;
+    }
+  })
 
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
       let newBoxer = newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer();
-      const { data } = await axios.post('api/boxers', newBoxer)
+      // const { data } = await axios.post('api/boxers', newBoxer)
+
+      const { data } = await createBoxerMutation.mutateAsync(newBoxer)
 
       if (data) {
         router.reload();
         console.log(`boxer created!`)
-        return data
+        return data;
       }
     } catch (error) {
       console.error(error);
     }
-    // createBoxerMutation.mutate(newBoxer)
-  }
+  };
 
-  const handleAddBoxer = async (
-    boxerArg?: Boxer
-    ) => {
+  const handleAddBoxer = async ( boxerArg?: Boxer ) => {
 
     let validBoxerData;  
     let oldboxersState = boxers;
@@ -75,10 +75,8 @@ const Home: NextPage<homeProps> = ({ results }) => {
       const data = createNewBoxer()
       validBoxerData = data
       router.reload();
-
     } else {
       validBoxerData = boxerArg
-
       try {
           const { first_name, last_name, wins, is_user, created_at, id } = validBoxerData;
           const addboxers = [
