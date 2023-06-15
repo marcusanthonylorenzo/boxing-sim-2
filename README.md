@@ -1,5 +1,5 @@
 # BOXING SIM 2.0
-Next.js - React Query - TypeScript - Tailwind - Framer Motion - Postgres/Supabase
+Next.js - React Query - TypeScript - Tailwind - Framer Motion - Postgres/Supabase - [Trello](https://trello.com/b/SgfstIJl/box-sim-20)
 
 ## Table of Contents:
     - Demo
@@ -12,7 +12,7 @@ Next.js - React Query - TypeScript - Tailwind - Framer Motion - Postgres/Supabas
     - DB (Table relations)
 
 #### Demo of original iteration, from a different repo:
-    - (Version 2.0 will utilise a UI library for a better UX)
+    (Version 2.0 will utilise a UI library for a better UX)
 
 ![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/100096239/182052991-a6f1cf5c-8690-4357-b022-2bcda9c467b6.gif)
 
