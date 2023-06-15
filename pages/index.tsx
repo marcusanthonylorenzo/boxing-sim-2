@@ -55,10 +55,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
       let newBoxer = newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer();
-      // const { data } = await axios.post('api/boxers', newBoxer)
-
       const { data } = await createBoxerMutation.mutateAsync(newBoxer)
-
       if (data) {
         router.reload();
         console.log(`boxer created!`)
@@ -70,7 +67,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
   };
 
   const handleAddBoxer = async ( boxerArg?: Boxer ) => {
-
     let validBoxerData;  
     let oldboxersState = boxers;
 
@@ -155,10 +151,20 @@ const Home: NextPage<homeProps> = ({ results }) => {
     }
   };
 
-  const unclickBoxerCard = async (boxer: Boxer, indexOfClickedCard: number) => {
-    // console.log(`idx`, indexOfClickedCard)
-    await setClickedBoxerCards(prev => prev.splice(indexOfClickedCard, 1))
+  const checkBoxerCardAlreadyClicked = (boxer: Boxer) => clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
+
+  const handleBoxerCardClicked = (boxer: Boxer) => {
+    const alreadyClicked = checkBoxerCardAlreadyClicked(boxer);
+    // const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
+    if (!alreadyClicked || clickedBoxerCards.length === 0) {
+      setClickedBoxerCards((prev) => [...prev, boxer])
+      console.log(`${boxer.first_name} clicked`)
+     } else if (alreadyClicked) {
+      setClickedBoxerCards(current => current.filter(cardNotUnclicked=> cardNotUnclicked.id !== boxer.id ))
+      console.log(`${boxer.first_name}, unclicked`)
+    }
   }
+
 
   // async function socketInitializer() {
   // }
@@ -221,16 +227,10 @@ const Home: NextPage<homeProps> = ({ results }) => {
               onUpdateBoxer={handleUpdateBoxer}
               onDeleteBoxer={handleDeleteBoxer}
               onClickHandler={() => {
-                const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
-                console.log(alreadyClicked)
-                if (!alreadyClicked || clickedBoxerCards.length === 0) {
-                  setClickedBoxerCards((prev) => [...prev, boxer])
-                  console.log(`${boxer.first_name} clicked`)
-                 } else if (alreadyClicked) {
-                  setClickedBoxerCards(current => current.filter(cardNotUnclicked=> cardNotUnclicked.id !== boxer.id ))
-                  console.log(`${boxer.first_name}, unclicked`)
-                }
+                handleBoxerCardClicked(boxer);
               }}
+              clickedBoxerCards={clickedBoxerCards}
+              checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
               styleProps={{
                 // cardBgColor: clickedBoxerCards.some(each => each.id !== boxer.id) ? `transparent`: `green-500`
               }}

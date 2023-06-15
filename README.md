@@ -1,5 +1,5 @@
 # BOXING SIM 2.0
-Next.js - React Query - TypeScript - Tailwind - Postgres/Supabase
+Next.js - React Query - TypeScript - Tailwind - Framer Motion - Postgres/Supabase
 
 ## Table of Contents:
     - Demo
