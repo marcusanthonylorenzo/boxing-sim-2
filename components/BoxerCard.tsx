@@ -41,7 +41,7 @@ const BoxerCard = ({ styleProps, data, onUpdateBoxer, onDeleteBoxer, onClickHand
           cardIsClicked ? (
             <AnimatePresence>
               <motion.div id={`${componentId}-BoxerAttributes-parentWrapper`}
-                className={`absolute top-[3px] left-[3px] bg-green-500 py-4 px-5 h-[98%] w-[97%] rounded-lg`}
+                className={`flex absolute top-[3px] left-[3px] bg-green-500 py-4 px-5 h-[97%] w-[97%] rounded-lg `}
                   initial={{ opacity: 0, x: -100 }}
                   animate={{ opacity: 1, x: 0}}
                   exit={{ opacity: 0.3, x: -100 }}>
