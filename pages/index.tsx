@@ -3,6 +3,7 @@ import React, { Key, useState, useEffect, useId } from "react";
 import io from "socket.io-client";
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { generateRandomBoxer, generateRandomValue } from "../services/generateRandom";
+import { motion, AnimatePresence } from "framer-motion"
 
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -10,6 +11,7 @@ import axios from "axios";
 import absoluteUrl from "next-absolute-url";
 import { useRouter } from "next/router";
 
+import Navbar from "../containers/Navbar";
 import BoxerCard from "../components/BoxerCard";
 import AddModal from "../components/modals/AddModal";
 import EditModal from "../components/modals/EditModal";
@@ -190,8 +192,16 @@ const Home: NextPage<homeProps> = ({ results }) => {
         <meta name="description"/>
         <link rel="icon" href="/site_logo.ico" />
       </Head>
-
       <main className={styles.main}>
+
+        <Navbar
+          styling={`flex absolute bg-[green] top-0 w-[100vw] h-[17vh] m-0 p-0 shadow-md`}
+          parentState={{
+            showAddModal
+          }}
+          setAddModalVisibility={setAddModalVisibility}
+        />
+
         {showAddModal && (
           <AddModal
             onHandleAddBoxer={handleAddBoxer}
@@ -216,25 +226,35 @@ const Home: NextPage<homeProps> = ({ results }) => {
           />
         )} */}
 
-        <div className="mb-5" onClick={() => setAddModalVisibility(!showAddModal)}>
+        {/* <div className="mb-5" onClick={() => setAddModalVisibility(!showAddModal)}>
           <AddIcon className="w-16 hover:scale-125 hover:duration-700 ease-in-out duration-700 ease-out-in" />
-        </div>
+        </div> */}
+
+
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">
           {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
-            <BoxerCard
-              key={index}
-              data={boxer}
-              onUpdateBoxer={handleUpdateBoxer}
-              onDeleteBoxer={handleDeleteBoxer}
-              onClickHandler={() => {
-                handleBoxerCardClicked(boxer);
-              }}
-              clickedBoxerCards={clickedBoxerCards}
-              checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
-              styleProps={{
-                // cardBgColor: clickedBoxerCards.some(each => each.id !== boxer.id) ? `transparent`: `green-500`
-              }}
-            />
+            <AnimatePresence>
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0, transition: { duration: 0.18, delay: 0.09} }}
+                exit={{ opacity: 0.3, x: -100 }}
+              >
+                <BoxerCard
+                  key={index}
+                  data={boxer}
+                  onUpdateBoxer={handleUpdateBoxer}
+                  onDeleteBoxer={handleDeleteBoxer}
+                  onClickHandler={() => {
+                    handleBoxerCardClicked(boxer);
+                  }}
+                  clickedBoxerCards={clickedBoxerCards}
+                  checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
+                  styleProps={{
+                    // cardBgColor: clickedBoxerCards.some(each => each.id !== boxer.id) ? `transparent`: `green-500`
+                  }}
+                />
+                </motion.div>
+            </AnimatePresence>
           ))}
         </div>
       </main>

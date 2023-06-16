@@ -32,7 +32,7 @@ const BoxerCard = ({ styleProps, data, onUpdateBoxer, onDeleteBoxer, onClickHand
   return (
     <div id={componentId}
       className={`flex flex-col justify-between
-        w-56 h-66 rounded-lg border mb-6 py-8 px-6 -rotate-1 shadow-md
+        w-56 h-70 rounded-lg border px-6 pt-10 -rotate-1 shadow-md
         hover:shadow-xl hover:cursor-pointer
         bg-${styleProps?.cardBgColor}`}
       onClick={() => onClickHandler()}>
@@ -41,9 +41,9 @@ const BoxerCard = ({ styleProps, data, onUpdateBoxer, onDeleteBoxer, onClickHand
           cardIsClicked ? (
             <AnimatePresence>
               <motion.div id={`${componentId}-BoxerAttributes-parentWrapper`}
-                className={`flex absolute top-[3px] left-[3px] bg-green-500 py-4 px-5 h-[97%] w-[97%] rounded-lg `}
-                  initial={{ opacity: 0, x: -100 }}
-                  animate={{ opacity: 1, x: 0}}
+                className={`flex absolute top-[2%] left-[3%] bg-green-500 py-5 px-3 h-[96%] w-[93%] rounded-lg shadow-inner`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0, transition: { duration: 0.12, delay: 0.09} }}
                   exit={{ opacity: 0.3, x: -100 }}>
                 <BoxerAttributesDrawer data={data} />
               </motion.div>
@@ -52,9 +52,9 @@ const BoxerCard = ({ styleProps, data, onUpdateBoxer, onDeleteBoxer, onClickHand
         }
 
       <div className="">
-        <div className="flex">
-          <div id={`${componentId}-titleDiv-fullname`} className="w-32 py-2 mr-20">
-            <h3 className="text-gray-900 text-lg xt-20 font-bold mb-3">{data.first_name + " " + data.last_name}</h3>
+        <div className="flex h-20">
+          <div id={`${componentId}-titleDiv-fullname`} className="w-[100%] py-2 mr-20">
+            <h3 className="text-gray-900 text-md xt-20 font-bold mb-1 w-[100%]">{data.first_name + " " + data.last_name}</h3>
           </div>
         </div>
         <div id={`${componentId}-contentDiv`} className="text-gray-800 text-sm pb-5">
@@ -64,7 +64,7 @@ const BoxerCard = ({ styleProps, data, onUpdateBoxer, onDeleteBoxer, onClickHand
         </div>
       </div>
       <div>
-        <div id={`${componentId}-footerDiv`} className="flex items-center justify-between text-gray-800">
+        <div id={`${componentId}-footerDiv`} className="flex items-center justify-between text-gray-800 py-5">
           <button
             className="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 ring-offset-pink-300   focus:ring-black hover:scale-125"
             aria-label="edit note"

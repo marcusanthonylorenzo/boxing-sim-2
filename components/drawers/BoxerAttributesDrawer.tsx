@@ -19,8 +19,8 @@ const BoxerAttributesDrawer = ({
         <AnimatePresence>
             <motion.div id={componentId}
                 className={`absolute left-1 px-2`}
-                initial={{ opacity: 0, x: -70 }}
-                animate={{ opacity: 1, x: 0}}
+                initial={{ opacity: 0.9, x: -30 }}
+                animate={{ opacity: 1, x: 0, transition: { duration: 0.42 }}}
                 exit={{ opacity: 0, x: -100 }}>
                     <div id={`${componentId}-contentDiv`}>
                         <div id={`${componentId}-contentDiv-attributes`}
