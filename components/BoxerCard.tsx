@@ -4,8 +4,7 @@ import { DeleteIcon } from "../icons/DeleteIcon";
 import { Boxer } from "../constants/BoxerModel";
 import BoxerAttributesDrawer from "./drawers/BoxerAttributesDrawer";
 import { motion, AnimatePresence } from "framer-motion"
-// import { Boxer } from "@prisma/client";
-
+import { ClickedBoxerCardsT } from "../constants/State";
 interface BoxerCardT {
   styleProps?: {
     cardBgColor?: string
@@ -15,10 +14,13 @@ interface BoxerCardT {
   onDeleteBoxer: (id: number | string) => Promise<void>;
   onClickHandler: () => void;
   checkBoxerCardAlreadyClicked: (boxer: Boxer) => boolean;
-  clickedBoxerCards: Array<Boxer>;
+  clickedBoxerCards: ClickedBoxerCardsT;
 }
 
-const BoxerCard = ({ styleProps, data, onUpdateBoxer, onDeleteBoxer, onClickHandler, checkBoxerCardAlreadyClicked, clickedBoxerCards }: BoxerCardT) => { 
+const BoxerCard = ({
+    styleProps, data, onUpdateBoxer, onDeleteBoxer,
+    onClickHandler, checkBoxerCardAlreadyClicked, clickedBoxerCards
+  }: BoxerCardT) => { 
 
   const componentId = `BoxerCard-${data.id}`
 

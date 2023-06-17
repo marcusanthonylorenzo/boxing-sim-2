@@ -1,7 +1,7 @@
 import type { NextPage, GetServerSideProps } from "next";
-import React, { Key, useState, useEffect, useId } from "react";
+import React, { Key, useState, useEffect, useContext, useId } from "react";
 import io from "socket.io-client";
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation } from 'react-query'
 import { generateRandomBoxer, generateRandomValue } from "../services/generateRandom";
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -17,8 +17,9 @@ import AddModal from "../components/modals/AddModal";
 import EditModal from "../components/modals/EditModal";
 import IsLoadingModal from "../components/events/IsLoadingModal";
 
-import { AddIcon } from "../icons/AddIcon";
 import { Boxer } from "../constants/BoxerModel";
+import { ClickedBoxerCardsT } from "../constants/State";
+import { ClickedBoxerCardContext } from "../services/Context";
 
 // const socket = io("https://api.localhost:3003", {
 //   withCredentials: true,
@@ -37,12 +38,13 @@ const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers";
 interface homeProps {
   results: Boxer[];
 }
+
 const Home: NextPage<homeProps> = ({ results }) => {
   const [boxers, setBoxers] = useState<Boxer[]>(results);
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
   const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
-  const [clickedBoxerCards, setClickedBoxerCards] = useState<Array<Boxer>>([])
+  const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
 
   const router = useRouter();
   // const tempPostId = useId();
@@ -153,16 +155,16 @@ const Home: NextPage<homeProps> = ({ results }) => {
     }
   };
 
-  const checkBoxerCardAlreadyClicked = (boxer: Boxer) => clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
+  const checkBoxerCardAlreadyClicked = (boxer: Boxer) => clickedBoxerCards!.some((eachClicked: Boxer | null) => eachClicked!.id === boxer.id)
 
   const handleBoxerCardClicked = (boxer: Boxer) => {
     const alreadyClicked = checkBoxerCardAlreadyClicked(boxer);
     // const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
-    if (!alreadyClicked || clickedBoxerCards.length === 0) {
-      setClickedBoxerCards((prev) => [...prev, boxer])
+    if (!alreadyClicked || clickedBoxerCards!.length === 0) {
+      setClickedBoxerCards((prev: ClickedBoxerCardsT) => [...prev, boxer])
       console.log(`${boxer.first_name} clicked`)
      } else if (alreadyClicked) {
-      setClickedBoxerCards(current => current.filter(cardNotUnclicked=> cardNotUnclicked.id !== boxer.id ))
+      setClickedBoxerCards((current: ClickedBoxerCardsT) => current!.filter((cardNotUnclicked: Boxer)  => cardNotUnclicked.id !== boxer.id ))
       console.log(`${boxer.first_name}, unclicked`)
     }
   }
