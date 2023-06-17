@@ -1,4 +1,6 @@
 export interface Calendar {
     id: number //use for different careers
-    week: number //each progression is a week
+    created_at: Date //each progression is a week
+    updated_at: Date
+    day: number
 }

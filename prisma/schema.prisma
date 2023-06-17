@@ -16,6 +16,13 @@ model Note {
   updatedAt DateTime @updatedAt @map("updated_at")
 }
 
+model Calendar {
+  id        String   @id @default(cuid())
+  day       Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
 model Boxer {
   id                String   @id @default(cuid())
   created_at        DateTime @default(now()) @map("created_at")

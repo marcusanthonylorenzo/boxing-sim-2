@@ -28,13 +28,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'GET') {
     getHandler(req, res);
-    // const { data } = await axios.get('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', { headers: headersConfig })
-    console.log(`handler GET method`)
+    const { data } = await axios.get('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', { headers: headersConfig })
+    console.log(data)
 
   } else if (req.method === 'POST') {
     postHandler(req, res);
 
-    console.log(`post handler`, req.body.first_name)
     axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
     { headers: headersConfig })
 
