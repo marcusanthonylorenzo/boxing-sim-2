@@ -19,8 +19,8 @@ const BoxerAttributesDrawer = ({
         <AnimatePresence>
             <motion.div id={componentId}
                 className={`absolute left-1 px-2`}
-                initial={{ opacity: 0.9, x: -30 }}
-                animate={{ opacity: 1, x: 0, transition: { duration: 0.42 }}}
+                initial={{ opacity: 0.7, x: -30 }}
+                animate={{ opacity: 1, x: 0, transition: { duration: 0.20 }}}
                 exit={{ opacity: 0, x: -100 }}
             >
                     <div id={`${componentId}-contentDiv`}>
@@ -32,7 +32,7 @@ const BoxerAttributesDrawer = ({
                                         {
                                             idx > 12 && idx < getKeys.length - 3 ?
 
-                                            <span className={`text-[13px] text-[#F8FAFC] leading-[144%] font-semibold row-span-${idx+1}
+                                            <span className={`text-[13px] text-[#112131] leading-[134%] font-semibold row-span-${idx+1}
                                             ${idx < getKeys.length ? `col-span-1` : `col-span-2` }`}>
                                                 {eachKey} : { getValues[idx] }
                                             </span>

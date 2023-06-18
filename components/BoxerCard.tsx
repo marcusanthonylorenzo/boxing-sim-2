@@ -43,9 +43,9 @@ const BoxerCard = ({
           cardIsClicked ? (
             <AnimatePresence>
               <motion.div id={`${componentId}-BoxerAttributes-parentWrapper`}
-                className={`flex absolute top-[2%] left-[3%] bg-green-500 py-5 px-3 h-[96%] w-[93%] rounded-lg shadow-inner`}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0, transition: { duration: 0.12, delay: 0.09} }}
+                className={`flex absolute top-[2%] left-[3%] bg-white py-5 px-3 h-[96%] w-[93%] rounded-lg shadow-inner`}
+                  initial={{ opacity: 0.9, x: -20 }}
+                  animate={{ opacity: 1, x: 0, transition: { duration: 0.1, delay: 0.06} }}
                   exit={{ opacity: 0.3, x: -100 }}>
                 <BoxerAttributesDrawer data={data} />
               </motion.div>
