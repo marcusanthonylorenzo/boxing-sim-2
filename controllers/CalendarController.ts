@@ -2,7 +2,7 @@ import catchAsyncErrors from "../middlewares/catchAsyncErrors";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../lib/prisma"; // prisma client
 
-const getDay = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+const getDay = catchAsyncErrors(async(req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.body;
 
   const day = await prisma.calendar.findUnique({

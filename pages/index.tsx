@@ -20,6 +20,7 @@ import IsLoadingModal from "../components/events/IsLoadingModal";
 import { Boxer } from "../constants/BoxerModel";
 import { ClickedBoxerCardsT } from "../constants/State";
 import { ClickedBoxerCardContext } from "../services/Context";
+import { getDay } from "../controllers/CalendarController";
 
 // const socket = io("https://api.localhost:3003", {
 //   withCredentials: true,
@@ -40,6 +41,7 @@ interface homeProps {
 }
 
 const Home: NextPage<homeProps> = ({ results }) => {
+  console.log(`results`, results)
   const [boxers, setBoxers] = useState<Boxer[]>(results);
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
@@ -265,10 +267,13 @@ const Home: NextPage<homeProps> = ({ results }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  // const { origin } = absoluteUrl(req);
-  // const apiURL = `${origin}/api/boxers`;
-  const { data } = await axios.get(supabaseAPI, { headers: headersConfig })
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const { origin } = absoluteUrl(req);
+  const apiURL = `${origin}/api/boxers`;
+  const { data } = await axios.get(apiURL)
+  // const { data } = await axios.get(supabaseAPI, { headers: headersConfig })
+
+  console.log( `gssp`, data)
   return {
     props: {
       results: data,

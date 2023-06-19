@@ -5,7 +5,7 @@ import prisma from "../lib/prisma"; // prisma client
 const getAllBoxers = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
   const boxers = await prisma.boxer.findMany();
 
-  res.status(200).json({
+  return res.status(200).json({
     status: "success",
     data: {
       boxers,
