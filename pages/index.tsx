@@ -41,7 +41,7 @@ interface homeProps {
 }
 
 const Home: NextPage<homeProps> = ({ results }) => {
-  console.log(`results`, results)
+  // console.log(`results`, results)
   const [boxers, setBoxers] = useState<Boxer[]>(results);
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
@@ -269,16 +269,27 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const { origin } = absoluteUrl(req);
-  const apiURL = `${origin}/api/boxers`;
-  const { data } = await axios.get(apiURL)
+  const apiURL = `${origin}/api/`;
+  // const { data } = await axios.get(apiURL + `boxers`)
   // const { data } = await axios.get(supabaseAPI, { headers: headersConfig })
+  const getBoxers = axios.get(apiURL + `boxers`)
+  const getCalendar = axios.get(apiURL + `calendar`)
 
-  console.log( `gssp`, data)
+
+  const resultsData = await Promise.all([
+    getBoxers,
+    getCalendar
+  ]).then((values) => {
+    // console.log(`.then`, values)
+    return values[`0`].data
+  })
+
+  // console.log( `gssp`, resultsData[`0`].data)
   return {
     props: {
-      results: data,
+      results: resultsData,
     },
   };
-};
+}
 
 export default Home;

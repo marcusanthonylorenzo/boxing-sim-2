@@ -58,4 +58,5 @@ model Boxer {
   is_champion       Boolean
   is_user           Boolean
   last_name         String
+  calendar_id       Int
 }

@@ -14,6 +14,7 @@ export interface Boxer {
     losses?: number
     draws?: number
     ranking?: number | null
+    calendar_id: number | null
 
     // attributes: {
     //     offensive: {
