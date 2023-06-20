@@ -20,7 +20,6 @@ import IsLoadingModal from "../components/events/IsLoadingModal";
 import { Boxer } from "../constants/BoxerModel";
 import { ClickedBoxerCardsT } from "../constants/State";
 import { ClickedBoxerCardContext } from "../services/Context";
-import { getDay } from "../controllers/CalendarController";
 
 // const socket = io("https://api.localhost:3003", {
 //   withCredentials: true,
@@ -37,12 +36,20 @@ const headersConfig = {
 const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers";
 
 interface homeProps {
-  results: Boxer[];
+  results: {
+    boxers: Boxer[],
+    calendar: {
+        [`0`]: {
+          day: number | null
+      }
+    }
+  }
 }
 
 const Home: NextPage<homeProps> = ({ results }) => {
-  // console.log(`results`, results)
-  const [boxers, setBoxers] = useState<Boxer[]>(results);
+  // console.log(`results`, results.calendar)
+  const [boxers, setBoxers] = useState<Boxer[]>(results.boxers);
+  const [ day, setDay ] = useState<number | null>(results.calendar[`0`].day)
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
   const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
@@ -201,7 +208,8 @@ const Home: NextPage<homeProps> = ({ results }) => {
         <Navbar
           styling={`flex absolute bg-[green] top-0 w-[100vw] h-[17vh] m-0 p-0 shadow-md`}
           parentState={{
-            showAddModal
+            showAddModal,
+            day
           }}
           setAddModalVisibility={setAddModalVisibility}
         />
@@ -275,19 +283,20 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const getBoxers = axios.get(apiURL + `boxers`)
   const getCalendar = axios.get(apiURL + `calendar`)
 
-
   const resultsData = await Promise.all([
     getBoxers,
     getCalendar
   ]).then((values) => {
-    // console.log(`.then`, values)
-    return values[`0`].data
+    return values
   })
 
-  // console.log( `gssp`, resultsData[`0`].data)
+  console.log( `gssp`, resultsData[`0`].data, resultsData[`1`].data.filter((dayObj: any) => dayObj.id === 1))
   return {
     props: {
-      results: resultsData,
+      results: {
+        boxers: resultsData[`0`].data,
+        calendar: resultsData[`1`].data.filter((dayObj: any) => dayObj.id === 1)
+      },
     },
   };
 }
