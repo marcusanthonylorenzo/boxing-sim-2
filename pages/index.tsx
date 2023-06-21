@@ -28,12 +28,12 @@ import { ClickedBoxerCardContext } from "../services/Context";
 //   // }
 // });
 
-const headersConfig = {
-      'last_name-Type': 'application/json',
-      apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
-}
-const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers";
+// const headersConfig = {
+//       'last_name-Type': 'application/json',
+//       apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
+//       'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
+// }
+// const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers";
 
 interface homeProps {
   results: {
@@ -56,7 +56,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
 
   const router = useRouter();
-  // const tempPostId = useId();
 
   const createBoxerMutation = useMutation({
     mutationFn: async (newBoxer) => {
@@ -171,10 +170,10 @@ const Home: NextPage<homeProps> = ({ results }) => {
     // const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
     if (!alreadyClicked || clickedBoxerCards!.length === 0) {
       setClickedBoxerCards((prev: ClickedBoxerCardsT) => [...prev, boxer])
-      console.log(`${boxer.first_name} clicked`)
+      // console.log(`${boxer.first_name} clicked`)
      } else if (alreadyClicked) {
       setClickedBoxerCards((current: ClickedBoxerCardsT) => current!.filter((cardNotUnclicked: Boxer)  => cardNotUnclicked.id !== boxer.id ))
-      console.log(`${boxer.first_name}, unclicked`)
+      // console.log(`${boxer.first_name}, unclicked`)
     }
   }
 
@@ -290,7 +289,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     return values
   })
 
-  console.log( `gssp`, resultsData[`0`].data, resultsData[`1`].data.filter((dayObj: any) => dayObj.id === 1))
+  // console.log( `gssp`, resultsData[`0`].data, resultsData[`1`].data.filter((dayObj: any) => dayObj.id === 1))
   return {
     props: {
       results: {

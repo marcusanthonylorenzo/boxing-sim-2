@@ -1,5 +1,6 @@
 import React from 'react'
 import { AddIcon } from '../icons/AddIcon'
+import ProgressDayButton from '../components/events/ProgressDayButton'
 
 interface NavbarT {
     styling: string,
@@ -36,6 +37,7 @@ const Navbar = ({
                 <div id={`${componentId}-calendar`}
                     className={`flex relative text-white font-semibold mx-5`}>
                     <h3>Day: {day}</h3>
+                    <ProgressDayButton parentState={{ day: day }} />
                 </div>
             </div>
         </div>
