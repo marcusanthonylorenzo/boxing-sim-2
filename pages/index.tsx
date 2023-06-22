@@ -269,6 +269,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
                   }}
                   clickedBoxerCards={clickedBoxerCards}
                   boxerSelected={boxerSelected}
+                  setBoxerSelected={setBoxerSelected}
                   checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
                   styleProps={
                       { cardBgColor: `green-500` }

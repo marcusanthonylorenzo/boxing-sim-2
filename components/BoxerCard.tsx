@@ -15,28 +15,47 @@ interface BoxerCardT {
   onClickHandler: (boxer?: Boxer, viewStatsIsClicked?: boolean) => void;
   checkBoxerCardAlreadyClicked: (boxer: Boxer, arrayToCheck: Array<Boxer | null>) => boolean;
   clickedBoxerCards: ClickedBoxerCardsT;
-  boxerSelected: Array<Boxer | null>
+  boxerSelected: Array<Boxer | null>;
+  setBoxerSelected: React.Dispatch<React.SetStateAction<Array<Boxer | null>>>;
 }
 
 const BoxerCard = ({
-    styleProps, data,  clickedBoxerCards, boxerSelected, 
+    styleProps, data,  clickedBoxerCards, boxerSelected, setBoxerSelected,
     onUpdateBoxer, onDeleteBoxer, onClickHandler, checkBoxerCardAlreadyClicked,
   }: BoxerCardT) => { 
 
   const componentId = `BoxerCard-${data.id}`
   const hoverButtonAnimation = `hover:scale-110 hover:duration-100`
+  // const boxerSelectedBgColor = `bg-green`
 
   const [ cardIsClicked, setCardIsClicked ] = useState<boolean>();
   const [ viewStatsIsClicked, setViewStatsIsClicked ] = useState<boolean>();
+  const [ fighterCurrentlySelected, setFighterCurrentlySelected ] = useState<boolean>(checkBoxerCardAlreadyClicked(data, boxerSelected))
+
 
   useEffect(() => {
     const isThisCardClicked = checkBoxerCardAlreadyClicked(data, clickedBoxerCards)
     setCardIsClicked(isThisCardClicked)
   }, [clickedBoxerCards])
 
+  useEffect(() => {
+    const checkFighterCurrentlySelectedAgain = checkBoxerCardAlreadyClicked(data, boxerSelected)
+    setFighterCurrentlySelected(checkFighterCurrentlySelectedAgain)
+    console.log(`boxercard useeffect`, fighterCurrentlySelected, boxerSelected, data.first_name)
+  }, [boxerSelected])
+
   const handleViewStatsAction = async () => {
     await setViewStatsIsClicked(!viewStatsIsClicked)
     await onClickHandler(data, viewStatsIsClicked) 
+  };
+
+  const handleBoxerSelectUnselect = () => {
+      if (fighterCurrentlySelected) {
+        const boxerRemoved = boxerSelected.filter(boxer => boxer!.id !== data.id)
+        setBoxerSelected(boxerRemoved)
+      } else {
+        onClickHandler();
+      }
   };
 
   return (
@@ -44,7 +63,7 @@ const BoxerCard = ({
       className={`flex flex-col justify-between
         w-56 h-58 rounded-lg border px-6 pt-10 -rotate-1 shadow-md
         hover:shadow-xl hover:cursor-pointer
-        bg-${styleProps?.cardBgColor}`}>
+        ${ fighterCurrentlySelected ? `bg-slate-300 border-zinc-400` : styleProps?.cardBgColor}`}>
 
         {
           viewStatsIsClicked ? (
@@ -61,7 +80,9 @@ const BoxerCard = ({
         }
 
         <div id={`${componentId}-details`} className=""
-          onClick={() => onClickHandler()}>
+          onClick={() => {
+            handleBoxerSelectUnselect();
+          }}>
           <div className="flex h-20">
             <div id={`${componentId}-titleDiv-fullname`} className="w-[100%] py-2 mr-20">
               <h3 className="text-gray-900 text-md xt-20 font-bold mb-1 w-[100%]">{data.first_name + " " + data.last_name}</h3>
@@ -75,7 +96,7 @@ const BoxerCard = ({
         </div>
         <div>
 
-        <div id={`${componentId}-footerDiv`} className="flex items-center justify-between text-gray-800 py-5">
+        <div id={`${componentId}-footerDiv`} className="flex items-center justify-between text-gray-800 my-5">
           <button
             className={`w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 ring-offset-pink-300   focus:ring-black
             ${hoverButtonAnimation}`}
