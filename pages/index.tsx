@@ -163,15 +163,20 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   const checkBoxerCardAlreadyClicked = (boxer: Boxer) => clickedBoxerCards!.some((eachClicked: Boxer | null) => eachClicked!.id === boxer.id)
 
-  const handleBoxerCardClicked = (boxer: Boxer) => {
+  const handleBoxerCardClicked = (boxer: Boxer, viewStatsIsClicked: boolean) => {
     const alreadyClicked = checkBoxerCardAlreadyClicked(boxer);
     // const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
-    if (!alreadyClicked || clickedBoxerCards!.length === 0) {
-      setClickedBoxerCards((prev: ClickedBoxerCardsT) => [...prev, boxer])
-      // console.log(`${boxer.first_name} clicked`)
-     } else if (alreadyClicked) {
-      setClickedBoxerCards((current: ClickedBoxerCardsT) => current!.filter((cardNotUnclicked: Boxer)  => cardNotUnclicked.id !== boxer.id ))
-      // console.log(`${boxer.first_name}, unclicked`)
+    if (viewStatsIsClicked) {
+
+      if (!alreadyClicked || clickedBoxerCards!.length === 0) {
+        setClickedBoxerCards((prev: ClickedBoxerCardsT) => [...prev, boxer])
+        // console.log(`${boxer.first_name} clicked`)
+      } else if (alreadyClicked) {
+        setClickedBoxerCards((current: ClickedBoxerCardsT) => current!.filter((cardNotUnclicked: Boxer)  => cardNotUnclicked.id !== boxer.id ))
+        // console.log(`${boxer.first_name}, unclicked`)
+      }
+    } else {
+      console.log(`viewStats not clicked`)
     }
   }
 

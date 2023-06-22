@@ -12,7 +12,7 @@ interface BoxerCardT {
   data: Boxer;
   onUpdateBoxer: (selectNote: Boxer) => void;
   onDeleteBoxer: (id: number | string) => Promise<void>;
-  onClickHandler: () => void;
+  onClickHandler: (boxer?: Boxer, viewStatsIsClicked?: boolean) => void;
   checkBoxerCardAlreadyClicked: (boxer: Boxer) => boolean;
   clickedBoxerCards: ClickedBoxerCardsT;
 }
@@ -26,11 +26,17 @@ const BoxerCard = ({
   const hoverButtonAnimation = `hover:scale-110 hover:duration-100`
 
   const [ cardIsClicked, setCardIsClicked ] = useState<boolean>();
+  const [ viewStatsIsClicked, setViewStatsIsClicked ] = useState<boolean>();
 
   useEffect(() => {
     const isThisCardClicked = checkBoxerCardAlreadyClicked(data)
     setCardIsClicked(isThisCardClicked)
   }, [clickedBoxerCards])
+
+  const handleViewStatsAction = async () => {
+    await setViewStatsIsClicked(!viewStatsIsClicked)
+    await onClickHandler(data, viewStatsIsClicked) 
+  };
 
   return (
     <div id={`${componentId}`}
@@ -40,14 +46,14 @@ const BoxerCard = ({
         bg-${styleProps?.cardBgColor}`}>
 
         {
-          cardIsClicked ? (
+          viewStatsIsClicked ? (
             <AnimatePresence>
               <motion.div id={`${componentId}-BoxerAttributes-parentWrapper`}
                 className={`flex absolute top-[2%] left-[3%] bg-white py-5 px-3 h-[96%] w-[93%] rounded-lg shadow-inner`}
                   initial={{ opacity: 0.9, x: -20 }}
                   animate={{ opacity: 1, x: 0, transition: { duration: 0.1, delay: 0.09} }}
                   exit={{ opacity: 0.3, x: -100 }}>
-                <BoxerAttributesDrawer data={data} onClick={() => onClickHandler()} />
+                <BoxerAttributesDrawer data={data} onClick={() => setViewStatsIsClicked(false)} />
               </motion.div>
             </AnimatePresence>
           ): null
@@ -79,7 +85,7 @@ const BoxerCard = ({
           </button>
           <button 
             className={`bg-black w-20 h-8 rounded-xl shadow-xl ${hoverButtonAnimation}`}
-            onClick={() => null }>
+            onClick={() => { handleViewStatsAction() }}>
               <h5 className={`text-white text-sm font-semibold`}>View Stats</h5>
           </button>
           <div id={componentId + `-footer-deleteIcon`}
