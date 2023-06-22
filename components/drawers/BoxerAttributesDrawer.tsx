@@ -3,11 +3,12 @@ import { Boxer } from '../../constants/BoxerModel'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface BoxerAttributesT {
-    data: Boxer
+    data: Boxer,
+    onClick?: () => void
 }
 
 const BoxerAttributesDrawer = ({
-    data
+    data, onClick
 }: BoxerAttributesT) => {
 
     const componentId = `BoxerAttributesDrawer-${data.id}`
@@ -23,7 +24,7 @@ const BoxerAttributesDrawer = ({
                 animate={{ opacity: 1, x: 0, transition: { duration: 0.20 }}}
                 exit={{ opacity: 0, x: -100 }}
             >
-                    <div id={`${componentId}-contentDiv`}>
+                    <div id={`${componentId}-contentDiv`} onClick={() => onClick ? onClick() : null}>
                         <div id={`${componentId}-contentDiv-attributes`}
                             className={`grid grid-cols-2 grid-rows-${getKeys.length}`}>
 

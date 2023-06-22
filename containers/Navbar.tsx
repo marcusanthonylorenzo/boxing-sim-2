@@ -36,7 +36,7 @@ const Navbar = ({
                 </div>
 
                 <div id={`${componentId}-calendar`}
-                    className={`flex relative text-white font-semibold mx-5`}>
+                    className={`flex flex-col relative ml-[10%] text-white font-semibold mx-5`}>
                     <h3>Day: {day}</h3>
                     <ProgressDayButton parentState={{ day: day, setDay: setDay }} />
                 </div>

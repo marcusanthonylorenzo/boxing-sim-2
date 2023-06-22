@@ -24,12 +24,10 @@ const getData = await axios.get(supabaseAPI + `calendar`, { headers: headersConf
   console.log(`calendar`, getData)
   res.status(200).json(getData)
   
-  // await getDay(req, res, () => {
-// })
 }
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-
+  //Create new calendar later, for when you "start" the game.
 };
 
 const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useMutation } from 'react-query'
-import { useRouter } from 'next/router'
+import useNextRouter from '../../hooks/useNextRouter'
 
 interface ProgressDayButtonT {
     parentState: {
@@ -15,20 +15,17 @@ const ProgressDayButton = ({
 }: ProgressDayButtonT) => {
     const componentId = "ProgressDay";
     const { day, setDay } = parentState;
-    const router = useRouter();
-    const refreshData = () => {
-        router.replace(router.asPath);
-      }
+    const { router, refreshData } = useNextRouter();
 
     const increaseDay = (newDay: number | null) : number => newDay ? newDay + 1 : 1;
 
     const progressDayMutation = useMutation({
         mutationFn: async (day: number | null) => {
             const progressDayAction = await increaseDay(day);
-            console.log(`progressDayAction`, day, progressDayAction)
             try {
-                const { data } = await axios.patch(`/api/calendar`, {
-                        day: progressDayAction      
+                const { data } = await axios.patch(`/api/calendar`,
+                {
+                    day: progressDayAction      
                 });
                 router.reload();
                 refreshData();
@@ -39,19 +36,19 @@ const ProgressDayButton = ({
         }
       })
 
-  return (
-    <div id={`${componentId}-main`}>
-        <button id={`${componentId}-button`}
-            className={``}
-            onClick={() => {
-                console.log(componentId + `clickeroo`)
-                progressDayMutation.mutateAsync(day);
-            }}
-        >
-            ProgressDayButton
-        </button>
-    </div>
-  )
+    return (
+        <div id={`${componentId}-main`}>
+            <button id={`${componentId}-button`}
+                className={`bg-[#793e33] p-3 rounded-md shadow-sm border-gray-200`}
+                onClick={() => {
+                    console.log(componentId + `clickeroo`)
+                    progressDayMutation.mutateAsync(day);
+                }}
+            >
+                ProgressDayButton
+            </button>
+        </div>
+    )
 }
 
 export default ProgressDayButton

@@ -9,7 +9,8 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import absoluteUrl from "next-absolute-url";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
+import useNextRouter from "../hooks/useNextRouter";
 
 import Navbar from "../containers/Navbar";
 import BoxerCard from "../components/BoxerCard";
@@ -48,7 +49,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
   const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
 
-  const router = useRouter();
+  const { router } = useNextRouter();
 
   useEffect(() => {
     console.log(`rerender calendar`, results.calendar)
