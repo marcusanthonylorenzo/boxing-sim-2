@@ -30,26 +30,17 @@ const getData = await axios.get(supabaseAPI + `calendar`, { headers: headersConf
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    // console.log(`postHandlertop`,req.body, Object.keys(req.body))
-   
-    // const { data, error } = await supabase.from(`calendar`)
-    //         .select()
+    console.log(`postHandlertop`,req.body, Object.keys(req.body))
+   const requestId = 1;
 
     const progressDayAction = async (id: number) => {
-        console.log(`progressDayAction`, req.body.day, id)
-        let currentDay = req.body.day
-
-        const incrementDay = () => {
-          return currentDay++
-        }
-
-        const newDay = await incrementDay()
-        console.log(`newDay`, newDay)
-
+        // console.log(`progressDayAction`, req.body.day, typeof id)
+        const newDay = req.body.day
+        console.log(`new day`, newDay)
         try {
-          const { data } = await axios.patch(supabaseAPI + `calendar?id=eq.1`,
+          const { data } = await axios.patch(supabaseAPI + `calendar?id=eq.${id}`,
             {
-              day: 2
+              day: newDay
             }, 
             {
               headers: {
@@ -67,24 +58,7 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     // console.log(`progressDayAction`, incrementDay)
 
     try {
-      progressDayAction(1)
-        // const { data } = await supabase.from(`calendar`)
-        //     .update({ count: incrementDay })
-        //     .eq(`id`, 1)
-
-        //     console.log(`try`, data)
-
-        // // await axios.put(supabaseAPI + `tables/calendar/rows/1`,
-        //     // { 
-        //     //     {
-        //     //         [`day`]: incrementDay
-        //     //     }
-        //     // },
-        //     {
-        //         headers: headersConfig
-        //         // Prefer: "return=minimal"
-        //     }
-        // )
+        progressDayAction(requestId)
         res.status(200).json({ message: 'POST request handled successfully' })
     } catch (error) {
         console.log(error)

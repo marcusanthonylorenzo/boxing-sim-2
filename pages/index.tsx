@@ -28,13 +28,6 @@ import { ClickedBoxerCardContext } from "../services/Context";
 //   // }
 // });
 
-// const headersConfig = {
-//       'last_name-Type': 'application/json',
-//       apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
-//       'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`
-// }
-// const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers";
-
 interface homeProps {
   results: {
     boxers: Boxer[],
@@ -47,7 +40,7 @@ interface homeProps {
 }
 
 const Home: NextPage<homeProps> = ({ results }) => {
-  // console.log(`results`, results.calendar)
+  console.log(`results`, results.calendar)
   const [boxers, setBoxers] = useState<Boxer[]>(results.boxers);
   const [ day, setDay ] = useState<number | null>(results.calendar[`0`].day)
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
@@ -56,6 +49,10 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
 
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(`rerender calendar`, results.calendar)
+  }, [results.calendar])
 
   const createBoxerMutation = useMutation({
     mutationFn: async (newBoxer) => {
@@ -208,7 +205,8 @@ const Home: NextPage<homeProps> = ({ results }) => {
           styling={`flex absolute bg-[green] top-0 w-[100vw] h-[17vh] m-0 p-0 shadow-md`}
           parentState={{
             showAddModal,
-            day
+            day,
+            setDay
           }}
           setAddModalVisibility={setAddModalVisibility}
         />
@@ -277,8 +275,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const { origin } = absoluteUrl(req);
   const apiURL = `${origin}/api/`;
-  // const { data } = await axios.get(apiURL + `boxers`)
-  // const { data } = await axios.get(supabaseAPI, { headers: headersConfig })
   const getBoxers = axios.get(apiURL + `boxers`)
   const getCalendar = axios.get(apiURL + `calendar`)
 

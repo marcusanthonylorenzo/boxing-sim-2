@@ -8,7 +8,8 @@ interface NavbarT {
     },
     parentState: {
         showAddModal: boolean,
-        day: number | null
+        day: number | null,
+        setDay: React.Dispatch<React.SetStateAction<number | null>>;
     },
     setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -19,7 +20,7 @@ const Navbar = ({
 
     const componentId = "Navbar";
     // const { addIcon } = components;
-    const { showAddModal, day } = parentState;
+    const { showAddModal, day, setDay } = parentState;
 
     return (
     <div id={componentId} className={styling}>
@@ -37,7 +38,7 @@ const Navbar = ({
                 <div id={`${componentId}-calendar`}
                     className={`flex relative text-white font-semibold mx-5`}>
                     <h3>Day: {day}</h3>
-                    <ProgressDayButton parentState={{ day: day }} />
+                    <ProgressDayButton parentState={{ day: day, setDay: setDay }} />
                 </div>
             </div>
         </div>
