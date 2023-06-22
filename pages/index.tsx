@@ -48,7 +48,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
   const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
   const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
-
+  const [ boxerSelected, setBoxerSelected ] = useState<Array<Boxer | null>>([])
   const { router } = useNextRouter();
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
         }
         return boxer;
       });
-      // edit with composition?
+
       const { data } = await axios.put(`/api/boxers/${updateBoxer?.id}`, {
         boxer
       });
@@ -161,25 +161,30 @@ const Home: NextPage<homeProps> = ({ results }) => {
     }
   };
 
-  const checkBoxerCardAlreadyClicked = (boxer: Boxer) => clickedBoxerCards!.some((eachClicked: Boxer | null) => eachClicked!.id === boxer.id)
+  const checkBoxerCardAlreadyClicked = (boxer: Boxer, arrayToCheck: Array<Boxer | null>) => arrayToCheck!.some((eachClicked: Boxer | null) => eachClicked!.id === boxer.id)
 
-  const handleBoxerCardClicked = (boxer: Boxer, viewStatsIsClicked: boolean) => {
-    const alreadyClicked = checkBoxerCardAlreadyClicked(boxer);
+  const handleBoxerCardClicked = (boxer?: Boxer, viewStatsIsClicked?: boolean) => {
+    const alreadyClicked = boxer && checkBoxerCardAlreadyClicked(boxer, clickedBoxerCards);
     // const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
-    if (viewStatsIsClicked) {
-
+    if (viewStatsIsClicked) { // Show Attributes drawer
       if (!alreadyClicked || clickedBoxerCards!.length === 0) {
         setClickedBoxerCards((prev: ClickedBoxerCardsT) => [...prev, boxer])
-        // console.log(`${boxer.first_name} clicked`)
       } else if (alreadyClicked) {
         setClickedBoxerCards((current: ClickedBoxerCardsT) => current!.filter((cardNotUnclicked: Boxer)  => cardNotUnclicked.id !== boxer.id ))
-        // console.log(`${boxer.first_name}, unclicked`)
       }
-    } else {
-      console.log(`viewStats not clicked`)
+    } else { //Select Fighter option, also highlights boxer card
+      const fighterAlreadySelected =  boxer && boxerSelected.length > 1 ? checkBoxerCardAlreadyClicked(boxer, boxerSelected) : null
+      if (boxer) {
+        if (fighterAlreadySelected) {
+          console.log(boxer.first_name + `is already selected`)
+          return fighterAlreadySelected
+        } else {
+          boxerSelected.length < 2 ? setBoxerSelected((prev) => [ ...prev, boxer]) : console.log(`two selected already`)
+        }
+      }
     }
+    console.log(boxerSelected.forEach(boxer => boxer!.first_name))
   }
-
 
   // async function socketInitializer() {
   // }
@@ -263,10 +268,11 @@ const Home: NextPage<homeProps> = ({ results }) => {
                     handleBoxerCardClicked(boxer);
                   }}
                   clickedBoxerCards={clickedBoxerCards}
+                  boxerSelected={boxerSelected}
                   checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
-                  styleProps={{
-                    // cardBgColor: clickedBoxerCards.some(each => each.id !== boxer.id) ? `transparent`: `green-500`
-                  }}
+                  styleProps={
+                      { cardBgColor: `green-500` }
+                  }
                 />
                 </motion.div>
             </AnimatePresence>
@@ -287,10 +293,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const resultsData = await Promise.all([
     getBoxers,
     getCalendar
-  ]).then((values) => {
+  ])
+  .then((values) => {
     return values
   })
-
   // console.log( `gssp`, resultsData[`0`].data, resultsData[`1`].data.filter((dayObj: any) => dayObj.id === 1))
   return {
     props: {

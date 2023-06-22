@@ -33,7 +33,7 @@ const BoxerAttributesDrawer = ({
                                         {
                                             idx > 12 && idx < getKeys.length - 3 ?
 
-                                            <span className={`text-[13px] text-[#112131] leading-[134%] font-semibold row-span-${idx+1}
+                                            <span className={`text-[13px] text-[#112131] leading-[122%] font-semibold row-span-${idx+1}
                                             ${idx < getKeys.length ? `col-span-1` : `col-span-2` }`}>
                                                 {eachKey} : { getValues[idx] }
                                             </span>

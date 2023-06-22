@@ -13,13 +13,14 @@ interface BoxerCardT {
   onUpdateBoxer: (selectNote: Boxer) => void;
   onDeleteBoxer: (id: number | string) => Promise<void>;
   onClickHandler: (boxer?: Boxer, viewStatsIsClicked?: boolean) => void;
-  checkBoxerCardAlreadyClicked: (boxer: Boxer) => boolean;
+  checkBoxerCardAlreadyClicked: (boxer: Boxer, arrayToCheck: Array<Boxer | null>) => boolean;
   clickedBoxerCards: ClickedBoxerCardsT;
+  boxerSelected: Array<Boxer | null>
 }
 
 const BoxerCard = ({
-    styleProps, data, onUpdateBoxer, onDeleteBoxer,
-    onClickHandler, checkBoxerCardAlreadyClicked, clickedBoxerCards
+    styleProps, data,  clickedBoxerCards, boxerSelected, 
+    onUpdateBoxer, onDeleteBoxer, onClickHandler, checkBoxerCardAlreadyClicked,
   }: BoxerCardT) => { 
 
   const componentId = `BoxerCard-${data.id}`
@@ -29,7 +30,7 @@ const BoxerCard = ({
   const [ viewStatsIsClicked, setViewStatsIsClicked ] = useState<boolean>();
 
   useEffect(() => {
-    const isThisCardClicked = checkBoxerCardAlreadyClicked(data)
+    const isThisCardClicked = checkBoxerCardAlreadyClicked(data, clickedBoxerCards)
     setCardIsClicked(isThisCardClicked)
   }, [clickedBoxerCards])
 

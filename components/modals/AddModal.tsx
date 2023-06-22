@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { Boxer } from "../../constants/BoxerModel";
 
 type Props = {
@@ -25,7 +24,6 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
     setAddModalVisibility(!showAddModal);
   };
 
-  
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -54,7 +52,7 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
                     value={title}
                     name="title"
                     onChange={(e) => setTitle(e.target.value)}
-                    required
+                    // required
                   />
                 </div>
                 <div className="mb-6">
@@ -66,7 +64,7 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
                     value={content}
                     name="content"
                     onChange={(e) => setContent(e.target.value)}
-                    required
+                    // required
                   />
                 </div>
                 <div className="mb-6">
@@ -80,7 +78,7 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
                     value={color}
                     name="content"
                     onChange={(e) => setColor(e.target.value)}
-                    required
+                    // required
                   />
                 </div>
                 <div className="flex items-center justify-between">
