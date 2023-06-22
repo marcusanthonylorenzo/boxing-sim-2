@@ -30,40 +30,42 @@ const getData = await axios.get(supabaseAPI + `calendar`, { headers: headersConf
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    console.log(`postHandlertop`,req.body, Object.keys(req.body))
-   const requestId = 1;
-
-    const progressDayAction = async (id: number) => {
-        // console.log(`progressDayAction`, req.body.day, typeof id)
-        const newDay = req.body.day
-        console.log(`new day`, newDay)
-        try {
-          const { data } = await axios.patch(supabaseAPI + `calendar?id=eq.${id}`,
-            {
-              day: newDay
-            }, 
-            {
-              headers: {
-                "apikey": headersConfig.apiKey,
-                "Authorization": headersConfig['Authorization'],
-                "Content-Type": "application/json",
-                "Prefer": "return=representation"
-              }
-          })
-          console.log(data)
-        } catch (err) {
-          console.error(err)
-        }  
-    };
-    // console.log(`progressDayAction`, incrementDay)
-
-    try {
-        progressDayAction(requestId)
-        res.status(200).json({ message: 'POST request handled successfully' })
-    } catch (error) {
-        console.log(error)
-    }
 };
+
+const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+
+  console.log(`postHandlertop`,req.body, Object.keys(req.body))
+  const requestId = 1;
+
+   const progressDayAction = async (id: number) => {
+       // console.log(`progressDayAction`, req.body.day, typeof id)
+       const newDay = req.body.day
+       console.log(`new day`, newDay)
+       try {
+         const { data } = await axios.patch(supabaseAPI + `calendar?id=eq.${id}`,
+           {
+             day: newDay
+           }, 
+           {
+             headers: {
+               "apikey": headersConfig.apiKey,
+               "Authorization": headersConfig['Authorization'],
+               "Content-Type": "application/json",
+               "Prefer": "return=representation"
+             }
+         })
+         console.log(data)
+       } catch (err) {
+         console.error(err)
+       }  
+   };
+   try {
+       progressDayAction(requestId)
+       res.status(200).json({ message: 'POST request handled successfully' })
+   } catch (error) {
+       console.log(error)
+   }
+}
 
 // // API route handler
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -72,6 +74,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     getHandler(req, res);
   } else if (req.method === 'POST') {
     postHandler(req, res);
+  } else if (req.method === 'PATCH') {
+    patchHandler(req, res);
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
   }

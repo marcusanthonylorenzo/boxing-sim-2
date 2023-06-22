@@ -27,10 +27,10 @@ const ProgressDayButton = ({
             const progressDayAction = await increaseDay(day);
             console.log(`progressDayAction`, day, progressDayAction)
             try {
-                const { data } = await axios.post(`/api/calendar`, {
+                const { data } = await axios.patch(`/api/calendar`, {
                         day: progressDayAction      
                 });
-                // router.reload();
+                router.reload();
                 refreshData();
                 return data;
             } catch (error) {
