@@ -252,15 +252,15 @@ const Home: NextPage<homeProps> = ({ results }) => {
         </div> */}
 
         <div id="Home-content-mainContainer"
-          className={`flex w-full justify-center mt-[10vh]`}>
+          className={`flex relative w-full justify-center mt-[15vh] top-[-6vh]`}>
           
           <div id="Home-content-corner-1">
             { boxerSelected.length >= 1 &&
               <AnimatePresence>
               <motion.div
-                  className={`absolute left-0 bg-blue-800 h-[70vh] w-[15vw] px-4 py-2`}
+                  className={`absolute left-0 bg-blue-800 h-[70vh] w-[17vw] px-4 py-2 rounded-md`}
                   initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0, transition: { duration: 0.20, delay: 0.09} }}
+                  animate={{ opacity: 1, x: 15, transition: { duration: 0.20, delay: 0.09} }}
                   exit={{ opacity: 0.3, x: -100 }}>
                 <BoxerReadyDrawer cornerNumber={1} boxersSelectedData={boxerSelected} />
               </motion.div>
@@ -269,8 +269,10 @@ const Home: NextPage<homeProps> = ({ results }) => {
           </div>
 
           <div id="Home-content-mainWrapper"
-            className={`relative w-[70vw] mx-0 justify-center items-center`}>
-            <div className="px-3 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">
+            className={`relative top-0 sm:w-[65%] lg:w-[70%] xl:w-[60%] mx-0 justify-center items-center`}>
+            <div className="grid w-[90%] ml-[8%] 3xl:ml-16 mb-5
+              sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5
+              ">
               {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
                 <AnimatePresence>
                   <motion.div 
@@ -303,9 +305,9 @@ const Home: NextPage<homeProps> = ({ results }) => {
           { boxerSelected.length === 2 &&
             <AnimatePresence>
               <motion.div
-                  className={`absolute right-0 bg-red-600 h-[70vh] w-[15vw]`}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0, transition: { duration: 0.20, delay: 0.09} }}
+                  className={`absolute right-0 bg-red-700 h-[70vh] w-[17vw] px-4 py-2 rounded-md`}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: -15, transition: { duration: 0.20, delay: 0.09} }}
                   exit={{ opacity: 0.3, x: -100 }}>
                 <BoxerReadyDrawer cornerNumber={2} boxersSelectedData={boxerSelected} />
               </motion.div>

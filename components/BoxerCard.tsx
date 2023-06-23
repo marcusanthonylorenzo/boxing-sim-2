@@ -55,8 +55,8 @@ const BoxerCard = ({
 
   return (
     <div id={`${componentId}`}
-      className={`flex flex-col justify-between
-        w-56 h-58 rounded-lg border px-6 pt-10 -rotate-1 shadow-md
+      className={`flex flex-col relative
+        w-52 h-58 rounded-lg border px-6 pt-8 shadow-md
         hover:shadow-xl hover:cursor-pointer
         ${ fighterCurrentlySelected ? `bg-slate-300 border-zinc-400` : styleProps?.cardBgColor}`}>
 
