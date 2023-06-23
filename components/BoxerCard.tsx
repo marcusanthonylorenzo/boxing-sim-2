@@ -30,7 +30,7 @@ const BoxerCard = ({
 
   const [ cardIsClicked, setCardIsClicked ] = useState<boolean>();
   const [ viewStatsIsClicked, setViewStatsIsClicked ] = useState<boolean>();
-  const [ fighterCurrentlySelected, setFighterCurrentlySelected ] = useState<boolean>(checkBoxerCardAlreadyClicked(data, boxerSelected))
+  const [ fighterCurrentlySelected, setFighterCurrentlySelected ] = useState<boolean>(checkBoxerCardAlreadyClicked(data, boxerSelected)) //the fighter's id in this card is passed through checkBoxer... as "data", and filtered against "boxerSelected"
 
 
   useEffect(() => {
@@ -44,17 +44,12 @@ const BoxerCard = ({
     console.log(`boxercard useeffect`, fighterCurrentlySelected, boxerSelected, data.first_name)
   }, [boxerSelected])
 
-  const handleViewStatsAction = async () => {
-    await setViewStatsIsClicked(!viewStatsIsClicked)
-    await onClickHandler(data, viewStatsIsClicked) 
-  };
-
   const handleBoxerSelectUnselect = () => {
       if (fighterCurrentlySelected) {
         const boxerRemoved = boxerSelected.filter(boxer => boxer!.id !== data.id)
         setBoxerSelected(boxerRemoved)
       } else {
-        onClickHandler();
+        !viewStatsIsClicked && onClickHandler(data, viewStatsIsClicked);
       }
   };
 
@@ -107,7 +102,9 @@ const BoxerCard = ({
           </button>
           <button 
             className={`bg-black w-20 h-8 rounded-xl shadow-xl ${hoverButtonAnimation}`}
-            onClick={() => { handleViewStatsAction() }}>
+            onClick={ async () => {
+              await setViewStatsIsClicked(!viewStatsIsClicked)
+          }}>
               <h5 className={`text-white text-sm font-semibold`}>View Stats</h5>
           </button>
           <div id={componentId + `-footer-deleteIcon`}

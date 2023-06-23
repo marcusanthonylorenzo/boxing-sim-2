@@ -166,6 +166,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const handleBoxerCardClicked = (boxer?: Boxer, viewStatsIsClicked?: boolean) => {
     const alreadyClicked = boxer && checkBoxerCardAlreadyClicked(boxer, clickedBoxerCards);
     // const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
+    
     if (viewStatsIsClicked) { // Show Attributes drawer
       if (!alreadyClicked || clickedBoxerCards!.length === 0) {
         setClickedBoxerCards((prev: ClickedBoxerCardsT) => [...prev, boxer])
@@ -213,7 +214,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
       <main className={styles.main}>
 
         <Navbar
-          styling={`flex absolute bg-[green] top-0 w-[100vw] h-[17vh] m-0 p-0 shadow-md`}
+          styling={``}
           parentState={{
             showAddModal,
             day,
