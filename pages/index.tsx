@@ -9,7 +9,6 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import absoluteUrl from "next-absolute-url";
-// import { useRouter } from "next/router";
 import useNextRouter from "../hooks/useNextRouter";
 
 import Navbar from "../containers/Navbar";
@@ -21,6 +20,7 @@ import IsLoadingModal from "../components/events/IsLoadingModal";
 import { Boxer } from "../constants/BoxerModel";
 import { ClickedBoxerCardsT } from "../constants/State";
 import { ClickedBoxerCardContext } from "../services/Context";
+import BoxerReadyDrawer from "../components/drawers/BoxerReadyDrawer";
 
 // const socket = io("https://api.localhost:3003", {
 //   withCredentials: true,
@@ -251,35 +251,66 @@ const Home: NextPage<homeProps> = ({ results }) => {
           <AddIcon className="w-16 hover:scale-125 hover:duration-700 ease-in-out duration-700 ease-out-in" />
         </div> */}
 
-
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">
-          {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
+        <div id="Home-content-mainContainer"
+          className={`flex bg-gray-500 w-full justify-center mt-[10vh]`}>
+          
+          <div id="Home-content-corner-1">
             <AnimatePresence>
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0, transition: { duration: 0.18, delay: 0.09} }}
-                exit={{ opacity: 0.3, x: -100 }}
-              >
-                <BoxerCard
-                  key={index}
-                  data={boxer}
-                  onUpdateBoxer={handleUpdateBoxer}
-                  onDeleteBoxer={handleDeleteBoxer}
-                  onClickHandler={() => {
-                    handleBoxerCardClicked(boxer);
-                  }}
-                  clickedBoxerCards={clickedBoxerCards}
-                  boxerSelected={boxerSelected}
-                  setBoxerSelected={setBoxerSelected}
-                  checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
-                  styleProps={
-                      { cardBgColor: `green-500` }
-                  }
-                />
-                </motion.div>
+              <motion.div
+                  className={`relative bg-blue-800 h-full w-[15vw] px-4 py-2`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0, transition: { duration: 0.20, delay: 0.09} }}
+                  exit={{ opacity: 0.3, x: -100 }}>
+                <BoxerReadyDrawer cornerNumber={1} boxersSelectedData={boxerSelected} />
+              </motion.div>
             </AnimatePresence>
-          ))}
-        </div>
+          </div>
+
+          <div id="Home-content-mainWrapper"
+            className={`relative bg-black w-[70vw] mx-0 justify-center items-center`}>
+
+            <div className="px-3 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">
+              {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
+                <AnimatePresence>
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0, transition: { duration: 0.18, delay: 0.09} }}
+                    exit={{ opacity: 0.3, x: -100 }}>
+                    <BoxerCard
+                      key={index}
+                      data={boxer}
+                      onUpdateBoxer={handleUpdateBoxer}
+                      onDeleteBoxer={handleDeleteBoxer}
+                      onClickHandler={() => {
+                        handleBoxerCardClicked(boxer);
+                      }}
+                      clickedBoxerCards={clickedBoxerCards}
+                      boxerSelected={boxerSelected}
+                      setBoxerSelected={setBoxerSelected}
+                      checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
+                      styleProps={
+                          { cardBgColor: `green-500` }
+                      }
+                    />
+                    </motion.div>
+                </AnimatePresence>
+              ))}
+            </div>
+          </div>
+
+          <div id="Home-content-corner-2">
+            <AnimatePresence>
+              <motion.div
+                  className={`bg-red-600 h-full w-[15vw]`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0, transition: { duration: 0.20, delay: 0.09} }}
+                  exit={{ opacity: 0.3, x: -100 }}>
+                <BoxerReadyDrawer cornerNumber={2} boxersSelectedData={boxerSelected} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+      </div>
       </main>
       
     </div>
