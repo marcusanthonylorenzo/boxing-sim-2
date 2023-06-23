@@ -22,12 +22,16 @@ const BoxerReadyDrawer = ({
       className={`py-3 text-white font-semibold`}>
         {
           thisBoxerReady ? 
-          (<>
-          
-            { thisBoxerReady.first_name + ` ` + thisBoxerReady.last_name }
-            { thisBoxerReady.hometown + ` ` + thisBoxerReady.nickname }
+          (
+          <div className='flex flex-col'>
+            <span className='font-bold mb-4'>{ thisBoxerReady.first_name + ` ` + thisBoxerReady.last_name }</span>
 
-          </>) : null }
+            <div id={`BoxerReadyDrawer-info`} className={`text-[12px] w-full`}>
+              <h5>{thisBoxerReady.hometown}</h5>
+              <h5>{thisBoxerReady.nickname}</h5>
+            </div>
+          </div>
+          ) : null }
     </div>
   )
 }
