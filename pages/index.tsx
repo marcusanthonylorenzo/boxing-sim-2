@@ -252,23 +252,24 @@ const Home: NextPage<homeProps> = ({ results }) => {
         </div> */}
 
         <div id="Home-content-mainContainer"
-          className={`flex bg-gray-500 w-full justify-center mt-[10vh]`}>
+          className={`flex w-full justify-center mt-[10vh]`}>
           
           <div id="Home-content-corner-1">
-            <AnimatePresence>
+            { boxerSelected.length >= 1 &&
+              <AnimatePresence>
               <motion.div
-                  className={`relative bg-blue-800 h-full w-[15vw] px-4 py-2`}
+                  className={`absolute left-0 bg-blue-800 h-[70vh] w-[15vw] px-4 py-2`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0, transition: { duration: 0.20, delay: 0.09} }}
                   exit={{ opacity: 0.3, x: -100 }}>
                 <BoxerReadyDrawer cornerNumber={1} boxersSelectedData={boxerSelected} />
               </motion.div>
             </AnimatePresence>
+            }
           </div>
 
           <div id="Home-content-mainWrapper"
-            className={`relative bg-black w-[70vw] mx-0 justify-center items-center`}>
-
+            className={`relative w-[70vw] mx-0 justify-center items-center`}>
             <div className="px-3 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">
               {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
                 <AnimatePresence>
@@ -299,18 +300,20 @@ const Home: NextPage<homeProps> = ({ results }) => {
           </div>
 
           <div id="Home-content-corner-2">
+          { boxerSelected.length === 2 &&
             <AnimatePresence>
               <motion.div
-                  className={`bg-red-600 h-full w-[15vw]`}
+                  className={`absolute right-0 bg-red-600 h-[70vh] w-[15vw]`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0, transition: { duration: 0.20, delay: 0.09} }}
                   exit={{ opacity: 0.3, x: -100 }}>
                 <BoxerReadyDrawer cornerNumber={2} boxersSelectedData={boxerSelected} />
               </motion.div>
             </AnimatePresence>
+            }
           </div>
 
-      </div>
+        </div>
       </main>
       
     </div>
