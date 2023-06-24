@@ -11,8 +11,8 @@ const FightAcceptButton = ({
   return (
     <div className={``}>
         <button id={`Navbar-acceptFight-button`}
-            className={`w-full h-full rounded-md shadow-md text-black px-4 p-3
-                ${disabledState ? `shadow-xl hover:cursor-pointer ${styles[`button-hover`]}` : `bg-white`}
+            className={`w-full h-full rounded-md shadow-md px-4 p-3 mx-8
+                ${disabledState ? `shadow-2xl font-semibold text-[white] bg-[#4daf51] hover:cursor-pointer  ${styles[`button-hover`]}` : `bg-white text-black`}
             `}
             disabled={!disabledState}
             onClick={() => console.log(`clicky`)}>

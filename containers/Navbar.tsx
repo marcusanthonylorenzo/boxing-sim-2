@@ -51,9 +51,8 @@ const Navbar = ({
                 </div>
 
                 <div id={`${componentId}-calendar`}
-                    className={`col-start-5 row-start-1 relative ml-[10%] text-zinc-400 font-semibold mx-5`}>
-                    <h3>Day: {day}</h3>
-                    <ProgressDayButton parentState={{ day: day, setDay: setDay }} styles={styles[`button-hover`]}/>
+                    className={`col-start-5 row-start-1 flex flex-col relative text-zinc-400 font-semibold ml-[10%]`}>
+                    <ProgressDayButton parentState={{ day: day, setDay: setDay }} styles={`${styles[`button-hover`]}`}/>
                 </div>
             </div>
         {/* </div> */}

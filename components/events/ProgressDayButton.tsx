@@ -38,15 +38,15 @@ const ProgressDayButton = ({
       })
 
     return (
-        <div id={`${componentId}-main`}>
+        <div id={`${componentId}-main`} className={``}>
             <button id={`${componentId}-button`}
-                className={`bg-zinc-400 p-3 rounded-md shadow-sm ${styles}`}
+                className={`bg-zinc-400 font-semibold text-white p-3 rounded-md shadow-md ${styles}`}
                 onClick={() => {
                     console.log(componentId + `clickeroo`)
                     progressDayMutation.mutateAsync(day);
                 }}
             >
-                ProgressDayButton
+                <h3>Day {day}</h3> 
             </button>
         </div>
     )
