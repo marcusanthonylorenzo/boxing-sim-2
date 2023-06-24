@@ -108,6 +108,12 @@
   margin-left: 0.5rem;
 }
 
+.button-hover:hover {
+  transform: scale(1.05);
+  transition-duration: 130ms
+}
+
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
