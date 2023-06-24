@@ -41,7 +41,7 @@ interface homeProps {
 }
 
 const Home: NextPage<homeProps> = ({ results }) => {
-  console.log(`results`, results.calendar)
+  // console.log(`results`, results.calendar)
   const [boxers, setBoxers] = useState<Boxer[]>(results.boxers);
   const [ day, setDay ] = useState<number | null>(results.calendar[`0`].day)
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
@@ -68,7 +68,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
       const { data } = await createBoxerMutation.mutateAsync(newBoxer)
       if (data) {
         router.reload();
-        console.log(`boxer created!`)
         return data;
       }
     } catch (error) {
@@ -184,7 +183,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
         }
       }
     }
-    console.log(boxerSelected.forEach(boxer => boxer!.first_name))
+    // console.log(boxerSelected.forEach(boxer => boxer!.first_name))
   }
 
   // async function socketInitializer() {
@@ -207,7 +206,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
   return (
     <div className={styles.container}>
       <Head>
-        {/* <first_name>Take boxers</first_name> */}
         <meta name="description"/>
         <link rel="icon" href="/site_logo.ico" />
       </Head>
@@ -216,6 +214,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
         <Navbar
           styling={``}
           parentState={{
+            boxerSelected,
             showAddModal,
             day,
             setDay
@@ -231,6 +230,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           />
         )        
         }
+
         {
           createBoxerMutation.isLoading && (
             <IsLoadingModal props={{ text: `CREATING NEW BOXER`}}/>
