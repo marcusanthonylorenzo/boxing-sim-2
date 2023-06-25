@@ -281,11 +281,11 @@ const Home: NextPage<homeProps> = ({ results }) => {
           </div>
 
           <div id="Home-content-mainWrapper"
-            className={`relative top-0 sm:w-[58%] md:w-[62%] lg:w-[65%] 3xl:w-[69%] mx-0 justify-center items-center`}>
+            className={`relative top-0 zsm:w-[58%] md:w-[62%] lg:w-[65%] 3xl:w-[69%] mx-0 justify-center items-center`}>
             <div className={`grid w-[90%] px-4
               ml-[8%] md:ml-[5%] xl:ml-[7%] 3xl:ml-16 mb-5
               sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5
-              ${ boxerSelected.length === 2 && `bg-slate-100`}`}>
+              ${ boxerSelected.length === 2 && `bg-slate-200`}`}>
               {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
                 <AnimatePresence>
                   <motion.div 
