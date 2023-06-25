@@ -72,7 +72,7 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
                     Pick Note Color
                   </label>
                   <input
-                    className="w-12 shadow appearance-none border  rounded w-full  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    className="w-12 shadow appearance-none border  rounded text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="color"
                     type="color"
                     value={color}

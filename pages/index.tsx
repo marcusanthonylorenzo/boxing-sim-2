@@ -21,6 +21,7 @@ import { Boxer } from "../constants/BoxerModel";
 import { ClickedBoxerCardsT } from "../constants/State";
 import { ClickedBoxerCardContext } from "../services/Context";
 import BoxerReadyDrawer from "../components/drawers/BoxerReadyDrawer";
+import FightAcceptModal from "../components/modals/FightAcceptModal";
 
 // const socket = io("https://api.localhost:3003", {
 //   withCredentials: true,
@@ -44,11 +45,16 @@ const Home: NextPage<homeProps> = ({ results }) => {
   // console.log(`results`, results.calendar)
   const [boxers, setBoxers] = useState<Boxer[]>(results.boxers);
   const [ day, setDay ] = useState<number | null>(results.calendar[`0`].day)
+
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
   const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
+
   const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
   const [ boxerSelected, setBoxerSelected ] = useState<Array<Boxer | null>>([])
+  const [ hideFightAcceptModal, setHideFightAcceptModal ] = useState<string>(`hidden`);
+
+
   const { router } = useNextRouter();
 
   useEffect(() => {
@@ -217,10 +223,15 @@ const Home: NextPage<homeProps> = ({ results }) => {
             boxerSelected,
             showAddModal,
             day,
-            setDay
+            setDay,
+            setHideFightAcceptModal
           }}
           setAddModalVisibility={setAddModalVisibility}
         />
+
+        { 
+          <FightAcceptModal hideModal={hideFightAcceptModal} setHideModal={setHideFightAcceptModal}/>
+        }
 
         {showAddModal && (
           <AddModal

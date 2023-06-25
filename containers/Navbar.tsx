@@ -14,7 +14,8 @@ interface NavbarT {
         boxerSelected: Array<Boxer | null>,
         showAddModal: boolean,
         day: number | null,
-        setDay: React.Dispatch<React.SetStateAction<number | null>>;
+        setDay: React.Dispatch<React.SetStateAction<number | null>>,
+        setHideFightAcceptModal: React.Dispatch<React.SetStateAction<string>>
     },
     setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -25,7 +26,7 @@ const Navbar = ({
 
     const componentId = "Navbar";
     // const { addIcon } = components;
-    const { boxerSelected, showAddModal, day, setDay } = parentState;
+    const { boxerSelected, showAddModal, day, setDay, setHideFightAcceptModal } = parentState;
     const [ disabledState, setDisabledState ] = useState<boolean>(false)
     console.log(disabledState)
 
@@ -47,7 +48,7 @@ const Navbar = ({
 
                 <div id={`Navbar-acceptFight`}
                     className={`col-start-4 row-start-1 relative items-center justify-center`}>
-                    <FightAcceptButton disabledState={disabledState} />
+                    <FightAcceptButton disabledState={disabledState} setHideModal={setHideFightAcceptModal}/>
                 </div>
 
                 <div id={`${componentId}-calendar`}
