@@ -22,3 +22,5 @@
 //   export {
 //     ServerToClientEvents, ClientToServerEvents, InterServerEvents, SocketData
 //   }
+
+export {}

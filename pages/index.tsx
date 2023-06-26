@@ -1,6 +1,6 @@
 import type { NextPage, GetServerSideProps } from "next";
 import React, { Key, useState, useEffect, useContext, useId } from "react";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import { useQuery, useMutation } from 'react-query'
 import { generateRandomBoxer, generateRandomValue } from "../services/generateRandom";
 import { motion, AnimatePresence } from "framer-motion"
@@ -62,7 +62,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   }, [results.calendar])
 
   const createBoxerMutation = useMutation({
-    mutationFn: async (newBoxer) => {
+    mutationFn: async (newBoxer: Boxer) => {
       const { data } = await axios.post('/api/boxers', newBoxer);
       return data;
     }
@@ -166,16 +166,16 @@ const Home: NextPage<homeProps> = ({ results }) => {
     }
   };
 
-  const checkBoxerCardAlreadyClicked = (boxer: Boxer, arrayToCheck: Array<Boxer | null>) => arrayToCheck!.some((eachClicked: Boxer | null) => eachClicked!.id === boxer.id)
+  const checkBoxerCardAlreadyClicked = (boxer: Boxer | null, arrayToCheck: Array<Boxer | null>) => arrayToCheck!.some((eachClicked: Boxer | null) => boxer !== null && eachClicked!.id === boxer.id)
 
-  const handleBoxerCardClicked = (boxer?: Boxer, viewStatsIsClicked?: boolean) => {
+  const handleBoxerCardClicked = (boxer: Boxer, viewStatsIsClicked?: boolean) => {
     const alreadyClicked = boxer && checkBoxerCardAlreadyClicked(boxer, clickedBoxerCards);
     // const alreadyClicked = clickedBoxerCards.some(eachClicked => eachClicked.id === boxer.id)
     
     if (viewStatsIsClicked) { // Show Attributes drawer
       if (!alreadyClicked || clickedBoxerCards!.length === 0) {
-        setClickedBoxerCards((prev: ClickedBoxerCardsT) => [...prev, boxer])
-      } else if (alreadyClicked) {
+        setClickedBoxerCards([boxer])
+      } else if (alreadyClicked && clickedBoxerCards.length > 0) {
         setClickedBoxerCards((current: ClickedBoxerCardsT) => current!.filter((cardNotUnclicked: Boxer)  => cardNotUnclicked.id !== boxer.id ))
       }
     } else { //Select Fighter option, also highlights boxer card

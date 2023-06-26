@@ -6,15 +6,15 @@ import { ClickedBoxerCardsT } from '../constants/State';
 
 const useActiveBoxerSelection = (
     // key: string,
-    initialValue: ClickedBoxerCardsT
+    // initialValue: []
     ) : { 
         clickedBoxerCards: ClickedBoxerCardsT,
         setClickedBoxerCards: React.Dispatch<React.SetStateAction<ClickedBoxerCardsT>>
     } => {
 
-    const [ clickedBoxerCards, setClickedBoxerCards ] = useState<ClickedBoxerCardsT>(initialValue);
+    const [ clickedBoxerCards, setClickedBoxerCards ] = useState<ClickedBoxerCardsT>([]);
     
-    useEffect(() => console.log(`updated boxer cards`, clickedBoxerCards), [clickedBoxerCards])
+    useEffect(() => console.log(`updated boxer cards`), [clickedBoxerCards])
 
 //     const initialDataDefault = [{}]
 //     const { data: clickedBoxerCards } = useQuery(key, () => queryCache.find(key),

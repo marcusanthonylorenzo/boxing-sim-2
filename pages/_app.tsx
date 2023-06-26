@@ -11,7 +11,7 @@ import useActiveBoxerSelection from '../hooks/useActiveBoxerSelection'
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  const { clickedBoxerCards, setClickedBoxerCards } = useActiveBoxerSelection([]);
+  const { clickedBoxerCards, setClickedBoxerCards } = useActiveBoxerSelection();
 
   return (
     <QueryClientProvider client={queryClient} contextSharing={true}>

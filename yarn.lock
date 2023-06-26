@@ -1434,10 +1434,10 @@
   "resolved" "https://registry.npmjs.org/fraction.js/-/fraction.js-4.2.0.tgz"
   "version" "4.2.0"
 
-"framer-motion@^10.12.16":
-  "integrity" "sha512-w/SfWEIWJkYSgRHYBmln7EhcNo31ao8Xexol8lGXf1pR/tlnBtf1HcxoUmEiEh6pacB4/geku5ami53AAQWHMQ=="
-  "resolved" "https://registry.npmjs.org/framer-motion/-/framer-motion-10.12.16.tgz"
-  "version" "10.12.16"
+"framer-motion@^10.12.17":
+  "integrity" "sha512-IR+aAYntsyu6ofyxqQV4QYotmOqzcuKxhqNpfc3DXJjNWOPpOeSyH0A+In3IEBu49Yx/+PNht+YMeZSdCNaYbw=="
+  "resolved" "https://registry.npmjs.org/framer-motion/-/framer-motion-10.12.17.tgz"
+  "version" "10.12.17"
   dependencies:
     "tslib" "^2.4.0"
   optionalDependencies:

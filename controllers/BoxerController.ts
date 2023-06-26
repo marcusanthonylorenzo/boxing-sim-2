@@ -16,7 +16,7 @@ const getAllBoxers = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRe
 const createBoxer = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
     const { 
         id, created_at, updated_at, is_user, first_name, last_name, nickname,
-        birthday, hometown, is_champion,
+        birthday, hometown, is_champion, calendar_id,
         wins, losses, draws, ranking,
         attributes: {
             offensive: {
@@ -40,7 +40,7 @@ const createBoxer = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRes
     const boxer = await prisma.boxer.create({
       data: {
         id, created_at, updated_at, is_user, first_name, last_name, nickname,
-        birthday, hometown, is_champion,
+        birthday, hometown, is_champion, calendar_id,
         wins, losses, draws, ranking,
             agility, power, hand_speed, accuracy, aggression,
             reflex, footwork, evasion, blocking, reaction,
