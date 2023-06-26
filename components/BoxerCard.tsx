@@ -58,7 +58,7 @@ const BoxerCard = ({
       className={`flex flex-col relative bg-white
         w-52 h-58 rounded-lg border px-6 pt-8 shadow-md
         hover:shadow-xl hover:cursor-pointer
-        ${ fighterCurrentlySelected ? `bg-slate-400 border-zinc-500` : styleProps?.cardBgColor}`}>
+        ${ fighterCurrentlySelected ? `bg-slate-400 border-zinc-00` : styleProps?.cardBgColor}`}>
 
         {
           viewStatsIsClicked ? (
@@ -85,11 +85,11 @@ const BoxerCard = ({
             </div>
           </div>
           <div id={`${componentId}-contentDiv`} className={`text-gray-800 text-sm pb-5 font-semibold
-            ${fighterCurrentlySelected && `text-[#f7f6f6ec]`}`}>
-            <h5 id={componentId + `-weightClass`} className={``}>{data.weightclass} lbs</h5>
-            <h5 id={componentId + `-ranking`} className={``}>#{data.ranking} at [weightclass]</h5>
-            <h5 id={componentId + `-record`} className={``}>{data.wins}-{data.losses}-{data.draws}</h5>
-            <h5 id={componentId + `-hometown`} className={`text-[11px]`}>{data.hometown}</h5>
+            `}>
+            <h5 id={componentId + `-weightClass`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`}`}>{data.weightclass} lbs</h5>
+            <h5 id={componentId + `-ranking`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`}`}>#{data.ranking} at [weightclass]</h5>
+            <h5 id={componentId + `-record`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`}`}>{data.wins}-{data.losses}-{data.draws}</h5>
+            <h5 id={componentId + `-hometown`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`} text-[11px]`}>{data.hometown}</h5>
           </div>
         </div>
         <div>

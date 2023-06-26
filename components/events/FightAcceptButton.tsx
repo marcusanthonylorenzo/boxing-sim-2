@@ -13,12 +13,12 @@ const FightAcceptButton = ({
   return (
     <div className={``}>
         <button id={`Navbar-acceptFight-button`}
-            className={`w-full h-full rounded-md shadow-md px-4 p-3 mx-8
-                ${disabledState ? `shadow-2xl font-semibold text-[white] bg-[#4daf51] hover:cursor-pointer  ${styles[`button-hover`]}` : `bg-white text-transparent`}
+            className={`w-[80%] h-full rounded-md shadow-md px-4 p-3 mx-8
+                ${disabledState ? `shadow-2xl font-bold text-[white] bg-[#4daf51] hover:cursor-pointer  ${styles[`button-hover`]}` : `bg-[#e2dad8] font-semibold`}
             `}
             disabled={!disabledState}
             onClick={() => setHideModal(``)}>
-            <h4>Accept Fight</h4>
+            <h4>{!disabledState ? `Select Two Boxers` : `Accept Fight`}</h4>
         </button>
     </div>
   )

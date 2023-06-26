@@ -38,7 +38,7 @@ const ProgressDayButton = ({
       })
 
     return (
-        <div id={`${componentId}-main`} className={``}>
+        <div id={`${componentId}-main`} className={`ml-6`}>
             <button id={`${componentId}-button`}
                 className={`bg-orange-600 font-semibold text-white p-3 rounded-md shadow-md ${styles}`}
                 onClick={() => {
