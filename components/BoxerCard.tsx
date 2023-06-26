@@ -58,7 +58,7 @@ const BoxerCard = ({
       className={`flex flex-col relative bg-white
         w-52 h-58 rounded-lg border px-6 pt-8 shadow-md
         hover:shadow-xl hover:cursor-pointer
-        ${ fighterCurrentlySelected ? `bg-slate-300 border-zinc-400` : styleProps?.cardBgColor}`}>
+        ${ fighterCurrentlySelected ? `bg-slate-400 border-zinc-500` : styleProps?.cardBgColor}`}>
 
         {
           viewStatsIsClicked ? (
@@ -74,19 +74,22 @@ const BoxerCard = ({
           ): null
         }
 
-        <div id={`${componentId}-details`} className=""
+        <div id={`${componentId}-details`} className={``}
           onClick={() => {
             handleBoxerSelectUnselect();
           }}>
-          <div className="flex h-20">
-            <div id={`${componentId}-titleDiv-fullname`} className="w-[100%] py-2 mr-20">
-              <h3 className="text-gray-900 text-md xt-20 font-bold mb-1 w-[100%]">{data.first_name + " " + data.last_name}</h3>
+          <div className={`flex h-20`}>
+            <div id={`${componentId}-titleDiv-fullname`} className="w-[100%] py-2 mr-1">
+              <h3 className={`text-gray-900 text-md xt-20 font-bold mb-1 w-[100%]
+                ${fighterCurrentlySelected && `text-[#f7f6f6ec]`} `}>{data.first_name + " " + data.last_name}</h3>
             </div>
           </div>
-          <div id={`${componentId}-contentDiv`} className="text-gray-800 text-sm pb-5">
-            <h5 id={componentId + `-weightClass`} className={`mr-2`}>{data.weightclass} lbs</h5>
-            <h5 id={componentId + `-record`} className={`mr-2`}>{data.wins}-{data.losses}-{data.draws}</h5>
-            <h5 id={componentId + `-hometown`} className={`mr-2`}>{data.hometown}</h5>
+          <div id={`${componentId}-contentDiv`} className={`text-gray-800 text-sm pb-5 font-semibold
+            ${fighterCurrentlySelected && `text-[#f7f6f6ec]`}`}>
+            <h5 id={componentId + `-weightClass`} className={``}>{data.weightclass} lbs</h5>
+            <h5 id={componentId + `-ranking`} className={``}>#{data.ranking} at [weightclass]</h5>
+            <h5 id={componentId + `-record`} className={``}>{data.wins}-{data.losses}-{data.draws}</h5>
+            <h5 id={componentId + `-hometown`} className={`text-[11px]`}>{data.hometown}</h5>
           </div>
         </div>
         <div>

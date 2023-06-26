@@ -269,7 +269,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
             { boxerSelected.length >= 1 &&
               <AnimatePresence>
               <motion.div
-                  className={`absolute left-0 bg-blue-800 h-[70vh] px-4 py-2 rounded-
+                  className={`absolute left-0 bg-blue-800 h-[70vh] px-4 py-2 rounded-md
                   ${hideFightAcceptModal ? `w-[18vw]` : `w-[18vw]`}`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 15, transition: { duration: 0.20, delay: 0.09} }}
@@ -281,7 +281,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           </div>
 
           <div id="Home-content-mainWrapper"
-            className={`relative top-0 zsm:w-[58%] md:w-[62%] lg:w-[65%] 3xl:w-[69%] mx-0 justify-center items-center`}>
+            className={`relative top-0 h-[70vh] sm:w-[58%] md:w-[62%] lg:w-[65%] 3xl:w-[69%] mx-0 justify-center items-center overflow-y-scroll`}>
             <div className={`grid w-[90%] px-4
               ml-[8%] md:ml-[5%] xl:ml-[7%] 3xl:ml-16 mb-5
               sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5
