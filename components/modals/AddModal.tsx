@@ -27,23 +27,23 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-        <div className="relative w-auto my-6 mx-auto max-w-3xl">
+        <div className="relative w-[35vw] my-6 mx-auto max-w-3xl">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold">Add Note</h3>
+              <h3 className="text-2xl font-semibold">Create Boxer</h3>
               <button
-                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                className="pb-1 ml-auto bg-transparent border-0 text-black opacity-40 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => setAddModalVisibility(!showAddModal)}>
-                Close
+                x
               </button>
             </div>
             {/*body*/}
             <div className="relative p-6 flex-auto">
               <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">Title</label>
+                  <label className="block text-gray-700 text-sm font-bold mb-2">Name</label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="title"
@@ -56,7 +56,7 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
                   />
                 </div>
                 <div className="mb-6">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">Content</label>
+                  <label className="block text-gray-700 text-sm font-bold mb-2">Bio</label>
                   <textarea
                     className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="content"
@@ -69,7 +69,7 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
                 </div>
                 <div className="mb-6">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Pick Note Color
+                    Shorts Color
                   </label>
                   <input
                     className="w-12 shadow appearance-none border  rounded text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
