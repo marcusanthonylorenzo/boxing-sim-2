@@ -8,9 +8,6 @@ const generateRandomValue = (minimum?: number, maximum?: number) => {
 }
 
 const generateRandomBoxer = (isUserToggle?: boolean) => {
-
-    console.log(`generateRandom`, isUserToggle)
-
     const getHometown = `${faker.location.city()}, ${faker.location.state()}, ${faker.location.country()}`
     const newBoxerLinearAttributes = {
         id: uuidv4(),

@@ -28,7 +28,6 @@ const Navbar = ({
     // const { addIcon } = components;
     const { boxerSelected, showAddModal, day, setDay, setHideFightAcceptModal } = parentState;
     const [ disabledState, setDisabledState ] = useState<boolean>(false)
-    console.log(disabledState)
 
     useEffect(() => boxerSelected.length < 2 ? setDisabledState(false) : setDisabledState(true), [boxerSelected])
 

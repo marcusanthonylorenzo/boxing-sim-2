@@ -77,9 +77,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
       let newBoxer = await newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer(isUserToggle);
-      // newBoxer = {...newBoxer,
-      //   isUser: isUserToggle
-      // }
 
       const { data } = await createBoxerMutation.mutateAsync(newBoxer)
       if (data) {
@@ -99,7 +96,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
     if (!boxerArg) {
       const data = createNewBoxer(boxerArg)
       validBoxerData = data
-      // router.reload();
+      router.reload();
     } else {
       validBoxerData = boxerArg
       try {
@@ -119,7 +116,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           setBoxers(addboxers);
           const { data } = await createNewBoxer(validBoxerData);
           if (data) {
-            // router.reload();
+            router.reload();
           }
         } catch (error) {
           console.error(error);
