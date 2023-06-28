@@ -33,8 +33,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else if (req.method === 'POST') {
     postHandler(req, res);
 
-    axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
-    { headers: headersConfig })
+    try {
+      await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
+      { headers: headersConfig })
+    } catch (error) {
+      console.error(error)
+    }
 
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });

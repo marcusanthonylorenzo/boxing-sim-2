@@ -2285,6 +2285,11 @@
   "resolved" "https://registry.npmjs.org/prettier/-/prettier-2.6.2.tgz"
   "version" "2.6.2"
 
+"prisma-client@^0.0.0":
+  "integrity" "sha512-tbK0ZaUt4E9IkQalS+2V5dv45lTcwxWNSXenRNEgSuzTJWW3T6SUgBfuk0gUS5wC07eQNEOU6/SVomVL/hsaHw=="
+  "resolved" "https://registry.npmjs.org/prisma-client/-/prisma-client-0.0.0.tgz"
+  "version" "0.0.0"
+
 "prisma@*", "prisma@^4.15.0":
   "integrity" "sha512-iKZZpobPl48gTcSZVawLMQ3lEy6BnXwtoMj7hluoGFYu2kQ6F9LBuBrUyF95zRVnNo8/3KzLXJXJ5TEnLSJFiA=="
   "resolved" "https://registry.npmjs.org/prisma/-/prisma-4.15.0.tgz"

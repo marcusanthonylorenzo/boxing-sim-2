@@ -21,7 +21,7 @@ const getData = await axios.get(supabaseAPI + `calendar`, { headers: headersConf
     .then((response) => response.data )
     .catch((error) => console.log(error))
 
-  console.log(`calendar`, getData)
+  // console.log(`calendar`, getData)
   res.status(200).json(getData)
   
 }
@@ -32,13 +32,13 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-  console.log(`postHandlertop`,req.body, Object.keys(req.body))
+  // console.log(`postHandlertop`,req.body, Object.keys(req.body))
   const requestId = 1;
 
    const progressDayAction = async (id: number) => {
        // console.log(`progressDayAction`, req.body.day, typeof id)
        const newDay = req.body.day
-       console.log(`new day`, newDay)
+      //  console.log(`new day`, newDay)
        try {
          const { data } = await axios.patch(supabaseAPI + `calendar?id=eq.${id}`,
            {
@@ -52,7 +52,7 @@ const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                "Prefer": "return=representation"
              }
          })
-         console.log(data)
+        //  console.log(data)
        } catch (err) {
          console.error(err)
        }  

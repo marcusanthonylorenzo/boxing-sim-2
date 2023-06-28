@@ -54,17 +54,23 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const [ boxerSelected, setBoxerSelected ] = useState<Array<Boxer | null>>([])
   const [ hideFightAcceptModal, setHideFightAcceptModal ] = useState<string>(`hidden`);
 
-
   const { router } = useNextRouter();
 
   useEffect(() => {
-    console.log(`rerender calendar`, results.calendar)
+    // console.log(`rerender calendar`, results.calendar)
   }, [results.calendar])
 
   const createBoxerMutation = useMutation({
     mutationFn: async (newBoxer: Boxer) => {
-      const { data } = await axios.post('/api/boxers', newBoxer);
-      return data;
+      Promise.all([
+        await axios.post('/api/boxers', newBoxer),
+        await axios.post('/api/fight_stats', {
+            fighter_id: newBoxer.id
+        })
+      ]).then(values => {
+        console.log(`values`, values)
+        return values
+      })
     }
   })
 
@@ -73,6 +79,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
       let newBoxer = newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer();
       const { data } = await createBoxerMutation.mutateAsync(newBoxer)
       if (data) {
+        // console.log(`createBoxerMutation data`, data)
         router.reload();
         return data;
       }
