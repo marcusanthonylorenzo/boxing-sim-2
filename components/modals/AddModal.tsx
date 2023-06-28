@@ -65,7 +65,7 @@ const AddModal = ({
                 <div className="mb-4">
                   <label className="flex text-gray-700 text-sm font-bold mb-2">
                     <h5 className="p-0 mr-6">Details</h5>
-                    <span className="mr-2">User Character?</span>
+                    <span className="mr-2 text-green-500">User Character?</span>
                     <input
                       id={`isUser-checkbox`}
                       className={``}

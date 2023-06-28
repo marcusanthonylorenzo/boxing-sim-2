@@ -62,14 +62,13 @@ const Home: NextPage<homeProps> = ({ results }) => {
   }, [results.calendar])
 
   const createBoxerMutation = useMutation({
-    mutationFn: async (newBoxer: Boxer) => {
+    mutationFn: async (newBoxer: Boxer) : Promise<any> => {
       Promise.all([
         await axios.post('/api/boxers', newBoxer),
         await axios.post('/api/fight_stats', {
             fighter_id: newBoxer.id
         })
       ]).then(values => {
-        console.log(`values`, values)
         return values
       })
     }
@@ -81,7 +80,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
       // newBoxer = {...newBoxer,
       //   isUser: isUserToggle
       // }
-      console.log(`check newboxer`, isUserToggle, newBoxer.isUser)
 
       const { data } = await createBoxerMutation.mutateAsync(newBoxer)
       if (data) {
