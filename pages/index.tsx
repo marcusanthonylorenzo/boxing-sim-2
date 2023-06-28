@@ -45,6 +45,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   // console.log(`results`, results.calendar)
   const [boxers, setBoxers] = useState<Boxer[]>(results.boxers);
   const [ day, setDay ] = useState<number | null>(results.calendar[`0`].day)
+  const [isUserToggle, setIsUserToggle] = useState<boolean>(false);
 
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
@@ -76,10 +77,15 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
-      let newBoxer = newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer();
+      let newBoxer = await newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer(isUserToggle);
+      // newBoxer = {...newBoxer,
+      //   isUser: isUserToggle
+      // }
+      console.log(`check newboxer`, isUserToggle, newBoxer.isUser)
+
       const { data } = await createBoxerMutation.mutateAsync(newBoxer)
       if (data) {
-        // console.log(`createBoxerMutation data`, data)
+        console.log(`createBoxerMutation data`, data)
         router.reload();
         return data;
       }
@@ -93,9 +99,9 @@ const Home: NextPage<homeProps> = ({ results }) => {
     let oldboxersState = boxers;
 
     if (!boxerArg) {
-      const data = createNewBoxer()
+      const data = createNewBoxer(boxerArg)
       validBoxerData = data
-      router.reload();
+      // router.reload();
     } else {
       validBoxerData = boxerArg
       try {
@@ -115,7 +121,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           setBoxers(addboxers);
           const { data } = await createNewBoxer(validBoxerData);
           if (data) {
-            router.reload();
+            // router.reload();
           }
         } catch (error) {
           console.error(error);
@@ -231,7 +237,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
             showAddModal,
             day,
             setDay,
-            setHideFightAcceptModal
+            setHideFightAcceptModal,
           }}
           setAddModalVisibility={setAddModalVisibility}
         />
@@ -245,6 +251,8 @@ const Home: NextPage<homeProps> = ({ results }) => {
             onHandleAddBoxer={handleAddBoxer}
             showAddModal={showAddModal}
             setAddModalVisibility={setAddModalVisibility}
+            isUserToggle={isUserToggle}
+            setIsUserToggle={setIsUserToggle}
           />
         )        
         }

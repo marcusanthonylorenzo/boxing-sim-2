@@ -7,14 +7,16 @@ const generateRandomValue = (minimum?: number, maximum?: number) => {
     return Math.round(Math.random() * (max! - min!) + min!)
 }
 
-const generateRandomBoxer = () => {
+const generateRandomBoxer = (isUserToggle?: boolean) => {
+
+    console.log(`generateRandom`, isUserToggle)
 
     const getHometown = `${faker.location.city()}, ${faker.location.state()}, ${faker.location.country()}`
     const newBoxerLinearAttributes = {
         id: uuidv4(),
         created_at: new Date,
         updated_at: new Date,
-        is_user: false,
+        is_user: isUserToggle ? isUserToggle: false,
         first_name: faker.person.firstName(),
         last_name: faker.person.lastName(),
         nickname: faker.company.catchPhrase(),

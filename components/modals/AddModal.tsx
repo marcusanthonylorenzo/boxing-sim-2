@@ -5,28 +5,50 @@ type Props = {
   onHandleAddBoxer: (boxer?: Boxer) => void;
   showAddModal: boolean;
   setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
+  isUserToggle: boolean;
+  setIsUserToggle: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 
-const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Props) => {
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
+const AddModal = ({
+  onHandleAddBoxer, showAddModal, setAddModalVisibility, isUserToggle, setIsUserToggle
+}: Props) => {
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [hometown, setHometown] = useState<string>("");
+  const [homestate, setHomestate] = useState<string>("");
+  const [country, setCountry] = useState<string>("");
+
+  // const [isUserToggle, setIsUserToggle] = useState<boolean>(false);
+  const [birthday, setBirthday] = useState<number | null>(null);
+  const [bio, setBio] = useState<string>("");
   const [color, setColor] = useState<string>("#F9A8D4");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onHandleAddBoxer();
     // onHandleAddBoxer({ first_name, last_name, wins, is_user, created_at, id });
-    setTitle("");
-    setContent("");
+    setFirstName("");
+    setLastName("");
+    setNickname("");
+    setHometown("");
+    setHomestate("");
+    setCountry("");
+    setBio("");
     setAddModalVisibility(!showAddModal);
   };
+
+  console.log(`isUserToggle`, isUserToggle)
+  const handleIsUserToggle = () => {
+    setIsUserToggle(!isUserToggle)
+  }
 
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative w-[35vw] my-6 mx-auto max-w-3xl">
-          {/*content*/}
+          {/*bio*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
@@ -41,27 +63,90 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
             <div className="relative p-6 flex-auto">
               <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                  <label className="flex text-gray-700 text-sm font-bold mb-2">
+                    <h5 className="p-0 mr-6">Details</h5>
+                    <span className="mr-2">User Character?</span>
+                    <input
+                      id={`isUser-checkbox`}
+                      className={``}
+                      type="checkbox"
+                      checked={isUserToggle}
+                      onChange={e => handleIsUserToggle()}
+                    />
+                  </label>
+                    <input
+                      className="shadow appearance-none border rounded w-[30%] mr-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="firstName"
+                      type="text"
+                      placeholder="First Name"
+                      value={firstName}
+                      name="firstName"
+                      onChange={(e) => setFirstName(e.target.value)}
+                      // required
+                    />
+                    <input
+                      className="shadow appearance-none border rounded w-[30%] mr-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="lastName"
+                      type="text"
+                      placeholder="Last Name"
+                      value={lastName}
+                      name="lastName"
+                      onChange={(e) => setLastName(e.target.value)}
+                      // required
+                      />
+                    <input
+                      className="shadow appearance-none border rounded w-[30%] mr-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="nickname"
+                      type="text"
+                      placeholder="Nickname"
+                      value={nickname}
+                      name="nickname"
+                      onChange={(e) => setNickname(e.target.value)}
+                      // required
+                      />
+                </div>
+                <div id={`AddModal-row-2`}
+                  className={`mb-2`}>
                   <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="title"
+                    className="shadow appearance-none border rounded w-[30%] mr-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="hometown"
                     type="text"
-                    placeholder="Title"
-                    value={title}
-                    name="title"
-                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Hometown"
+                    value={hometown}
+                    name="hometown"
+                    onChange={(e) => setHometown(e.target.value)}
                     // required
-                  />
+                    />
+                  <input
+                    className="shadow appearance-none border rounded w-[30%] mr-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="homestate"
+                    type="text"
+                    placeholder="State"
+                    value={homestate}
+                    name="homestate"
+                    onChange={(e) => setHomestate(e.target.value)}
+                    // required
+                    />
+                  <input
+                    className="shadow appearance-none border rounded w-[30%] mr-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="country"
+                    type="text"
+                    placeholder="Country"
+                    value={country}
+                    name="country"
+                    onChange={(e) => setCountry(e.target.value)}
+                    // required
+                    />
                 </div>
                 <div className="mb-6">
                   <label className="block text-gray-700 text-sm font-bold mb-2">Bio</label>
                   <textarea
                     className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="content"
+                    id="bio"
                     rows={4}
-                    value={content}
-                    name="content"
-                    onChange={(e) => setContent(e.target.value)}
+                    value={bio}
+                    name="bio"
+                    onChange={(e) => setBio(e.target.value)}
                     // required
                   />
                 </div>
@@ -74,7 +159,7 @@ const AddModal = ({ onHandleAddBoxer, showAddModal, setAddModalVisibility }: Pro
                     id="color"
                     type="color"
                     value={color}
-                    name="content"
+                    name="bio"
                     onChange={(e) => setColor(e.target.value)}
                     // required
                   />

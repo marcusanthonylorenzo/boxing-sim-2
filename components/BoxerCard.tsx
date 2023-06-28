@@ -56,7 +56,7 @@ const BoxerCard = ({
   return (
     <div id={`${componentId}`}
       className={`flex flex-col relative bg-white
-        w-52 h-58 rounded-lg border px-6 pt-8 shadow-md
+        w-52 h-58 rounded-lg ${ data.is_user? `border-6 ` : `border`} px-6 pt-8 shadow-md
         hover:shadow-xl hover:cursor-pointer
         ${ fighterCurrentlySelected ? `bg-slate-400 border-zinc-00` : styleProps?.cardBgColor}`}>
 
@@ -80,8 +80,9 @@ const BoxerCard = ({
           }}>
           <div className={`flex h-20`}>
             <div id={`${componentId}-titleDiv-fullname`} className="w-[100%] py-2 mr-1">
-              <h3 className={`text-gray-900 text-md xt-20 font-bold mb-1 w-[100%]
-                ${fighterCurrentlySelected && `text-[#f7f6f6ec]`} `}>{data.first_name + " " + data.last_name}</h3>
+              <h3 className={`text-md xt-20 font-bold mb-1 w-[100%]
+                ${fighterCurrentlySelected && `text-[#f7f6f6ec]`} ${data.is_user? `${ fighterCurrentlySelected ? `text-green-300` : `text-green-400`}` : `text-gray-900`} `}>{data.first_name + " " + data.last_name}</h3>
+                {data.is_user ? <h5 className={`text-[11px] ${ fighterCurrentlySelected ? `text-green-300` : `text-green-400`} font-thin`}>User Character</h5> : null}
             </div>
           </div>
           <div id={`${componentId}-contentDiv`} className={`text-gray-800 text-sm pb-5 font-semibold
