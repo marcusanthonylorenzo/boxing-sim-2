@@ -32,17 +32,19 @@ const Navbar = ({
     useEffect(() => boxerSelected.length < 2 ? setDisabledState(false) : setDisabledState(true), [boxerSelected])
 
     return (
-    <div id={componentId} className={`${styling} flex flex-row absolute top-0 w-[100vw] h-[20vh] py-7 m-0 p-0 shadow-md`}>
-        <div id={`${componentId}-wrapper`} className={`relative w-full items-center`}>
+    <div id={componentId} className={`${styling} flex flex-row fixed top-0 w-[100vw] h-[20vh] my-5 py-7 shadow-md`}>
+        {/* <div id={`${componentId}-wrapper`} className={`relative w-full items-center`}> */}
             <div id={`${componentId}-content`}
-                className={`flex relative w-full items-center justify-center`}>
+                className={`flex relative w-full items-center justify-center mb-3`}>
 
                 <div id={`${componentId}-createComponents`}
-                    className="col-start-3 row-start-1 relative"
-                    onClick={() => setAddModalVisibility(!showAddModal)}>
-                    <h5 className={`text-zinc-400 font-semibold`}>New</h5>
-                    <AddIcon className="w-11 ease-out-in
-                        hover:scale-[120%] hover:duration-[30ms] hover:cursor-pointer ease-in-out" />
+                    className="flex col-start-3 row-start-1 bg-slate-100 rounded">
+                    <h5 className={`relative text-zinc-400 font-semibold text-[8px] px-3`}>Create Boxer</h5>
+                    <div className={`relative w-full hover:scale-[120%] hover:duration-[30ms] hover:cursor-pointer `}
+                        onClick={() => setAddModalVisibility(!showAddModal)}>
+                        <AddIcon className="w-10 ease-out-in 
+                        ease-in-out" />
+                    </div>
                 </div>
 
                 <div id={`Navbar-acceptFight`}
@@ -55,7 +57,7 @@ const Navbar = ({
                     <ProgressDayButton parentState={{ day: day, setDay: setDay }} styles={`${styles[`button-hover`]}`}/>
                 </div>
             </div>
-        </div>
+        {/* </div> */}
     </div>
   )
 }
