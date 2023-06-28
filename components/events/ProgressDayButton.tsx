@@ -48,26 +48,19 @@ const ProgressDayButton = ({
                     progressDayMutation.mutateAsync(day);
                 }}>
                 {
-                    progressDayMutation.isSuccess ?
-                        (`...Ending Day`) : 
-                        <> <h3>Day: 
-                            {
-                                progressDayMutation.isLoading ?
-                                (<>
-                                    {`...Progressing Day.`}
-                                </>) :
-                                (<>
-                                    {
-                                        progressDayMutation.isError ?
-                                        (
-                                        <h3>An error occurred: {progressDayMutation.error.message}</h3>
-                                        ) :
-                                            (<>{` ${day} `}</>)
-                                    }
-                                </>)
-                            }
-                </h3>
-                </>}
+                    progressDayMutation.isLoading ?
+                    (`...Progressing Day.`) :
+                            progressDayMutation.isSuccess ?
+                            (`...Ending Day`) : 
+                            <> <h3>Day:                                 
+                                {
+                                    progressDayMutation.isError ?
+                                    (`An error occurred: ${progressDayMutation.error}`) :
+                                    (<>{` ${day} `}</>)
+                                }            
+                            </h3>
+                            </>
+                }
             </button>
         </div>
     )
