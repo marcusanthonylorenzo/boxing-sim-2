@@ -47,28 +47,27 @@ const ProgressDayButton = ({
                     console.log(componentId + `clickeroo`)
                     progressDayMutation.mutateAsync(day);
                 }}>
-                <h3>Day: 
                 {
-                    progressDayMutation.isLoading ?
-                    (<>
-                        {`...Progressing Day.`}
-                    </>) :
-                    (<>
-                        {
-                            progressDayMutation.isError ?
-                            (
-                            <h3>An error occurred: {progressDayMutation.error.message}</h3>
-                            ) :
-                                (<>{` ${day} `}</>)
-                        }
-
-                        {
-                            progressDayMutation.isSuccess &&
-                            (`...Ending Day`) 
-                        }
-                    </>)
-                }
-                </h3> 
+                    progressDayMutation.isSuccess ?
+                        (`...Ending Day`) : 
+                        <> <h3>Day: 
+                            {
+                                progressDayMutation.isLoading ?
+                                (<>
+                                    {`...Progressing Day.`}
+                                </>) :
+                                (<>
+                                    {
+                                        progressDayMutation.isError ?
+                                        (
+                                        <h3>An error occurred: {progressDayMutation.error.message}</h3>
+                                        ) :
+                                            (<>{` ${day} `}</>)
+                                    }
+                                </>)
+                            }
+                </h3>
+                </>}
             </button>
         </div>
     )
