@@ -78,19 +78,19 @@ const BoxerCard = ({
           onClick={() => {
             handleBoxerSelectUnselect();
           }}>
-          <div className={`flex h-20`}>
-            <div id={`${componentId}-titleDiv-fullname`} className="w-[100%] py-2 mr-1">
-              <h3 className={`text-md xt-20 font-bold mb-1 w-[100%]
-                ${fighterCurrentlySelected && `text-[#f7f6f6ec]`} ${data.is_user? `${ fighterCurrentlySelected ? `text-green-300` : `text-green-400`}` : `text-gray-900`} `}>{data.first_name + " " + data.last_name}</h3>
-                {data.is_user ? <h5 className={`text-[11px] ${ fighterCurrentlySelected ? `text-green-300` : `text-green-400`} font-thin`}>User Character</h5> : null}
-            </div>
+          {/* <div className={`flex h-20`}> */}
+          <div id={`${componentId}-titleDiv-fullname`} className="w-[100%] pb-2">
+            <h3 className={`text-sm xt-20 font-bold mb-1 w-[100%]
+              ${fighterCurrentlySelected && `text-[#f7f6f6ec]`} ${data.is_user? `${ fighterCurrentlySelected ? `text-green-300` : `text-green-400`}` : `text-gray-900`} `}>{data.first_name + " " + data.last_name}</h3>
+              {data.is_user ? <h5 className={`text-[11px] ${ fighterCurrentlySelected ? `text-green-300` : `text-green-400`} font-thin`}>User Character</h5> : null}
           </div>
-          <div id={`${componentId}-contentDiv`} className={`text-gray-800 text-sm pb-5 font-semibold
+          {/* </div> */}
+          <div id={`${componentId}-contentDiv`} className={`text-gray-800 text-[12px] pb-5 font-semibold
             `}>
             <h5 id={componentId + `-weightClass`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`}`}>{data.weightclass} lbs</h5>
             <h5 id={componentId + `-ranking`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`}`}>#{data.ranking} at [weightclass]</h5>
             <h5 id={componentId + `-record`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`}`}>{data.wins}-{data.losses}-{data.draws}</h5>
-            <h5 id={componentId + `-hometown`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`} text-[11px]`}>{data.hometown}</h5>
+            <h5 id={componentId + `-hometown`} className={`${fighterCurrentlySelected && `text-[#f7f6f6ec]`} text-[11px]`}>{data.hometown}, {data.country}</h5>
           </div>
         </div>
         <div>

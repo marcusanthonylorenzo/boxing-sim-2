@@ -23,13 +23,6 @@ import { ClickedBoxerCardContext } from "../services/Context";
 import BoxerReadyDrawer from "../components/drawers/BoxerReadyDrawer";
 import FightAcceptModal from "../components/modals/FightAcceptModal";
 
-// const socket = io("https://api.localhost:3003", {
-//   withCredentials: true,
-//   // extraHeaders: {
-//   //   "my-custom-header": "abcd"
-//   // }
-// });
-
 interface homeProps {
   results: {
     boxers: Boxer[],
@@ -76,9 +69,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
-      // let newBoxer = await newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateBoxer(isUserToggle, newBoxerData);
       const newBoxer = await generateBoxer(isUserToggle, newBoxerData);
-
       const { data } = await createBoxerMutation.mutateAsync(newBoxer);
       if (data) {
         console.log(`createBoxerMutation data`, data)
@@ -91,16 +82,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   };
 
   const handleAddBoxer = async ( boxerArg?: any) => {
-    // let validBoxerData;  
     let oldboxersState = boxers;
-
-    // if (!boxerArg) {
-    //   const data = createNewBoxer(boxerArg)
-    //   validBoxerData = data
-    //   router.reload();
-    // } else {
-    //   validBoxerData = boxerArg
-
       try {
           const { first_name, last_name, wins, is_user, created_at, id } = boxerArg;
           const addboxers = [
@@ -124,7 +106,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
           console.error(error);
           setBoxers(oldboxersState);
         }
-      // }
   };
 
   const handleUpdateBoxer = async (boxer: Boxer) => {

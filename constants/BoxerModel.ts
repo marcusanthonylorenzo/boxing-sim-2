@@ -8,7 +8,9 @@ export interface Boxer {
     nickname?: string | null
     weightclass?: number
     birthday?: number //03161997 = 03-16-1997
-    hometown?: string
+    hometown?: string,
+    homestate?: string,
+    country?: string,
     is_champion?: boolean
     wins?: number
     losses?: number
