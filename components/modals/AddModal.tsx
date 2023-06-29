@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Boxer } from "../../constants/BoxerModel";
 
 type Props = {
-  onHandleAddBoxer: (boxer?: Boxer) => void;
+  onHandleAddBoxer: (boxer?: any) => void;
   showAddModal: boolean;
   setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
   isUserToggle: boolean;
@@ -25,9 +25,18 @@ const AddModal = ({
   const [bio, setBio] = useState<string>("");
   const [color, setColor] = useState<string>("#F9A8D4");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleAddBoxer();
+    const newBoxerWithCustomAttributes = await
+    {   
+        first_name: firstName ? firstName : undefined,
+        last_name: lastName ? lastName : undefined,
+        nickname: nickname ? nickname : undefined,
+        hometown: hometown ? hometown : undefined,
+        homestate: homestate ? homestate : undefined,
+        country: country ? country: undefined,
+    }
+    await onHandleAddBoxer(newBoxerWithCustomAttributes);
     // onHandleAddBoxer({ first_name, last_name, wins, is_user, created_at, id });
     setFirstName("");
     setLastName("");
@@ -39,7 +48,7 @@ const AddModal = ({
     setAddModalVisibility(!showAddModal);
   };
 
-  console.log(`isUserToggle`, isUserToggle)
+  // console.log(`isUserToggle`, isUserToggle)
   const handleIsUserToggle = () => {
     setIsUserToggle(!isUserToggle)
   }

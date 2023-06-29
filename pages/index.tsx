@@ -2,7 +2,7 @@ import type { NextPage, GetServerSideProps } from "next";
 import React, { Key, useState, useEffect, useContext, useId } from "react";
 // import io from "socket.io-client";
 import { useQuery, useMutation } from 'react-query'
-import { generateRandomBoxer, generateRandomValue } from "../services/generateRandom";
+import { generateBoxer, generateRandomValue } from "../services/generateBoxer";
 import { motion, AnimatePresence } from "framer-motion"
 
 import Head from "next/head";
@@ -76,9 +76,10 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   const createNewBoxer = async (newBoxerData?: any) => {
     try {
-      let newBoxer = await newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateRandomBoxer(isUserToggle);
+      // let newBoxer = await newBoxerData !== undefined || newBoxerData === null ?  newBoxerData : generateBoxer(isUserToggle, newBoxerData);
+      const newBoxer = await generateBoxer(isUserToggle, newBoxerData);
 
-      const { data } = await createBoxerMutation.mutateAsync(newBoxer)
+      const { data } = await createBoxerMutation.mutateAsync(newBoxer);
       if (data) {
         console.log(`createBoxerMutation data`, data)
         router.reload();
@@ -89,18 +90,19 @@ const Home: NextPage<homeProps> = ({ results }) => {
     }
   };
 
-  const handleAddBoxer = async ( boxerArg?: Boxer ) => {
-    let validBoxerData;  
+  const handleAddBoxer = async ( boxerArg?: any) => {
+    // let validBoxerData;  
     let oldboxersState = boxers;
 
-    if (!boxerArg) {
-      const data = createNewBoxer(boxerArg)
-      validBoxerData = data
-      router.reload();
-    } else {
-      validBoxerData = boxerArg
+    // if (!boxerArg) {
+    //   const data = createNewBoxer(boxerArg)
+    //   validBoxerData = data
+    //   router.reload();
+    // } else {
+    //   validBoxerData = boxerArg
+
       try {
-          const { first_name, last_name, wins, is_user, created_at, id } = validBoxerData;
+          const { first_name, last_name, wins, is_user, created_at, id } = boxerArg;
           const addboxers = [
             ...boxers,
             {
@@ -114,7 +116,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
             },
           ];
           setBoxers(addboxers);
-          const { data } = await createNewBoxer(validBoxerData);
+          const { data } = await createNewBoxer(boxerArg);
           if (data) {
             router.reload();
           }
@@ -122,7 +124,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           console.error(error);
           setBoxers(oldboxersState);
         }
-      }
+      // }
   };
 
   const handleUpdateBoxer = async (boxer: Boxer) => {
@@ -190,14 +192,13 @@ const Home: NextPage<homeProps> = ({ results }) => {
       const fighterAlreadySelected =  boxer && boxerSelected.length > 1 ? checkBoxerCardAlreadyClicked(boxer, boxerSelected) : null
       if (boxer) {
         if (fighterAlreadySelected) {
-          console.log(boxer.first_name + `is already selected`)
+          // console.log(boxer.first_name + `is already selected`)
           return fighterAlreadySelected
         } else {
           boxerSelected.length < 2 ? setBoxerSelected((prev) => [ ...prev, boxer]) : console.log(`two selected already`)
         }
       }
     }
-    // console.log(boxerSelected.forEach(boxer => boxer!.first_name))
   }
 
   // async function socketInitializer() {

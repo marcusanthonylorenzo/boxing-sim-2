@@ -38,7 +38,6 @@ const ProgressDayButton = ({
       })
 
 
-
     return (
         <div id={`${componentId}-main`} className={`ml-6`}>
             <button id={`${componentId}-button`}
