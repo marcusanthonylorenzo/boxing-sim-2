@@ -2,10 +2,7 @@ import React from 'react'
 import { Boxer } from '../constants/BoxerModel'
 
 interface ArenaPropT {
-    boxers: {
-        boxer_one: Boxer,
-        boxer_two: Boxer
-    },
+    boxerSelected: Array<Boxer| null> | Array<null>,
     parentState?: {
 
     },
@@ -15,13 +12,14 @@ interface ArenaPropT {
 }
 
 const Arena = ({
-    boxers,
+    boxerSelected,
     parentState,
     components,
 
 } : ArenaPropT ) => {
 
-    const { boxer_one, boxer_two } = boxers
+  
+    console.log(`Arena top level`, boxerSelected)
 
     // 1. Client: load boxers in Client, send boxers props to SSR
     // 2. Client: Add subscription here in Client, to listen to Server for roundUpdates

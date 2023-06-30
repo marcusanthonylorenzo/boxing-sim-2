@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { AddIcon } from '../icons/AddIcon'
 import ProgressDayButton from '../components/events/ProgressDayButton'
 import { Boxer } from '../constants/BoxerModel'
 import FightAcceptButton from '../components/events/FightAcceptButton';
 import styles from "../styles/Home.module.css";
-
+import useFightStartContext from '../hooks/useFightStart';
 
 interface NavbarT {
     styling: string,
@@ -25,9 +25,9 @@ const Navbar = ({
 } : NavbarT) => {
 
     const componentId = "Navbar";
-    // const { addIcon } = components;
     const { boxerSelected, showAddModal, day, setDay, setHideFightAcceptModal } = parentState;
     const [ disabledState, setDisabledState ] = useState<boolean>(false)
+    const [ fightStart, setFightStart] = useFightStartContext();
 
     useEffect(() => boxerSelected.length < 2 ? setDisabledState(false) : setDisabledState(true), [boxerSelected])
 

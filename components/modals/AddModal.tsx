@@ -48,7 +48,6 @@ const AddModal = ({
     setAddModalVisibility(!showAddModal);
   };
 
-  // console.log(`isUserToggle`, isUserToggle)
   const handleIsUserToggle = () => {
     setIsUserToggle(!isUserToggle)
   }

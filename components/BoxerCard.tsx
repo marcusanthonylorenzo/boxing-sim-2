@@ -32,7 +32,6 @@ const BoxerCard = ({
   const [ viewStatsIsClicked, setViewStatsIsClicked ] = useState<boolean>();
   const [ fighterCurrentlySelected, setFighterCurrentlySelected ] = useState<boolean>(checkBoxerCardAlreadyClicked(data, boxerSelected)) //the fighter's id in this card is passed through checkBoxer... as "data", and filtered against "boxerSelected"
 
-
   useEffect(() => {
     const isThisCardClicked = checkBoxerCardAlreadyClicked(data, clickedBoxerCards)
     setCardIsClicked(isThisCardClicked)

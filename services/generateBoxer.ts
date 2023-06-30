@@ -32,30 +32,30 @@ const generateBoxer = (isUserToggle?: boolean, customAttributes?: any) => {
         draws: generateRandomValue(0, 4),
         ranking: 0, //build logic later
 
-                agility: generateRandomValue(),
-                power: generateRandomValue(),
-                hand_speed: generateRandomValue(),
-                accuracy: generateRandomValue(),
-                aggression: generateRandomValue(),
- 
-                reflex: generateRandomValue(),
-                footwork: generateRandomValue(),
-                evasion: generateRandomValue(),
-                blocking: generateRandomValue(),
-                reaction: generateRandomValue(), //higher generateRandomValue(),, higher % of offensive reaction
-      
-                conditioning: generateRandomValue(),
-                hp: generateRandomValue(),
-                recovery: generateRandomValue(),
-                chin: generateRandomValue(),
-                body: generateRandomValue(),
-                mental: generateRandomValue(),
-                awareness: generateRandomValue(),
-                fight_iq: generateRandomValue(),
-                danger_state: generateRandomValue(),
-                //calculate parameter for which the boxers attributes change ie
-                // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
-                desperation_state: generateRandomValue(),
+            agility: generateRandomValue(),
+            power: generateRandomValue(),
+            hand_speed: generateRandomValue(),
+            accuracy: generateRandomValue(),
+            aggression: generateRandomValue(),
+
+            reflex: generateRandomValue(),
+            footwork: generateRandomValue(),
+            evasion: generateRandomValue(),
+            blocking: generateRandomValue(),
+            reaction: generateRandomValue(), //higher generateRandomValue(),, higher % of offensive reaction
+    
+            conditioning: generateRandomValue(),
+            hp: generateRandomValue(),
+            recovery: generateRandomValue(),
+            chin: generateRandomValue(),
+            body: generateRandomValue(),
+            mental: generateRandomValue(),
+            awareness: generateRandomValue(),
+            fight_iq: generateRandomValue(),
+            danger_state: generateRandomValue(),
+            //calculate parameter for which the boxers attributes change ie
+            // if (hp < 38% && mental < 50%) { updateBoxer(`power`, power*1.5) }
+            desperation_state: generateRandomValue(),
           
     }
     return newBoxerLinearAttributes

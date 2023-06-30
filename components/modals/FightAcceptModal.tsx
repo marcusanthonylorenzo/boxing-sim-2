@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import useFightStartContext from '../../hooks/useFightStart'
 interface FightAcceptModalT {
     hideModal: string,
     setHideModal: React.Dispatch<React.SetStateAction<string>>
@@ -9,11 +9,14 @@ const FightAcceptModal = ({
     hideModal, setHideModal
 }: FightAcceptModalT) => {
 
+    const [ fightStart, setFightStart] = useFightStartContext();
+
     // useEffect(() => console.log(hideModal), [hideModal])
 
     const handleHideShow = () => hideModal === 'hidden' ? setHideModal(``) : setHideModal(`hidden`)
     const handleAcceptFight = () => {
-        console.log(`test accepted!`)
+        console.log(`fight accepted!`)
+        setFightStart(true);
     }
 
   return (
