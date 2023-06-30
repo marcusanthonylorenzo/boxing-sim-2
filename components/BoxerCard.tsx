@@ -12,7 +12,7 @@ interface BoxerCardT {
   },
   data: Boxer;
   onUpdateBoxer: (selectNote: Boxer) => void;
-  onDeleteBoxer: (id: number | string) => Promise<void>;
+  handleDeleteBoxer: (id: number | string) => Promise<void>;
   onClickHandler: (boxer?: Boxer, viewStatsIsClicked?: boolean) => void;
   checkBoxerCardAlreadyClicked: (boxer: Boxer, arrayToCheck: Array<Boxer | null>) => boolean;
   clickedBoxerCards: ClickedBoxerCardsT;
@@ -22,7 +22,7 @@ interface BoxerCardT {
 
 const BoxerCard = ({
     styleProps, data,  clickedBoxerCards, boxerSelected, setBoxerSelected,
-    onUpdateBoxer, onDeleteBoxer, onClickHandler, checkBoxerCardAlreadyClicked,
+    onUpdateBoxer, handleDeleteBoxer, onClickHandler, checkBoxerCardAlreadyClicked,
   }: BoxerCardT) => { 
 
   const componentId = `BoxerCard-${data.id}`
@@ -112,7 +112,7 @@ const BoxerCard = ({
               <h5 className={`text-white text-sm font-semibold`}>View Stats</h5>
           </button>
           <div id={componentId + `-footer-deleteIcon`}
-            onClick={() => onDeleteBoxer(data.id!)} className="float-right">
+            onClick={() => handleDeleteBoxer(data.id!)} className="float-right">
               <DeleteIcon className={`w-8 h-8  ${hoverButtonAnimation}`}/>
           </div>
         </div>

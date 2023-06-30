@@ -35,6 +35,7 @@ interface MainT {
   setBoxers: React.Dispatch<React.SetStateAction<Boxer[]>>,
   updateBoxer: Boxer | null,
   setUpdateBoxer: React.Dispatch<React.SetStateAction<Boxer | null>>,
+  handleDeleteBoxer: (id: number | string) => Promise<void>
   router: NextRouter,
   // createBoxerMutation,
 }
@@ -45,6 +46,7 @@ export const Main = ({
   // showAddModal, setAddModalVisibility,
   // showUpdateModal, setUpdateModalVisibility,
   boxerSelected, setBoxerSelected, boxers, setBoxers,
+  handleDeleteBoxer,
   // updateBoxer, setUpdateBoxer,
   router
 }: MainT) => {
@@ -52,22 +54,6 @@ export const Main = ({
   const { clickedBoxerCards, setClickedBoxerCards } = useActiveBoxerSelection();
 
   const handleUpdateBoxer = () => console.log(`nothing for now`)
-
-  const handleDeleteBoxer = async (id: number | string) => {
-    try {
-      const removeItem = boxers.filter((boxer: { id?: string | number; }) => boxer.id !== id);
-      setBoxers(removeItem);
-      await axios.delete(`/api/boxers/${id}`,
-        { 
-          data: {
-            id: id
-          }  
-        })
-      router.reload();
-    } catch (error) {
-      console.error(error); 
-    }
-  };
 
   const checkBoxerCardAlreadyClicked = (boxer: Boxer | null, arrayToCheck: Array<Boxer | null>) => arrayToCheck!.some((eachClicked: Boxer | null) => boxer !== null && eachClicked!.id === boxer.id)
 
@@ -101,8 +87,7 @@ export const Main = ({
       className={``}>
 
         <div id="Home-content-innerWrapper"
-            className={`grid w-[80%] px-4
-            ml-[8%] md:ml-[5%] xl:ml-[7%] 3xl:ml-16 mb-5
+            className={`grid w-[80%] px-4 ml-[8%] md:ml-[5%] xl:ml-[7%] 3xl:ml-16 mb-5
             sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5
             ${ boxerSelected.length === 2 && `bg-slate-100`}`}>
             {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
@@ -115,7 +100,7 @@ export const Main = ({
                     key={index}
                     data={boxer}
                     onUpdateBoxer={handleUpdateBoxer}
-                    onDeleteBoxer={handleDeleteBoxer}
+                    handleDeleteBoxer={handleDeleteBoxer}
                     onClickHandler={() => {
                       handleBoxerCardClicked(boxer);
                     }}

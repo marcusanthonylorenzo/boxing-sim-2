@@ -59,7 +59,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
       Promise.all([
         await axios.post('/api/boxers', newBoxer),
         await axios.post('/api/fight_stats', {
-            fighter_id: newBoxer.id
+            id: newBoxer.id
         })
       ]).then(values => {
         return values
@@ -109,6 +109,21 @@ const Home: NextPage<homeProps> = ({ results }) => {
         }
   };
 
+  const handleDeleteBoxer = async (id: number | string) => {
+    try {
+      const removeItem = boxers.filter((boxer: { id?: string | number; }) => boxer.id !== id);
+      setBoxers(removeItem);
+      await axios.delete(`/api/boxers/${id}`,
+        { 
+          data: {
+            id: id
+          }  
+        })
+      router.reload();
+    } catch (error) {
+      console.log(error); 
+    }
+  };
 
 
   return (
@@ -191,6 +206,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
                 setBoxers={setBoxers}
                 updateBoxer={updateBoxer}
                 setUpdateBoxer={setUpdateBoxer}
+                handleDeleteBoxer={handleDeleteBoxer}
                 router={router}
                 />
  
