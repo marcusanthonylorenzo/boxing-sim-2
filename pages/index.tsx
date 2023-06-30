@@ -5,6 +5,11 @@ import { useQuery, useMutation } from 'react-query'
 import { motion, AnimatePresence } from "framer-motion"
 import useFightStartContext from "../hooks/useFightStart";
 
+import AddModal from "../components/modals/AddModal";
+import FightAcceptModal from "../components/modals/FightAcceptModal";
+import IsLoadingModal from "../components/events/IsLoadingModal";
+import BoxerReadyDrawer from "../components/drawers/BoxerReadyDrawer";
+
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
@@ -19,6 +24,7 @@ import { Boxer } from "../constants/BoxerModel";
 import { ClickedBoxerCardsT } from "../constants/State";
 import { ClickedBoxerCardContext } from "../services/Context";
 import fightStartContext from "../context/fightStartContext";
+import { generateBoxer } from "../services/generateBoxer";
 
 interface homeProps {
   results: {
@@ -48,33 +54,127 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   const { router } = useNextRouter();
 
-  useEffect(() => {
-    // console.log(`rerender calendar`, results.calendar)
-  }, [results.calendar])
+  const createBoxerMutation = useMutation({
+    mutationFn: async (newBoxer: Boxer) : Promise<any> => {
+      Promise.all([
+        await axios.post('/api/boxers', newBoxer),
+        await axios.post('/api/fight_stats', {
+            fighter_id: newBoxer.id
+        })
+      ]).then(values => {
+        return values
+      })
+    }
+  })
+
+
+  const createNewBoxer = async (newBoxerData?: any) => {
+    try {
+      const newBoxer = await generateBoxer(isUserToggle, newBoxerData);
+      const { data } = await createBoxerMutation.mutateAsync(newBoxer);
+      if (data) {
+        console.log(`createBoxerMutation data`, data)
+        router.reload();
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAddBoxer = async ( boxerArg?: any) => {
+    let oldboxersState = boxers;
+      try {
+          const { first_name, last_name, wins, is_user, created_at, id } = boxerArg;
+          const addboxers = [
+            ...boxers,
+            {
+              id,
+              first_name,
+              last_name,
+              wins,
+              is_user,
+              created_at,
+              updated_at: new Date(),
+            },
+          ];
+          setBoxers(addboxers);
+          const { data } = await createNewBoxer(boxerArg);
+          if (data) {
+            router.reload();
+          }
+        } catch (error) {
+          console.error(error);
+          setBoxers(oldboxersState);
+        }
+  };
+
+
 
   return (
-    <div className={styles.container + ` ${ boxerSelected.length === 2 && `bg-slate-50`}`}>
+    <div className={styles.container + `${ boxerSelected.length === 2 && `bg-slate-50`} `}>
       <Head>
         <meta name="description"/>
         <link rel="icon" href="/site_logo.ico" />
       </Head>
-      <main className={styles.main}>
+      
+      <main className={styles.main + ``}>
 
-        <Navbar
-          styling={``}
-          parentState={{
-            boxerSelected,
-            showAddModal,
-            day,
-            setDay,
-            setHideFightAcceptModal,
-          }}
-          setAddModalVisibility={setAddModalVisibility}
-        />
-        
+          <div id={`Home-Navbar-wrapper`}
+            className="flex fixed top-0 items-center justify-center">
+            <Navbar
+              styling={``}
+              parentState={{
+                boxerSelected,
+                showAddModal,
+                day,
+                setDay,
+                setHideFightAcceptModal,
+              }}
+              setAddModalVisibility={setAddModalVisibility}
+            />
+          </div>
+
+          { 
+            <FightAcceptModal hideModal={hideFightAcceptModal} setHideModal={setHideFightAcceptModal}/>
+          }
+
+          { showAddModal && (
+              <AddModal
+                onHandleAddBoxer={handleAddBoxer}
+                showAddModal={showAddModal}
+                setAddModalVisibility={setAddModalVisibility}
+                isUserToggle={isUserToggle}
+                setIsUserToggle={setIsUserToggle}
+              />
+            )        
+          }
+
+          {
+            createBoxerMutation.isLoading && (
+              <IsLoadingModal props={{ text: `CREATING NEW BOXER`}}/>
+            )
+          }
+                      
+          <div id="Home-content-corner-1">
+            { boxerSelected.length >= 1 &&
+              <AnimatePresence>
+              <motion.div
+                  className={`absolute left-0 top-[20vh] bg-blue-800 h-[70vh] px-4 py-2 rounded-md
+                  ${hideFightAcceptModal ? `w-[18vw]` : `w-[18vw]`}`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 15, transition: { duration: 0.20, delay: 0.09} }}
+                  exit={{ opacity: 0.3, x: -100 }}>
+                <BoxerReadyDrawer cornerNumber={1} boxersSelectedData={boxerSelected} />
+              </motion.div>
+            </AnimatePresence>
+            }
+          </div>
+  
         {!fightStart ?
 
-          (<>
+          (<div id="Home-Main-wrapper"
+            className="">
               <Main 
                 isUserToggle={isUserToggle}
                 setIsUserToggle={setIsUserToggle}
@@ -93,12 +193,27 @@ const Home: NextPage<homeProps> = ({ results }) => {
                 router={router}
                 />
  
-          </>) : (<>
+          </div>) : (<>
           
               <Arena boxerSelected={boxerSelected} />
           
           </>)
           }
+
+          <div id="Home-content-corner-2">
+            { boxerSelected.length === 2 &&
+              <AnimatePresence>
+                <motion.div
+                    className={`absolute right-0 bg-red-700 top-[20vh] h-[70vh] w-[18vw] px-4 py-2 rounded-md`}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: -15, transition: { duration: 0.20, delay: 0.09} }}
+                    exit={{ opacity: 0.3, x: -100 }}>
+                  <BoxerReadyDrawer cornerNumber={2} boxersSelectedData={boxerSelected} />
+                </motion.div>
+              </AnimatePresence>
+              }
+            </div>
+
         </main>  
     </div>
   );
