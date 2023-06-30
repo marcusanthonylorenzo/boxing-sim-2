@@ -99,44 +99,40 @@ export const Main = ({
     
     <div id="Main"
       className={``}>
-          <div id="Main-mainWrapper"
-            className={`relative w-[60vw] top-0 h-[70vh] mx-0
-            ${ boxers.length > 3 && `overflow-y-scroll`}`}>
 
-              <div id="Home-content-innerWrapper"
-                className={`grid w-[80%] px-4
-                ml-[8%] md:ml-[5%] xl:ml-[7%] 3xl:ml-16 mb-5
-                sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5
-                ${ boxerSelected.length === 2 && `bg-slate-100`}`}>
-                {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
-                  <AnimatePresence>
-                    <motion.div 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0, transition: { duration: 0.18, delay: 0.09} }}
-                      exit={{ opacity: 0.3, x: -100 }}>
-                      <BoxerCard
-                        key={index}
-                        data={boxer}
-                        onUpdateBoxer={handleUpdateBoxer}
-                        onDeleteBoxer={handleDeleteBoxer}
-                        onClickHandler={() => {
-                          handleBoxerCardClicked(boxer);
-                        }}
-                        clickedBoxerCards={clickedBoxerCards}
-                        boxerSelected={boxerSelected}
-                        setBoxerSelected={setBoxerSelected}
-                        checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
-                        styleProps={
-                            { cardBgColor: `green-500`,
-                              // gridPosition: `col-start-${index}`
-                            }
+        <div id="Home-content-innerWrapper"
+            className={`grid w-[80%] px-4
+            ml-[8%] md:ml-[5%] xl:ml-[7%] 3xl:ml-16 mb-5
+            sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5
+            ${ boxerSelected.length === 2 && `bg-slate-100`}`}>
+            {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
+              <AnimatePresence>
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0, transition: { duration: 0.18, delay: 0.09} }}
+                  exit={{ opacity: 0.3, x: -100 }}>
+                  <BoxerCard
+                    key={index}
+                    data={boxer}
+                    onUpdateBoxer={handleUpdateBoxer}
+                    onDeleteBoxer={handleDeleteBoxer}
+                    onClickHandler={() => {
+                      handleBoxerCardClicked(boxer);
+                    }}
+                    clickedBoxerCards={clickedBoxerCards}
+                    boxerSelected={boxerSelected}
+                    setBoxerSelected={setBoxerSelected}
+                    checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
+                    styleProps={
+                        { cardBgColor: `green-500`,
+                          // gridPosition: `col-start-${index}`
                         }
-                      />
-                      </motion.div>
-                  </AnimatePresence>
-                ))}
-              </div>
+                    }
+                  />
+                  </motion.div>
+              </AnimatePresence>
+            ))}
         </div>
-     </div>
+    </div>
   )
 }

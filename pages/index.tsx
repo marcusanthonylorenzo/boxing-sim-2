@@ -155,10 +155,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
               <IsLoadingModal props={{ text: `CREATING NEW BOXER`}}/>
             )
           }
-
-{/*             
-          <div id="Home-Content-wrapper"
-            className="flex absolute z-49 w-full p-6 bg-red"> */}
                       
           <div id="Home-content-corner-1">
             { boxerSelected.length >= 1 &&
@@ -174,13 +170,12 @@ const Home: NextPage<homeProps> = ({ results }) => {
             </AnimatePresence>
             }
           </div>
-
         
         {!fightStart ?
-
-
           (<div id="Home-Main-wrapper"
-            className="bg-zinc-100 mt-[5vh] z-48 w-[55vw] h-[76vh] overflow-y-scroll overflow-x-hidden rounded-md">
+            className={`bg-zinc-100 mt-[5vh] z-48 w-[55vw] h-[76vh] rounded-md
+            ${ boxers.length > 3 && `overflow-y-scroll`}
+            `}>
               <Main 
                 isUserToggle={isUserToggle}
                 setIsUserToggle={setIsUserToggle}
@@ -219,7 +214,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
               }
             </div>
             
-          {/* </div> */}
         </main>  
     </div>
   );
