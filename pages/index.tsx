@@ -121,7 +121,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
       <main className={styles.main + ``}>
 
           <div id={`Home-Navbar-wrapper`}
-            className="flex fixed top-0 items-center justify-center">
+            className="flex fixed z-60 top-0 items-center justify-center">
             <Navbar
               styling={``}
               parentState={{
@@ -155,12 +155,16 @@ const Home: NextPage<homeProps> = ({ results }) => {
               <IsLoadingModal props={{ text: `CREATING NEW BOXER`}}/>
             )
           }
+
+{/*             
+          <div id="Home-Content-wrapper"
+            className="flex absolute z-49 w-full p-6 bg-red"> */}
                       
           <div id="Home-content-corner-1">
             { boxerSelected.length >= 1 &&
               <AnimatePresence>
               <motion.div
-                  className={`absolute left-0 top-[20vh] bg-blue-800 h-[70vh] px-4 py-2 rounded-md
+                  className={`absolute left-0 top-[20vh] z-49 bg-blue-800 h-[70vh] px-4 py-2 rounded-md
                   ${hideFightAcceptModal ? `w-[18vw]` : `w-[18vw]`}`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 15, transition: { duration: 0.20, delay: 0.09} }}
@@ -170,11 +174,13 @@ const Home: NextPage<homeProps> = ({ results }) => {
             </AnimatePresence>
             }
           </div>
-  
+
+        
         {!fightStart ?
 
+
           (<div id="Home-Main-wrapper"
-            className="">
+            className="bg-zinc-100 mt-[5vh] z-48 w-[55vw] h-[76vh] overflow-y-scroll overflow-x-hidden rounded-md">
               <Main 
                 isUserToggle={isUserToggle}
                 setIsUserToggle={setIsUserToggle}
@@ -194,10 +200,9 @@ const Home: NextPage<homeProps> = ({ results }) => {
                 />
  
           </div>) : (<>
-          
               <Arena boxerSelected={boxerSelected} />
-          
           </>)
+
           }
 
           <div id="Home-content-corner-2">
@@ -213,7 +218,8 @@ const Home: NextPage<homeProps> = ({ results }) => {
               </AnimatePresence>
               }
             </div>
-
+            
+          {/* </div> */}
         </main>  
     </div>
   );

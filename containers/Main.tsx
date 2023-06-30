@@ -97,10 +97,10 @@ export const Main = ({
 
   return (
     
-    <div id="Home-content-mainContainer"
+    <div id="Main"
       className={``}>
-          <div id="Home-content-mainWrapper"
-            className={`relative top-0 h-[70vh] mx-0
+          <div id="Main-mainWrapper"
+            className={`relative w-[60vw] top-0 h-[70vh] mx-0
             ${ boxers.length > 3 && `overflow-y-scroll`}`}>
 
               <div id="Home-content-innerWrapper"
@@ -127,7 +127,9 @@ export const Main = ({
                         setBoxerSelected={setBoxerSelected}
                         checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
                         styleProps={
-                            { cardBgColor: `green-500` }
+                            { cardBgColor: `green-500`,
+                              // gridPosition: `col-start-${index}`
+                            }
                         }
                       />
                       </motion.div>

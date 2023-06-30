@@ -7,7 +7,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ClickedBoxerCardsT } from "../constants/State";
 interface BoxerCardT {
   styleProps?: {
-    cardBgColor?: string
+    cardBgColor?: string,
+    gridPosition?: string
   },
   data: Boxer;
   onUpdateBoxer: (selectNote: Boxer) => void;
@@ -56,7 +57,7 @@ const BoxerCard = ({
     <div id={`${componentId}`}
       className={`flex flex-col relative bg-white
         w-52 h-58 rounded-lg ${ data.is_user? `border-6 ` : `border`} px-6 pt-8 shadow-md
-        hover:shadow-xl hover:cursor-pointer
+        hover:shadow-xl hover:cursor-pointer ${styleProps?.gridPosition}
         ${ fighterCurrentlySelected ? `bg-slate-400 border-zinc-00` : styleProps?.cardBgColor}`}>
 
         {
