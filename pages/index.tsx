@@ -179,7 +179,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
               <AnimatePresence>
               <motion.div
                   className={`absolute left-0 z-49 bg-blue-800 px-4 py-2 rounded-md
-                    ${fightStart ? `duration-150 w-[20vw] h-[84vh] top-[15vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
+                    ${!hideFightAcceptModal ? `duration-150 w-[20vw] h-[84vh] top-[10vh]`: `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                   `}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 15, transition: { duration: 0.20, delay: 0.09} }}
@@ -232,7 +232,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
               <AnimatePresence>
                 <motion.div
                     className={`absolute right-0 bg-red-700 top-[20vh] h-[70vh] px-4 py-2 rounded-md
-                    ${fightStart ? `duration-150 w-[20vw] h-[84vh] top-[15vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
+                    ${!hideFightAcceptModal ? `duration-150 w-[20vw] h-[84vh] top-[10vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                     `}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: -15, transition: { duration: 0.20, delay: 0.09} }}
