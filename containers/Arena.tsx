@@ -17,7 +17,6 @@ const Arena = ({
     components,
 
 } : ArenaPropT ) => {
-
   
     console.log(`Arena top level`, boxerSelected)
 
@@ -29,7 +28,13 @@ const Arena = ({
     // 6. Server: listen for mutation, run roundStart
 
   return (
-    <div>Arena</div>
+    <div id="Arena-main"
+      className={`bg-[#928585] flex relative items-center justify-center`}>
+        <h2 className='relative'> Arena </h2>
+      
+
+      
+    </div>
   )
 }
 

@@ -32,7 +32,9 @@ const Navbar = ({
     useEffect(() => boxerSelected.length < 2 ? setDisabledState(false) : setDisabledState(true), [boxerSelected])
 
     return (
-    <div id={componentId} className={`${styling} flex flex-row fixed z-51 top-0 w-[100vw] h-[20vh] my-5 py-7 shadow-md`}>
+    <div id={componentId} className={`${styling}
+        flex flex-row fixed z-51 top-0 w-[100vw] h-[20vh] my-5 py-7 shadow-md  ${fightStart ? `bg-[#352c2c]` : ``}
+       `}>
         {/* <div id={`${componentId}-wrapper`} className={`relative w-full items-center`}> */}
             <div id={`${componentId}-content`}
                 className={`flex relative w-full items-center justify-center mb-3`}>

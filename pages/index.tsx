@@ -127,7 +127,10 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
 
   return (
-    <div className={styles.container + `${ boxerSelected.length === 2 && `bg-slate-50`} `}>
+    <div className={styles.container + 
+      `${ boxerSelected.length === 2 && `bg-slate-50`}
+      ${fightStart && `bg-slate-500`}`}>
+
       <Head>
         <meta name="description"/>
         <link rel="icon" href="/site_logo.ico" />
@@ -185,12 +188,17 @@ const Home: NextPage<homeProps> = ({ results }) => {
             </AnimatePresence>
             }
           </div>
+
+          <div id="Home-Main-wrapper"
+            className={`relative top-[2vh] mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
+            ${ boxers.length > 3 && `overflow-y-scroll`}
+            ${ fightStart ? `bg-slate-600` : `bg-zinc-100`}`}>
         
         {!fightStart ?
-          (<div id="Home-Main-wrapper"
-            className={`bg-zinc-100 mt-[5vh] z-48 w-[55vw] h-[76vh] rounded-md
-            ${ boxers.length > 3 && `overflow-y-scroll`}
-            `}>
+          (
+          // <div id="Home-Main-wrapper"
+          //   className={`bg-zinc-100 relative top-[2vh] mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
+          //   ${ boxers.length > 3 && `overflow-y-scroll`}`}>
               <Main 
                 isUserToggle={isUserToggle}
                 setIsUserToggle={setIsUserToggle}
@@ -210,11 +218,13 @@ const Home: NextPage<homeProps> = ({ results }) => {
                 router={router}
                 />
  
-          </div>) : (<>
+          // </div>
+          ) : (<>
               <Arena boxerSelected={boxerSelected} />
           </>)
 
           }
+          </div>
 
           <div id="Home-content-corner-2">
             { boxerSelected.length === 2 &&
