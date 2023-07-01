@@ -178,8 +178,9 @@ const Home: NextPage<homeProps> = ({ results }) => {
             { boxerSelected.length >= 1 &&
               <AnimatePresence>
               <motion.div
-                  className={`absolute left-0 top-[20vh] z-49 bg-blue-800 h-[70vh] px-4 py-2 rounded-md
-                  ${fightStart ? `duration-150 w-[21vw]` : `w-[18vw]`}`}
+                  className={`absolute left-0 z-49 bg-blue-800 px-4 py-2 rounded-md
+                    ${fightStart ? `duration-150 w-[20vw] h-[84vh] top-[15vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
+                  `}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 15, transition: { duration: 0.20, delay: 0.09} }}
                   exit={{ opacity: 0.3, x: -100 }}>
@@ -230,8 +231,9 @@ const Home: NextPage<homeProps> = ({ results }) => {
             { boxerSelected.length === 2 &&
               <AnimatePresence>
                 <motion.div
-                    className={`absolute right-0 bg-red-700 top-[20vh] h-[70vh]
-                    ${fightStart ? `duration-150 w-[21vw]` : `duration-150 w-[18vw]`} px-4 py-2 rounded-md`}
+                    className={`absolute right-0 bg-red-700 top-[20vh] h-[70vh] px-4 py-2 rounded-md
+                    ${fightStart ? `duration-150 w-[20vw] h-[84vh] top-[15vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
+                    `}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: -15, transition: { duration: 0.20, delay: 0.09} }}
                     exit={{ opacity: 0.3, x: -100 }}>
