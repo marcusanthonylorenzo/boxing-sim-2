@@ -4,6 +4,7 @@ import React, { Key, useState, useEffect, useContext, useId } from "react";
 import { useQuery, useMutation } from 'react-query'
 import { motion, AnimatePresence } from "framer-motion"
 import useFightStartContext from "../hooks/useFightStart";
+import { AnimationControls, useAnimationControls } from "framer-motion"
 
 import AddModal from "../components/modals/AddModal";
 import FightAcceptModal from "../components/modals/FightAcceptModal";
@@ -39,6 +40,7 @@ interface homeProps {
 
 const Home: NextPage<homeProps> = ({ results }) => {
   // console.log(`results`, results.calendar)
+  const { router } = useNextRouter();
   const [boxers, setBoxers] = useState<Boxer[]>(results.boxers);
   const [ day, setDay ] = useState<number | null>(results.calendar[`0`].day)
   const [isUserToggle, setIsUserToggle] = useState<boolean>(false);
@@ -52,7 +54,25 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const [ hideFightAcceptModal, setHideFightAcceptModal ] = useState<string>(`hidden`);
   const [ fightStart, setFightStart] = useFightStartContext();
 
-  const { router } = useNextRouter();
+  const boxerCardControls = {
+    one: useAnimationControls(),
+    two: useAnimationControls()
+  }
+
+  useEffect(() => {
+    boxerCardControls.one.start({
+        opacity: 1,
+        x: 15,
+        transition: { duration: 0.20, delay: 0.09} 
+    });
+
+    boxerCardControls.two.start({
+        opacity: 1,
+        x: -15,
+        transition: { duration: 0.20, delay: 0.09} 
+    });
+
+  }, [boxerSelected, fightStart])
 
   const createBoxerMutation = useMutation({
     mutationFn: async (newBoxer: Boxer) : Promise<any> => {
@@ -182,7 +202,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
                     ${!hideFightAcceptModal ? `duration-150 w-[20vw] h-[84vh] top-[10vh]`: `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                   `}
                   initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 15, transition: { duration: 0.20, delay: 0.09} }}
+                  animate={boxerCardControls.one}
                   exit={{ opacity: 0.3, x: -100 }}>
                 <BoxerReadyDrawer cornerNumber={1} boxersSelectedData={boxerSelected} />
               </motion.div>
@@ -235,7 +255,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
                     ${!hideFightAcceptModal ? `duration-150 w-[20vw] h-[84vh] top-[10vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                     `}
                     initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: -15, transition: { duration: 0.20, delay: 0.09} }}
+                    animate={boxerCardControls.two}
                     exit={{ opacity: 0.3, x: -100 }}>
                   <BoxerReadyDrawer cornerNumber={2} boxersSelectedData={boxerSelected} />
                 </motion.div>
