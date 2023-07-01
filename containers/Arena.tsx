@@ -19,7 +19,7 @@ const Arena = ({
 
 } : ArenaPropT ) => {
   
-    console.log(`Arena top level`, boxerSelected)
+    // console.log(`Arena top level`, boxerSelected)
 
     // 1. Client: load boxers in Client, send boxers props to SSR
     // 2. Client: Add subscription here in Client, to listen to Server for roundUpdates
@@ -33,8 +33,8 @@ const Arena = ({
       {/* <div className='h-full w-full relative z-49'> */}
         {/* <Image src="/boxing_ring2.jpg" alt="boxing ring overhead"
           // height="400%" width="500%"
-          layout="fill" */}
-        />
+          layout="fill"
+         /> */}
       {/* </div> */}
 
       <div id="Arena-main"
