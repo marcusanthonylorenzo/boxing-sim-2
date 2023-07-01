@@ -1,5 +1,6 @@
 import React from 'react'
 import { Boxer } from '../constants/BoxerModel'
+import Image from 'next/image'
 
 interface ArenaPropT {
     boxerSelected: Array<Boxer| null> | Array<null>,
@@ -28,12 +29,20 @@ const Arena = ({
     // 6. Server: listen for mutation, run roundStart
 
   return (
-    <div id="Arena-main"
-      className={`bg-[#928585] flex relative items-center justify-center`}>
-        <h2 className='relative'> Arena </h2>
-      
+    <div className='flex items-center justify-center h-full w-full'>
+      {/* <div className='h-full w-full relative z-49'> */}
+        {/* <Image src="/boxing_ring2.jpg" alt="boxing ring overhead"
+          // height="400%" width="500%"
+          layout="fill" */}
+        />
+      {/* </div> */}
 
-      
+      <div id="Arena-main"
+        className={`bg-[#1c1919] shadow-xl flex fixed items-center z-51 justify-center`}>
+          <h2 className='relative'> Arena </h2>
+                
+      </div>
+
     </div>
   )
 }
