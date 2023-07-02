@@ -5,6 +5,8 @@ import { Boxer } from '../constants/BoxerModel'
 import FightAcceptButton from '../components/events/FightAcceptButton';
 import styles from "../styles/Home.module.css";
 import useFightStartContext from '../hooks/useFightStart';
+import Ticker from 'react-ticker'
+
 
 interface NavbarT {
     styling: string,
@@ -35,7 +37,8 @@ const Navbar = ({
     <div id={componentId} className={`${styling}
         flex flex-row fixed z-51 top-0 w-[100vw] h-[20vh] my-5 py-7 shadow-md  ${fightStart ? `bg-[#352c2c]` : ``}
        `}>
-        {/* <div id={`${componentId}-wrapper`} className={`relative w-full items-center`}> */}
+        <div id={`${componentId}-wrapper`} className={`relative w-full items-center justify-center pb-56`}>
+
             <div id={`${componentId}-content`}
                 className={`flex relative w-full items-center justify-center mb-3`}>
 
@@ -59,7 +62,20 @@ const Navbar = ({
                     <ProgressDayButton parentState={{ day: day, setDay: setDay }} styles={`${styles[`button-hover`]}`}/>
                 </div>
             </div>
-        {/* </div> */}
+
+            <section id="ticker" className='flex relative bg-gray h-[20%] w-[80%] mx-auto items-center justify-center'>
+
+                <h1 className={`relative font-bold mr-2`}> Updates 7/2/23:</h1>
+                <h5 className={`relative text-[12px]`}>Currently focusing on persisting pre-fight events, loading boxers and building server logic for the actual fight engine. UI is definitely not complete (mostly wireframes). </h5>
+                {/* <Ticker>
+                    {({index}) =>
+                        (<>
+                            <h5>blah</h5>
+                        </>)
+                    }
+                </Ticker> */}
+            </section>
+        </div>
     </div>
   )
 }
