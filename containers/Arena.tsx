@@ -1,6 +1,7 @@
 import React from 'react'
 import { Boxer } from '../constants/BoxerModel'
 import Image from 'next/image'
+import useFightStartContext from '../hooks/useFightStart'
 
 interface ArenaPropT {
     boxerSelected: Array<Boxer| null> | Array<null>,
@@ -18,6 +19,8 @@ const Arena = ({
     components,
 
 } : ArenaPropT ) => {
+
+    const [ fightStart ] = useFightStartContext();
   
     // console.log(`Arena top level`, boxerSelected)
 
@@ -38,7 +41,8 @@ const Arena = ({
       {/* </div> */}
 
       <div id="Arena-main"
-        className={`bg-[#1c1919] shadow-xl flex fixed items-center z-51 justify-center`}>
+        className={` shadow-xl flex fixed items-center z-51 justify-center
+        ${fightStart && ``}`}>
           <h2 className='relative'> Arena </h2>
                 
       </div>

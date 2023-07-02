@@ -48,10 +48,11 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
   const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
-
-  const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
   const [ boxerSelected, setBoxerSelected ] = useState<Array<Boxer | null>>([])
   const [ hideFightAcceptModal, setHideFightAcceptModal ] = useState<string>(`hidden`);
+
+  //context api
+  const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
   const [ fightStart, setFightStart] = useFightStartContext();
 
   const boxerCardControls = {
@@ -149,7 +150,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
   return (
     <div className={styles.container + 
       `${ boxerSelected.length === 2 && `bg-slate-50`}
-      ${fightStart && `bg-slate-600`}`}>
+      ${fightStart && `bg-slate-600  delay-100 duration-200`}`}>
 
       <Head>
         <meta name="description"/>
@@ -213,7 +214,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           <div id="Home-Main-wrapper"
             className={`relative top-[2vh] mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
             ${ boxers.length > 3 && `overflow-y-scroll`}
-            ${ fightStart ? `bg-slate-500` : `bg-zinc-100`}`}>
+            ${ fightStart ? `bg-[#7572726a] duration-300` : `bg-white`}`}>
         
         {!fightStart ?
           (

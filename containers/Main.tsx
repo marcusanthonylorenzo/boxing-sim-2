@@ -4,18 +4,12 @@ import { useQuery, useMutation } from 'react-query'
 import { generateBoxer, generateRandomValue } from "../services/generateBoxer";
 import { motion, AnimatePresence } from "framer-motion"
 
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import axios from "axios";
 
 import BoxerCard from "../components/BoxerCard";
 import { Boxer } from "../constants/BoxerModel";
 import { ClickedBoxerCardsT } from "../constants/State";
 import { ClickedBoxerCardContext } from "../services/Context";
-// import BoxerReadyDrawer from "../components/drawers/BoxerReadyDrawer";
-// import FightAcceptModal from "../components/modals/FightAcceptModal";
-// import useFightStart from "../hooks/useFightStart";
-// import fightStartContext from "../context/fightStartContext";
 import { NextRouter } from "next/router";
 import useFightStartContext from "../hooks/useFightStart";
 import useActiveBoxerSelection from "../hooks/useActiveBoxerSelection";
@@ -41,13 +35,9 @@ interface MainT {
 }
 
 export const Main = ({
-  // isUserToggle, setIsUserToggle,
-  // hideFightAcceptModal, setHideFightAcceptModal,
-  // showAddModal, setAddModalVisibility,
-  // showUpdateModal, setUpdateModalVisibility,
-  boxerSelected, setBoxerSelected, boxers, setBoxers,
+  boxerSelected, setBoxerSelected,
+  boxers, setBoxers,
   handleDeleteBoxer,
-  // updateBoxer, setUpdateBoxer,
   router
 }: MainT) => {
 
@@ -82,7 +72,6 @@ export const Main = ({
   }
 
   return (
-    
     <div id="Main"
       className={``}>
 
