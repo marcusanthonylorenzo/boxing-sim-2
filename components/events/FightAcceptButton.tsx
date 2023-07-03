@@ -10,7 +10,7 @@ const FightAcceptButton = ({
     disabledState, setHideModal
 }: FightAcceptButtonT) => {
 
-   const { fightStart, setFightStart, round } = useFightStartContext();
+   const { fightStart, setFightStart, round, fightOver } = useFightStartContext();
 
 
   return (
@@ -18,7 +18,9 @@ const FightAcceptButton = ({
         <button id={`Navbar-acceptFight-button`}
             className={`w-[80%] h-full rounded-md shadow-md px-4 p-3 mx-8
                 ${disabledState ? `shadow-2xl font-bold text-[white]
-                ${round > 12 ? `bg-[#e4c747]` : `bg-[#da404d]`} hover:cursor-pointer  ${styles[`button-hover`]}` : `bg-[#e2dad8] font-semibold`}`}
+                    ${round < 12 ? `bg-[#e4c747]` : `bg-[#da404d]`} hover:cursor-pointer  ${styles[`button-hover`]}`
+                : `bg-[#e2dad8] font-semibold`}`}
+
             disabled={!disabledState}
             onClick={() => {
                 !fightStart ? setHideModal(``) : setFightStart(false)
@@ -27,7 +29,7 @@ const FightAcceptButton = ({
                 {
                     !fightStart ? 
                         !disabledState ? `Select Two Boxers` : `Accept Fight`
-                        :  round <= 12 ? `Cancel Fight?` : `Exit Fight`
+                        :  round < 12 ? `Cancel Fight?` : `Exit Fight`
                 }
             </h4>
         </button>

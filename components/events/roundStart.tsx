@@ -10,16 +10,16 @@ import useFightStartContext from '../../hooks/useFightStart'
 
 const RoundStart = () => {
 
-    const { round, progressRound } = useFightStartContext();
+    const { round, progressRound, setFightStart } = useFightStartContext();
 
-    useEffect(() => console.log(round), [round]);
+    // useEffect(() => console.log(round), [round]);
 
   return (
     <div>
         <button id={`RoundStart-button`}
             className={`h-full w-full bg-zinc-200 px-5 py-2 rounded-sm shadow-inner text-green-700 font-semibold
             hover:scale-100 hover:duration-150`}
-            onClick={() => round < 13 ? progressRound() : console.log(`FIGHT OVER`)}>
+            onClick={() => round < 13 ? progressRound() : null}>
                 { round === 0 ? `Start Fight` : 
                     round < 12 ? `Next Round: ${round + 1}` : `FIGHT OVER`}
         </button>
