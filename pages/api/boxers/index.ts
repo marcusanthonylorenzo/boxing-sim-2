@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
       { headers: headersConfig })
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
 
   } else {

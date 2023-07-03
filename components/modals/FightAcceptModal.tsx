@@ -21,7 +21,7 @@ const FightAcceptModal = ({
     }
 
   return (
-    <div className={`${hideModal} overflow-hidden h-full w-full`}>
+    <div className={`${hideModal} absolute overflow-hidden h-full w-full`}>
         <div id={`FightAcceptModal-main`}
             className={`absolute top-[10%] left-[0]
             flex w-full h-full inset-0 z-50 overflow-hidden

@@ -32,18 +32,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   } else if (req.method === 'DELETE') {
     deleteHandler(req, res);
-    console.log(`id delete`, req.body.id)
+    console.log(`id delete`, res)
 
-    // console.log(`post handler`, req.body.first_name)
-    axios.delete(`https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers?id=eq.${req.body.id}`,
-    { 
-        headers: {
-            apiKey: headersConfig.apiKey,
-            Authorization: headersConfig.Authorization
-        }
-    })
+      try {
+        await axios.delete(`https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers?id=eq.${req.body.id}`,
+        { 
+            headers: {
+                apiKey: headersConfig.apiKey,
+                Authorization: headersConfig.Authorization
+            }
+        })
+      } catch (error) {
+        // console.log(`delete req`, error.response)
+      }
 
-    
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
   }

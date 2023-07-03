@@ -72,13 +72,9 @@ export const Main = ({
   }
 
   return (
-    // <div id="Main"
-    //   className={``}>
-
-        <div id="Home-content-innerWrapper"
+        <div id="Main-content"
             className={`grid w-[80%] h-[30vh] px-4 ml-[8%] md:ml-[5%] xl:ml-[7%] 3xl:ml-16 mb-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5
-            ${ boxerSelected.length === 2 && `bg-slate-100`}
-            ${ boxers.length > 3 && `overflow-y-scroll`}`}>
+            ${ boxerSelected.length === 2 && `bg-slate-100`}`}>
             {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
               <AnimatePresence>
                 <motion.div 
@@ -107,6 +103,5 @@ export const Main = ({
               </AnimatePresence>
             ))}
         </div>
-    // </div>
   )
 }

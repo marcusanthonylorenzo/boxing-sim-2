@@ -134,15 +134,17 @@ const Home: NextPage<homeProps> = ({ results }) => {
     try {
       const removeItem = boxers.filter((boxer: { id?: string | number; }) => boxer.id !== id);
       setBoxers(removeItem);
-      await axios.delete(`/api/boxers/${id}`,
+      const { data } = await axios.delete(`/api/boxers/${id}`,
         { 
           data: {
             id: id
           }  
         })
-      router.reload();
+      if (data) {
+        router.reload();
+      }
     } catch (error) {
-      console.log(error); 
+      // error.response.status === 409 && console.log(`error`, error)
     }
   };
 
@@ -213,7 +215,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
           <div id="Home-Main-wrapper"
             className={`relative top-6 mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
-            overflow-y-scroll
+            ${ boxers.length > 2 && `overflow-y-scroll`}
             ${ fightStart ? `bg-[#7572726a] duration-300` : `bg-white`}`}>
         
           {!fightStart ?
