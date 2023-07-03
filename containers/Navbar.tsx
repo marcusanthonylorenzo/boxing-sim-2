@@ -29,7 +29,7 @@ const Navbar = ({
     const componentId = "Navbar";
     const { boxerSelected, showAddModal, day, setDay, setHideFightAcceptModal } = parentState;
     const [ disabledState, setDisabledState ] = useState<boolean>(false)
-    const [ fightStart, setFightStart] = useFightStartContext();
+    const { fightStart, setFightStart } = useFightStartContext();
 
     useEffect(() => boxerSelected.length < 2 ? setDisabledState(false) : setDisabledState(true), [boxerSelected])
 

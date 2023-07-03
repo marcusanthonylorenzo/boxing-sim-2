@@ -53,7 +53,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   //context api
   const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
-  const [ fightStart, setFightStart] = useFightStartContext();
+  const { fightStart, setFightStart } = useFightStartContext();
 
   const boxerCardControls = {
     one: useAnimationControls(),

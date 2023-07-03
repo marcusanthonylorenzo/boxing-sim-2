@@ -2,6 +2,8 @@ import React from 'react'
 import { Boxer } from '../constants/BoxerModel'
 import Image from 'next/image'
 import useFightStartContext from '../hooks/useFightStart'
+import RoundStart from '../components/events/roundStart'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface ArenaPropT {
     boxerSelected: Array<Boxer| null> | Array<null>,
@@ -20,7 +22,7 @@ const Arena = ({
 
 } : ArenaPropT ) => {
 
-    const [ fightStart ] = useFightStartContext();
+    const { fightStart } = useFightStartContext();
   
     // console.log(`Arena top level`, boxerSelected)
 
@@ -40,12 +42,31 @@ const Arena = ({
          /> */}
       {/* </div> */}
 
-      <div id="Arena-main"
-        className={` shadow-xl flex fixed items-center z-51 justify-center
+      <AnimatePresence>
+      <motion.div id="Arena-main"
+        initial={{ opacity: 0, scale: "60%" }}
+        animate={{ opacity: 1, x: 0, scale: "90%",
+          transition: { duration: 0.3, delay: 0.3} }}
+        className={`bg-zinc-400 shadow-2xl rounded-md flex flex-col fixed px-6 py-4 items-center z-51 justify-center
         ${fightStart && ``}`}>
-          <h2 className='relative'> Arena </h2>
-                
-      </div>
+
+
+          <div id={`Arena-content`}
+            className={`flex relative bg-slate-100 text-zinc-600 font-semibold px-4 py-3 my-6`}>
+            <h2 className='relative'>
+              Welcome to the Arena, fights are not yet available.<br/>
+              Fight Logic and realtime round-by-round display now currently in-development!
+             </h2>
+          </div>
+
+          <div id={`Arena-RoundStart`}
+            className={`relative`}>
+              <RoundStart />
+          </div>
+              
+      </motion.div>
+      </AnimatePresence>
+
 
     </div>
   )

@@ -9,7 +9,7 @@ const FightAcceptModal = ({
     hideModal, setHideModal
 }: FightAcceptModalT) => {
 
-    const [ fightStart, setFightStart] = useFightStartContext();
+    const { fightStart, setFightStart } = useFightStartContext();
 
     // useEffect(() => console.log(hideModal), [hideModal])
 
