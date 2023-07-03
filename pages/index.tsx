@@ -149,7 +149,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   return (
     <div className={styles.container + 
-      `${ boxerSelected.length === 2 && `bg-slate-50`}
+      `${ boxerSelected.length === 2 && `bg-slate-50`} overflow-y-hidden
       ${fightStart && `bg-slate-600  delay-100 duration-200`}`}>
 
       <Head>
@@ -212,14 +212,14 @@ const Home: NextPage<homeProps> = ({ results }) => {
           </div>
 
           <div id="Home-Main-wrapper"
-            className={`relative top-[2vh] mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
-            ${ boxers.length > 3 && `overflow-y-scroll`}
+            className={`relative top-6 mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
+            overflow-y-scroll
             ${ fightStart ? `bg-[#7572726a] duration-300` : `bg-white`}`}>
         
           {!fightStart ?
           (
           // <div id="Home-Main-wrapper"
-          //   className={`bg-zinc-100 relative top-[2vh] mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
+          //   className={`
           //   ${ boxers.length > 3 && `overflow-y-scroll`}`}>
               <Main 
                 isUserToggle={isUserToggle}
