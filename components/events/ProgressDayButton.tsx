@@ -8,11 +8,12 @@ interface ProgressDayButtonT {
         day: number | null,
         setDay: React.Dispatch<React.SetStateAction<number | null>>
     },
-    styles: string
+    styles: string,
+    disabled: boolean
 }
 
 const ProgressDayButton = ({
-    parentState, styles
+    parentState, styles, disabled
 }: ProgressDayButtonT) => {
     const componentId = "ProgressDay";
     const { day, setDay } = parentState;
@@ -41,11 +42,12 @@ const ProgressDayButton = ({
     return (
         <div id={`${componentId}-main`} className={`ml-6`}>
             <button id={`${componentId}-button`}
-                className={`bg-orange-600 font-semibold text-white p-3 rounded-md shadow-md ${styles}`}
+                className={`bg-orange-600 font-semibold text-white p-3 rounded-md shadow-md ${styles} ${disabled ? `opacity-20` : ``}`}
                 onClick={() => {
                     console.log(componentId + `clickeroo`)
                     progressDayMutation.mutateAsync(day);
-                }}>
+                }}
+                disabled={disabled}>
                 {
                     progressDayMutation.isLoading ?
                     (`...Progressing Day.`) :

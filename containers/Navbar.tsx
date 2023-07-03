@@ -44,12 +44,18 @@ const Navbar = ({
 
                 <div id={`${componentId}-createComponents`}
                     className="flex col-start-3 row-start-1 bg-slate-100 rounded">
-                    <h5 className={`relative text-zinc-400 font-semibold text-[8px] px-3`}>Create Boxer</h5>
-                    <div className={`relative w-full hover:scale-[120%] hover:duration-[30ms] hover:cursor-pointer `}
-                        onClick={() => setAddModalVisibility(!showAddModal)}>
-                        <AddIcon className="w-10 ease-out-in 
-                        ease-in-out" />
-                    </div>
+
+                { !fightStart ?
+                    (<>
+                        <h5 className={`relative text-zinc-400 font-semibold text-[8px] px-3`}>Create Boxer</h5>
+                        <div className={`relative w-full hover:scale-[120%] hover:duration-[30ms] hover:cursor-pointer `}
+                            onClick={() => setAddModalVisibility(!showAddModal)}>
+                            <AddIcon className="w-10 ease-out-in ease-in-out" />
+                        </div>
+                    </>)
+                    
+                    : null
+                }
                 </div>
 
                 <div id={`Navbar-acceptFight`}
@@ -59,21 +65,21 @@ const Navbar = ({
 
                 <div id={`${componentId}-calendar`}
                     className={`col-start-5 row-start-1 flex flex-col relative text-zinc-400 font-semibold ml-[10%]`}>
-                    <ProgressDayButton parentState={{ day: day, setDay: setDay }} styles={`${styles[`button-hover`]}`}/>
+                    <ProgressDayButton parentState={{ day: day, setDay: setDay }} styles={`${styles[`button-hover`]}`} disabled={fightStart ? true : false}/>
                 </div>
             </div>
 
             <section id="ticker" className='flex relative bg-gray h-[20%] w-[80%] mx-auto items-center justify-center'>
 
-                <h1 className={`relative font-bold mr-2`}> Updates 7/2/23:</h1>
-                <h5 className={`relative text-[12px]`}>Currently focusing on persisting pre-fight events, loading boxers and building server logic for the actual fight engine. UI is definitely not complete (mostly wireframes). </h5>
                 {/* <Ticker>
-                    {({index}) =>
-                        (<>
-                            <h5>blah</h5>
-                        </>)
-                    }
+                    { () =>  */}
+                     (<>
+                            <h1 className={`relative font-bold mr-2`}> Updates 7/2/23:</h1>
+                            <h5 className={`relative text-[12px]`}>Currently focusing on persisting pre-fight events, loading boxers and building server logic for the actual fight engine. UI is definitely not complete (mostly wireframes). </h5>
+                    </>)
+                    {/* }
                 </Ticker> */}
+
             </section>
         </div>
     </div>

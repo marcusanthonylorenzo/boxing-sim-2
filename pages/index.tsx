@@ -216,7 +216,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
             ${ boxers.length > 3 && `overflow-y-scroll`}
             ${ fightStart ? `bg-[#7572726a] duration-300` : `bg-white`}`}>
         
-        {!fightStart ?
+          {!fightStart ?
           (
           // <div id="Home-Main-wrapper"
           //   className={`bg-zinc-100 relative top-[2vh] mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
@@ -252,7 +252,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
             { boxerSelected.length === 2 &&
               <AnimatePresence>
                 <motion.div
-                    className={`absolute right-0 bg-red-700 top-[20vh] h-[70vh] px-4 py-2 rounded-md
+                    className={`absolute right-0 bg-red-700 px-4 py-2 rounded-md
                     ${!hideFightAcceptModal ? `duration-150 w-[20vw] h-[84vh] top-[10vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                     `}
                     initial={{ opacity: 0, x: 20 }}
