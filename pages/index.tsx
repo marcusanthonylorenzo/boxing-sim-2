@@ -169,7 +169,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
                 day,
                 setDay,
                 setHideFightAcceptModal,
-              }}
+              }} 
               setAddModalVisibility={setAddModalVisibility}
             />
           </div>
