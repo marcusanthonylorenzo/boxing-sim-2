@@ -26,11 +26,12 @@ Next.js - React Query - TypeScript - Tailwind - Framer Motion - Postgres/Supabas
 Mostly contain stateless data, used to wrap, pass props and update children (Boxers, Fight PBP, etc)
 
     - Start { CreateBoxer }
-    - InGame { Navbar, Home | Arena, BoxerCard x2 }
+    - Home { Navbar, Main | Arena, BoxerCard x2 }
         - GET User
         - Navbar { Ticker, Calendar }
-        - Home { Navbar, Dialogue, BoxersList, Training }
-        - Arena { Navbar, Dialogue, CoachesCorner }
+        - Home { Navbar, BoxersList, Training }
+        - Arena { Navbar, FightUpdates, CoachesCorner }
+            - import Dialogue
         - Dialogue
             - import services/commentary { all }
         - CoachesCorner

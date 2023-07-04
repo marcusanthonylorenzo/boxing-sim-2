@@ -4,6 +4,7 @@ import Image from 'next/image'
 import useFightStartContext from '../hooks/useFightStart'
 import RoundStart from '../components/events/roundStart'
 import { AnimatePresence, motion } from 'framer-motion'
+import FightUpdates from './FightUpdates'
 
 interface ArenaPropT {
     boxerSelected: Array<Boxer| null> | Array<null>,
@@ -52,15 +53,17 @@ const Arena = ({
 
 
           <div id={`Arena-content`}
-            className={`flex relative bg-slate-100 text-zinc-600 font-semibold px-4 py-3 my-6`}>
-            <h2 className='relative'>
+            className={`flex flex-col relative bg-slate-100 text-zinc-600 font-semibold px-4 py-3 my-6`}>
+              <h2 className='relative mb-10'>
               Welcome to the Arena, fights are not yet available.<br/>
               Fight Logic and realtime round-by-round display now currently in-development!
              </h2>
+
+             <FightUpdates />
           </div>
 
           <div id={`Arena-RoundStart`}
-            className={`relative`}>
+            className={`relative `}>
               <RoundStart />
           </div>
               

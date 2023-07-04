@@ -73,10 +73,10 @@ const Navbar = ({
 
                 {/* <Ticker>
                     { () =>  */}
-                     (<>
+                     {/* (<> */}
                             <h1 className={`relative font-bold mr-2`}> Updates 7/2/23:</h1>
                             <h5 className={`relative text-[12px]`}>Currently focusing on persisting pre-fight events, loading boxers and building server logic for the actual fight engine. UI is definitely not complete (mostly wireframes). </h5>
-                    </>)
+                    {/* </>) */}
                     {/* }
                 </Ticker> */}
 
