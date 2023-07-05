@@ -15,6 +15,7 @@ export interface FightActionT {
     }
 }
 
+//Subscribe to these updated via server events
 const placeholder: FightActionT[] = [
     {
         round: 1,
