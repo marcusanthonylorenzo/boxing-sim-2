@@ -34,12 +34,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     postHandler(req, res);
 
     try {
-        console.log(`fight_night post req`, req.body)
-        //run fight logic here!
-
+        const { boxerOne, boxerTwo } = req.body;
+        console.log(`fight night 38`, boxerOne, boxerTwo)
+        await fight(boxerOne, boxerTwo)
 
     //   await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
     //   { headers: headersConfig })
+    
     } catch (error) {
       console.log(error)
     }

@@ -22,7 +22,8 @@ const RoundStart = () => {
           Promise.all([
             // await axios.post('/api/boxers', newBoxer),
             await axios.post('/api/fight_night', {
-                boxers: boxerSelected
+                boxerOne: boxerSelected[0],
+                boxerTwo: boxerSelected[1]
             })
           ]).then(values => {
             progressRound()
