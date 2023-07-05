@@ -21,6 +21,19 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Handle POST request logic here
+  const { boxerOne, boxerTwo } = req.body;
+
+  try {
+      const damageOutputResults = await fight(boxerOne, boxerTwo)
+
+  //   await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
+  //   { headers: headersConfig })
+      
+      res.json({ damageOutputResults })
+
+  } catch (error) {
+    console.log(error)
+  }
   res.status(200).json({ message: 'POST request handled successfully' })
 };
 
@@ -32,19 +45,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // await axios.get(supabaseAPI, { headers: headersConfig }).then(response => response.data)
   } else if (req.method === 'POST') {
     postHandler(req, res);
-
-    try {
-        const { boxerOne, boxerTwo } = req.body;
-        console.log(`fight night 38`, boxerOne, boxerTwo)
-        await fight(boxerOne, boxerTwo)
-
-    //   await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
-    //   { headers: headersConfig })
-    
-    } catch (error) {
-      console.log(error)
-    }
-
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
   }

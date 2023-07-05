@@ -20,7 +20,14 @@ const placeholder: FightActionT[] = [
     {
         round: 1,
         data: {
-            stats: [],
+            stats: [{
+                aggressor: {
+                    name: "",
+                    punchesThrown: 4,
+                    punchesLanded: 1,
+                    
+                }
+            }],
             commentary: [
                 "test play by play",
                 "test 2"
@@ -35,7 +42,7 @@ const FightUpdates = () => {
     <div id={`FightUpdates-main`}
         className={`h-full w-full flex flex-col`}>
 
-                { //Map play_by_play here
+                {/* { //Map play_by_play here
                     placeholder.map((eachPlay) => {
                         return (
                             <div id={`FightUpdates-play_by_play`}
@@ -45,7 +52,7 @@ const FightUpdates = () => {
                         )
                     })
 
-                }
+                } */}
 
     </div>
   )

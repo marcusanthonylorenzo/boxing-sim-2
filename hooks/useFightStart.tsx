@@ -22,6 +22,7 @@ export const FightStartProvider = ({ children }: any) => {
 
   const progressRound = () => {
     if (round < 12) {
+      console.log(`round over`)
       setRound(prevRound => prevRound + 1)
     } else {
       console.log(`FIGHT OVER`) 
