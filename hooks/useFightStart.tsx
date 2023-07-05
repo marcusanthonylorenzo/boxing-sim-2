@@ -1,8 +1,10 @@
 import { useState, createContext, useContext, useMemo, useEffect } from 'react'
+import { Boxer } from '../constants/BoxerModel'
 
 const FightStartContext = createContext<any>("default")
 
 export const FightStartProvider = ({ children }: any) => {
+  const [ boxerSelected, setBoxerSelected ] = useState<Array<Boxer | null>>([])
   const [ fightStart, setFightStart ] = useState<boolean>(false)
   const [ round, setRound ] = useState<number>(0);
   const [ fightOver, setFightOver ] = useState<boolean>(false)
@@ -27,15 +29,20 @@ export const FightStartProvider = ({ children }: any) => {
     }
   }
 
-  const fightStartValue = useMemo(() => {
-    return {
-      fightStart, setFightStart,
-      round, progressRound,
-      fightOver
-    }}, [fightStart, round])
+  // const fightStartValue = useMemo(() => {
+  //   return {
+  //     fightStart, setFightStart,
+  //     round, progressRound,
+  //     fightOver
+  //   }}, [fightStart, round])
 
 return (
-    <FightStartContext.Provider value={fightStartValue}>
+    <FightStartContext.Provider value={{
+      fightStart, setFightStart,
+      round, progressRound,
+      fightOver,
+      boxerSelected, setBoxerSelected
+      }}>
         {children} 
     </FightStartContext.Provider>
     )

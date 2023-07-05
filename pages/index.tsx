@@ -48,12 +48,12 @@ const Home: NextPage<homeProps> = ({ results }) => {
   const [showAddModal, setAddModalVisibility] = useState<boolean>(false);
   const [showUpdateModal, setUpdateModalVisibility] = useState<boolean>(false);
   const [updateBoxer, setUpdateBoxer] = useState<Boxer | null>(null);
-  const [ boxerSelected, setBoxerSelected ] = useState<Array<Boxer | null>>([])
+  // const [ boxerSelected, setBoxerSelected ] = useState<Array<Boxer | null>>([])
   const [ hideFightAcceptModal, setHideFightAcceptModal ] = useState<string>(`hidden`);
 
   //context api
   const { clickedBoxerCards, setClickedBoxerCards } = useContext(ClickedBoxerCardContext)
-  const { fightStart, setFightStart } = useFightStartContext();
+  const { boxerSelected, setBoxerSelected, fightStart, setFightStart } = useFightStartContext();
 
   const boxerCardControls = {
     one: useAnimationControls(),

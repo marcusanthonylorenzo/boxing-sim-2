@@ -35,13 +35,15 @@ interface MainT {
 }
 
 export const Main = ({
-  boxerSelected, setBoxerSelected,
+  // boxerSelected, setBoxerSelected,
   boxers, setBoxers,
   handleDeleteBoxer,
   router
 }: MainT) => {
 
   const { clickedBoxerCards, setClickedBoxerCards } = useActiveBoxerSelection();
+  const { boxerSelected, setBoxerSelected } = useFightStartContext();
+  console.log(`main 46`, boxerSelected, clickedBoxerCards)
 
   const handleUpdateBoxer = () => console.log(`nothing for now`)
 
@@ -65,7 +67,7 @@ export const Main = ({
           // console.log(boxer.first_name + `is already selected`)
           return fighterAlreadySelected
         } else {
-          boxerSelected.length < 2 ? setBoxerSelected((prev) => [ ...prev, boxer]) : console.log(`two selected already`)
+          boxerSelected.length < 2 ? setBoxerSelected((prev: Boxer[]) => [ ...prev, boxer]) : console.log(`two selected already`)
         }
       }
     }
