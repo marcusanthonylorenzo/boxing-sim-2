@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Boxer } from "../../constants/BoxerModel";
+import useNextRouter from "../../hooks/useNextRouter";
 
 type Props = {
   onHandleAddBoxer: (boxer?: any) => void;
@@ -25,6 +26,8 @@ const AddModal = ({
   const [bio, setBio] = useState<string>("");
   const [color, setColor] = useState<string>("#F9A8D4");
 
+  const { router } = useNextRouter();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newBoxerWithCustomAttributes = await
@@ -46,6 +49,7 @@ const AddModal = ({
     setCountry("");
     setBio("");
     setAddModalVisibility(!showAddModal);
+    router.reload();
   };
 
   const handleIsUserToggle = () => {
