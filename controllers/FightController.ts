@@ -4,11 +4,12 @@ import { generateRandomValue } from "../services/generateBoxer";
 
 interface DamageOutputT {
     attacker: string,
+    defender: string,
     damage: number
 }
 
-const startRound = () => {
-};
+// const startRound = () => {
+// };
 
 // Fighter methods
 
@@ -36,8 +37,10 @@ const engagement = (boxerOne: Boxer, boxerTwo: Boxer): { attacker: Boxer, defend
     let attacker: Boxer;
     let defender: Boxer;
 
-    const boxerOneAggression = generateRandomValue(1, boxerOne.aggression);
-    const boxerTwoAggression = generateRandomValue(1, boxerTwo.aggression);
+    const boxerOneAggression = generateRandomValue(0, boxerOne.aggression);
+    const boxerTwoAggression = generateRandomValue(0, boxerTwo.aggression);
+    console.log(`aggression`, boxerOne.first_name, boxerOneAggression, boxerTwo.first_name, boxerTwoAggression)
+
         if (boxerOneAggression > boxerTwoAggression) {
             attacker = boxerOne;
             defender = boxerTwo;
@@ -48,18 +51,25 @@ const engagement = (boxerOne: Boxer, boxerTwo: Boxer): { attacker: Boxer, defend
     return { attacker, defender }
 };
 
-const exchangeAction = async (attacker: Boxer, defender: Boxer) => {
+const exchangeAction = async (
+    //  attacker: Boxer, defender: Boxer
+    boxerOne: Boxer, boxerTwo: Boxer
+) => {
+    const { attacker, defender } = await engagement(boxerOne, boxerTwo);
     let damageOutput: Array<DamageOutputT | null> = []
 
     const attackerAction = (attackingBoxer: Boxer, defendingBoxer: Boxer) => {
+
         const getAttack = () => {
             const attackValue: number = attack(attackingBoxer) - evade(defendingBoxer);
-            return attackValue < 1 ? 0 : attackValue
-        }
+            return attackValue
+        };
+
         const getAttackRes = getAttack(); //aggressor attacks
         damageOutput.push( //update damage 
             {
                 attacker: `${attackingBoxer.first_name}`,
+                defender: `${defendingBoxer.first_name}`,
                 damage: getAttackRes
             });
         defenderAction(defendingBoxer, attackingBoxer); //defender responds with evade or counter
@@ -68,7 +78,6 @@ const exchangeAction = async (attacker: Boxer, defender: Boxer) => {
     const defenderAction = (respondingBoxer: Boxer, attackingBoxer: Boxer) => {
         const respondingBoxerEvades = evade(respondingBoxer)
         const respondingBoxerCounters = counterAttack(respondingBoxer)
-        // console.log(`${respondingBoxer.first_name} evade/counter`, respondingBoxerEvades, respondingBoxerCounters)
 
         if (respondingBoxerEvades > respondingBoxerCounters) {
             fightersDisengage();
@@ -78,7 +87,6 @@ const exchangeAction = async (attacker: Boxer, defender: Boxer) => {
             attackerAction(respondingBoxer, attackingBoxer) //continue to atack back and forth until top condition truet
         }
     };
-
     await attackerAction(attacker, defender);
     return damageOutput;
 };
@@ -86,12 +94,12 @@ const exchangeAction = async (attacker: Boxer, defender: Boxer) => {
 
 const fight = async (boxerOne: Boxer, boxerTwo: Boxer) => {
     //Check who attacks first
-    const { attacker, defender } = await engagement(boxerOne, boxerTwo);
+    // const { attacker, defender } = await engagement(boxerOne, boxerTwo);
     //Run attack vs defense (evade or counter attack), repeat until fighters disengage
-    const damageOutputResult = await exchangeAction(attacker, defender);
+    const damageOutputResult = await exchangeAction(boxerOne, boxerTwo);
     //update Pbp Object, later
-    console.log(`damage output results`, damageOutputResult)
+    // console.log(`damage output results`, damageOutputResult)
     return damageOutputResult;
 }
 
-export { startRound, fight }
+export { fight }

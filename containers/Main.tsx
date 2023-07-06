@@ -43,7 +43,7 @@ export const Main = ({
 
   const { clickedBoxerCards, setClickedBoxerCards } = useActiveBoxerSelection();
   const { boxerSelected, setBoxerSelected } = useFightStartContext();
-  console.log(`main 46`, boxerSelected, clickedBoxerCards)
+  // console.log(`main 46`, boxerSelected, clickedBoxerCards)
 
   const handleUpdateBoxer = () => console.log(`nothing for now`)
 

@@ -27,7 +27,10 @@ const RoundStart = () => {
             })
           ]).then(values => {
             const getResults = values[0].data.damageOutputResults //THIS IS THE PBP
-            getResults.forEach((scrap: any) => console.log(scrap))
+            getResults.forEach((scrap: any) => {
+                // scrap.damage > 0 && console.log(scrap)
+                console.log(scrap)
+            })
             progressRound() 
           })
         }
