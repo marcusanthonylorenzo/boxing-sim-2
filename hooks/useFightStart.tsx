@@ -10,7 +10,7 @@ export const FightStartProvider = ({ children }: any) => {
   const [ fightOver, setFightOver ] = useState<boolean>(false)
 
   useEffect(() => {
-    !fightStart ? setRound(0) : null
+    !fightStart ? setRound(0) : setFightOver(false);
   }, [fightStart]);
 
   // useEffect(() => {
@@ -29,13 +29,6 @@ export const FightStartProvider = ({ children }: any) => {
       setFightOver(true)
     }
   }
-
-  // const fightStartValue = useMemo(() => {
-  //   return {
-  //     fightStart, setFightStart,
-  //     round, progressRound,
-  //     fightOver
-  //   }}, [fightStart, round])
 
 return (
     <FightStartContext.Provider value={{

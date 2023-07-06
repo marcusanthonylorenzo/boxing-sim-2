@@ -14,7 +14,7 @@ interface DamageOutputT {
 // Fighter methods
 
 const attack = (fighter: Boxer) => { //for aggressor
-    return generateRandomValue(0, fighter.power + fighter.accuracy)*Math.round(fighter.hand_speed/100)
+    return generateRandomValue(0, fighter.power)*Math.round(fighter.accuracy/100)
 };
 
 const evade =  (fighter: Boxer) => { //for non-aggressor
@@ -61,11 +61,12 @@ const exchangeAction = async (
     const attackerAction = (attackingBoxer: Boxer, defendingBoxer: Boxer) => {
 
         const getAttack = () => {
-            const attackValue: number = attack(attackingBoxer) - evade(defendingBoxer);
+            const attackValue: number = attack(attackingBoxer) - evade(defendingBoxer)
             return attackValue
         };
 
         const getAttackRes = getAttack(); //aggressor attacks
+        console.log(`getAttackRes`, getAttackRes)
         damageOutput.push( //update damage 
             {
                 attacker: `${attackingBoxer.first_name}`,

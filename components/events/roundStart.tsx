@@ -13,7 +13,7 @@ import { Boxer } from '../../constants/BoxerModel';
 
 const RoundStart = () => {
 
-    const { round, progressRound, setFightStart, boxerSelected } = useFightStartContext();
+    const { fightOver, round, progressRound, setFightStart, boxerSelected } = useFightStartContext();
 
     // useEffect(() => console.log(round), [round]);
 
@@ -28,8 +28,8 @@ const RoundStart = () => {
           ]).then(values => {
             const getResults = values[0].data.damageOutputResults //THIS IS THE PBP
             getResults.forEach((scrap: any) => {
-                // scrap.damage > 0 && console.log(scrap)
-                console.log(scrap)
+                scrap.damage > 0 && console.log(scrap)
+                // console.log(scrap)
             })
             progressRound() 
           })
@@ -41,7 +41,7 @@ const RoundStart = () => {
         <button id={`RoundStart-button`}
             className={`h-full w-full bg-zinc-200 px-5 py-2 rounded-sm shadow-inner text-green-700 font-semibold
             hover:scale-100 hover:duration-150`}
-            onClick={() => round < 13 ? fightMutation.mutateAsync(boxerSelected) : null}>
+            onClick={() => !fightOver ? fightMutation.mutateAsync(boxerSelected) : null}>
                 { round === 0 ? `Start Fight` : 
                     round < 12 ? `Next Round: ${round + 1}` : `FIGHT OVER`}
         </button>
