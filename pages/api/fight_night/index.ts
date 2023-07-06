@@ -14,19 +14,17 @@ const headersConfig = {
 
 // Controller methods
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  // Handle GET request logic here
   const { data } = await axios.get(supabaseAPI, { headers: headersConfig });
   res.status(200).json(data);
 };
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  // Handle POST request logic here
   const { boxerOne, boxerTwo } = req.body;
 
   try {
       const damageOutputResults = await fight(boxerOne, boxerTwo)
 
-  //   await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers', req.body,
+  //   await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_history', req.body,
   //   { headers: headersConfig })
       
       res.json({ damageOutputResults })
