@@ -215,6 +215,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
           <div id="Home-Main-wrapper"
             className={`relative top-6 mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
+     
             ${ boxers.length > 2 && `overflow-y-scroll`}
             ${ fightStart ? `bg-[#7572726a] duration-300` : `bg-white`}`}>
         

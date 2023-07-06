@@ -20,16 +20,16 @@ const RoundStart = () => {
     const fightMutation = useMutation({
         mutationFn: async (boxerSelected: Array<Boxer>) : Promise<any> => {
           Promise.all([
-        //     // await axios.post('/api/boxers', newBoxer),
             await axios.post('/api/fight_night', {
                 boxerOne: boxerSelected[0],
                 boxerTwo: boxerSelected[1]
             })
           ]).then(values => {
             const getResults = values[0].data.damageOutputResults //THIS IS THE PBP
+            console.log(`getResults`, values)
             getResults.forEach((scrap: any) => {
-                scrap.damage > 0 && console.log(scrap)
-                // console.log(scrap)
+                // scrap.damage > 0 && console.log(scrap)
+                console.log(scrap)
             })
             progressRound() 
           })

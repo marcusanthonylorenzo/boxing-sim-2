@@ -14,7 +14,8 @@ interface DamageOutputT {
 // Fighter methods
 
 const attack = (fighter: Boxer) => { //for aggressor
-    return generateRandomValue(0, fighter.power)*Math.round(fighter.accuracy/100)
+    const handsAndPowerValue = Math.round(fighter.hand_speed*(fighter.power/100))
+    return generateRandomValue(0, handsAndPowerValue)*Math.round(fighter.accuracy/100)
 };
 
 const evade =  (fighter: Boxer) => { //for non-aggressor

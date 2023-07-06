@@ -36,7 +36,7 @@ return (
       round, progressRound,
       fightOver,
       boxerSelected, setBoxerSelected
-      }}>
+    }}>
         {children} 
     </FightStartContext.Provider>
     )

@@ -20,6 +20,7 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { boxerOne, boxerTwo } = req.body;
+  console.log(`posthandler`, boxerOne, boxerTwo)
 
   try {
       const damageOutputResults = await fight(boxerOne, boxerTwo)
