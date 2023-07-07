@@ -10,7 +10,7 @@ const FightAcceptButton = ({
     disabledState, setHideModal
 }: FightAcceptButtonT) => {
 
-   const { fightStart, setFightStart, round, fightOver } = useFightStartContext();
+   const { fightStart, setFightStart, round, fightOver, resetFightData } = useFightStartContext();
 
 
   return (
@@ -23,7 +23,11 @@ const FightAcceptButton = ({
 
             disabled={!disabledState}
             onClick={() => {
-                !fightStart ? setHideModal(``) : setFightStart(false)
+                if (!fightStart) { 
+                    setHideModal(``)
+                } else {
+                    resetFightData(() => setFightStart(false));
+                }
             }}>
             <h4>
                 {

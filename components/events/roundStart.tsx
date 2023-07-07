@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
+import { DamageOutputT } from '../../controllers/FightController';
 import useFightStartContext from '../../hooks/useFightStart'
 import { useMutation } from 'react-query';
 import { Boxer } from '../../constants/BoxerModel';
@@ -13,7 +14,7 @@ import { Boxer } from '../../constants/BoxerModel';
 
 const RoundStart = () => {
 
-    const { fightOver, round, progressRound, setFightStart, boxerSelected } = useFightStartContext();
+    const { fightOver, round, progressRound, setFightStart, boxerSelected, fightData, setFightData } = useFightStartContext();
 
     // useEffect(() => console.log(round), [round]);
 
@@ -26,12 +27,16 @@ const RoundStart = () => {
             })
           ]).then(values => {
             const getResults = values[0].data.damageOutputResults //THIS IS THE PBP
-            console.log(`getResults`, values)
-            getResults.forEach((scrap: any) => {
-                // scrap.damage > 0 && console.log(scrap)
-                console.log(scrap)
-            })
-            progressRound() 
+            console.log(`get results length`, typeof getResults, typeof fightData)
+            try {
+                setFightData((prev: any) => [ ...prev, { ...getResults[0] }]);
+                getResults.forEach((scrap: any) => {
+                    scrap.damage <= 0 ? console.log(`${scrap.defender} uses their footwork to keep range`) : console.log(scrap)
+                })
+            } catch (err: unknown) {
+                console.log(err)
+            }
+            progressRound();
           })
         }
       })

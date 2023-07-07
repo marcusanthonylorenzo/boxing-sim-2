@@ -54,10 +54,10 @@ const Arena = ({
 
           <div id={`Arena-content`}
             className={`flex flex-col relative bg-slate-100 text-zinc-600 font-semibold px-4 py-3 my-6`}>
-              <h2 className='relative mb-10'>
+              {/* <h2 className='relative mb-10'>
               Welcome to the Arena, fights are not yet available.<br/>
               Fight Logic and realtime round-by-round display now currently in-development!
-             </h2>
+             </h2> */}
 
              <FightUpdates />
           </div>

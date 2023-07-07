@@ -2,7 +2,7 @@ import { Boxer } from "@prisma/client";
 import { FightActionT } from "../containers/FightUpdates";
 import { generateRandomValue } from "../services/generateBoxer";
 
-interface DamageOutputT {
+export interface DamageOutputT {
     attacker: string,
     defender: string,
     damage: number
@@ -15,6 +15,7 @@ interface DamageOutputT {
 
 const attack = (fighter: Boxer) => { //for aggressor
     const handsAndPowerValue = Math.round(fighter.hand_speed*(fighter.power/100))
+    console.log(`handandpower`, handsAndPowerValue)
     return generateRandomValue(0, handsAndPowerValue)*Math.round(fighter.accuracy/100)
 };
 
@@ -59,16 +60,16 @@ const exchangeAction = async (
     const { attacker, defender } = await engagement(boxerOne, boxerTwo);
     let damageOutput: Array<DamageOutputT | null> = []
 
-    const attackerAction = (attackingBoxer: Boxer, defendingBoxer: Boxer) => {
+    const attackerAction = async (attackingBoxer: Boxer, defendingBoxer: Boxer) => {
 
         const getAttack = () => {
             const attackValue: number = attack(attackingBoxer) - evade(defendingBoxer)
             return attackValue
         };
 
-        const getAttackRes = getAttack(); //aggressor attacks
+        const getAttackRes = await getAttack(); //aggressor attacks
         console.log(`getAttackRes`, getAttackRes)
-        damageOutput.push( //update damage 
+        await damageOutput.push( //update damage 
             {
                 attacker: `${attackingBoxer.first_name}`,
                 defender: `${defendingBoxer.first_name}`,

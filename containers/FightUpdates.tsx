@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PlayByPlay from '../components/events/PlayByPlay'
+import useFightStartContext from '../hooks/useFightStart'
+import { DamageOutputT } from '../controllers/FightController'
 
 /*
     1. subscribe to updates on server
@@ -38,12 +40,16 @@ const placeholder: FightActionT[] = [
 
 const FightUpdates = () => {
 
+    const { fightData } = useFightStartContext();
+    
+    useEffect(() => console.log(`fightUpdates fightData`, fightData) , [fightData])
+
   return (
     <div id={`FightUpdates-main`}
-        className={`h-full w-full flex flex-col`}>
+        className={`bg-black h-full w-full absolute flex flex-col`}>
 
-                {/* { //Map play_by_play here
-                    placeholder.map((eachPlay) => {
+                { //Map play_by_play here
+                    fightData && fightData.map((eachPlay: DamageOutputT) => {
                         return (
                             <div id={`FightUpdates-play_by_play`}
                                 className={`relative`}>
@@ -52,7 +58,7 @@ const FightUpdates = () => {
                         )
                     })
 
-                } */}
+                }
 
     </div>
   )

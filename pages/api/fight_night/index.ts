@@ -28,7 +28,7 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   //   await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_history', req.body,
   //   { headers: headersConfig })
       
-      res.json({ damageOutputResults })
+      res.status(200) ? res.json({ damageOutputResults }) : console.log(res.status)
 
   } catch (error) {
     console.log(error)
