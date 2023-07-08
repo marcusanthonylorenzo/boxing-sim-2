@@ -14,7 +14,7 @@ const PlayByPlay = ({
 
   return (
     <div id={`PlayByPlay-main`}
-        className={`flex flex-col relative bg-white h-10 w-[200px]`}>
+        className={`flex flex-col relative bg-white h-16 w-[200px] my-1 px-4 py-2 shadow-2xl rounded-sm`}>
         <ul>
             <li>{attacker} : {damage} </li>
             <li>{defender}</li>

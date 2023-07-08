@@ -48,12 +48,12 @@ const Arena = ({
         initial={{ opacity: 0, scale: "60%" }}
         animate={{ opacity: 1, x: 0, scale: "90%",
           transition: { duration: 0.3, delay: 0.3} }}
-        className={`bg-zinc-400 shadow-2xl rounded-md flex flex-col fixed px-6 py-4 items-center z-51 justify-center
+        className={`shadow-2xl rounded-md flex flex-col fixed px-0 py-4 items-center z-51 justify-center h-[70vh] w-[65vw]
         ${fightStart && ``}`}>
 
 
           <div id={`Arena-content`}
-            className={`flex flex-col relative bg-slate-100 text-zinc-600 font-semibold px-4 py-3 my-6`}>
+            className={`flex flex-col relative w-full h-full items-center justify-center bg-slate-100 text-zinc-600 font-semibold px-4 py-3 my-6 overflow-y-auto overflow-x-hidden`}>
               {/* <h2 className='relative mb-10'>
               Welcome to the Arena, fights are not yet available.<br/>
               Fight Logic and realtime round-by-round display now currently in-development!

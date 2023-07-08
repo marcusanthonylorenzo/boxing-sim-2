@@ -46,7 +46,7 @@ const FightUpdates = () => {
 
   return (
     <div id={`FightUpdates-main`}
-        className={`bg-black h-full w-full absolute flex flex-col`}>
+        className={`bg-black h-full w-full absolute mx-auto items-center justify-center flex flex-col`}>
 
                 { //Map play_by_play here
                     fightData && fightData.map((eachPlay: DamageOutputT) => {
