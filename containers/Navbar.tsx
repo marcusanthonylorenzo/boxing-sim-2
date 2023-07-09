@@ -52,10 +52,10 @@ const Navbar = ({
 
                 { !fightStart ?
                     (<>
-                        <h5 className={`relative text-zinc-400 font-semibold text-[8px] px-3`}>Create Boxer</h5>
-                        <div className={`relative w-full hover:scale-[120%] hover:duration-[30ms] hover:cursor-pointer `}
+                        <h5 className={`relative text-zinc-400 font-medium text-[14px] px-3`}>Create Boxer</h5>
+                        <div className={`relative w-full `}
                             onClick={() => setAddModalVisibility(!showAddModal)}>
-                            <AddIcon className="w-10 ease-out-in ease-in-out" />
+                            <AddIcon className="w-10 ease-out-in ease-in-out hover:scale-[120%] hover:duration-[30ms] hover:cursor-pointer " />
                         </div>
                     </>)
                     
