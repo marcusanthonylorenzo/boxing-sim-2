@@ -201,7 +201,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
               <AnimatePresence>
               <motion.div
                   className={`absolute left-0 z-49 bg-blue-800 px-4 py-2 mt-10 rounded-md
-                    ${!hideFightAcceptModal ? `duration-100 w-[20vw] h-[84vh] top-[10vh]`: `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
+                    ${!hideFightAcceptModal ? `duration-100 w-[20vw] h-[84vh] top-[2vh]`: `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                   `}
                   initial={{ opacity: 0, x: -20 }}
                   animate={boxerCardControls.one}
@@ -255,7 +255,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
               <AnimatePresence>
                 <motion.div
                     className={`absolute right-0 bg-red-700 px-4 py-2 mt-10 rounded-md
-                    ${!hideFightAcceptModal ? `duration-100 w-[20vw] h-[84vh] top-[10vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
+                    ${!hideFightAcceptModal ? `duration-100 w-[20vw] h-[84vh] top-[2vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                     `}
                     initial={{ opacity: 0, x: 20 }}
                     animate={boxerCardControls.two}
