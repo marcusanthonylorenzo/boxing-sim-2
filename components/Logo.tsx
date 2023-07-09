@@ -3,7 +3,7 @@ import React from 'react'
 const Logo = () => {
   return (
     <div>
-        <div id={`Logo-main`} className={`grid grid-cols-3 items-center w-[26vw] mr-20 bg-[#1f2957]`}>
+        <div id={`Logo-main`} className={`grid grid-cols-3 items-center w-[26vw] mr-20 p-4 rounded-md bg-[#1f2957]`}>
            
             <div id={`Logo-text`} className={`col-start-1 flex flex-col col-span-2 `}>
                 <span id={`Logo-text-title`} className={`font-bold text-[32px]`}>
