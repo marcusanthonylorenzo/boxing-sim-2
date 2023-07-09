@@ -201,7 +201,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
             { boxerSelected.length >= 1 &&
               <AnimatePresence>
               <motion.div
-                  className={`absolute left-0 z-49 bg-blue-800 px-4 py-2 rounded-md
+                  className={`absolute left-0 z-49 bg-blue-800 px-4 py-2 mt-10 rounded-md
                     ${!hideFightAcceptModal ? `duration-100 w-[20vw] h-[84vh] top-[10vh]`: `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                   `}
                   initial={{ opacity: 0, x: -20 }}
@@ -214,7 +214,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           </div>
 
           <div id="Home-Main-wrapper"
-            className={`relative top-6 mt-[5vh] z-48 w-[55vw] h-[70vh] rounded-md
+            className={`relative top-6 mt-[10vh] z-48 w-[55vw] h-[65vh] rounded-md
      
             ${ boxers.length > 2 && `overflow-y-scroll overflow-x-hidden`}
             ${ fightStart ? `bg-[#fcfcfce6] duration-300` : `bg-white`}`}>
@@ -255,7 +255,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
             { boxerSelected.length === 2 &&
               <AnimatePresence>
                 <motion.div
-                    className={`absolute right-0 bg-red-700 px-4 py-2 rounded-md
+                    className={`absolute right-0 bg-red-700 px-4 py-2 mt-10 rounded-md
                     ${!hideFightAcceptModal ? `duration-100 w-[20vw] h-[84vh] top-[10vh]` : `duration-100 w-[18vw] h-[70vh] top-[20vh]`}
                     `}
                     initial={{ opacity: 0, x: 20 }}

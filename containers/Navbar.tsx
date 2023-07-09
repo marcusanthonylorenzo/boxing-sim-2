@@ -6,6 +6,7 @@ import FightAcceptButton from '../components/events/FightAcceptButton';
 import styles from "../styles/Home.module.css";
 import useFightStartContext from '../hooks/useFightStart';
 import Ticker from 'react-ticker'
+import Logo from '../components/Logo';
 
 
 interface NavbarT {
@@ -35,15 +36,17 @@ const Navbar = ({
 
     return (
     <div id={componentId} className={`${styling}
-        flex flex-row fixed z-51 top-0 w-[100vw] h-[20vh] my-5 py-7 shadow-md  ${fightStart ? `bg-[#352c2c]` : ``}
+        flex flex-row fixed z-51 top-0 w-[100vw] h-[20vh] py-5 shadow-md text-white ${fightStart ? `bg-[#352c2c]` : `bg-[#1f2957]`}
        `}>
         <div id={`${componentId}-wrapper`} className={`relative w-full items-center justify-center pb-56`}>
 
             <div id={`${componentId}-content`}
                 className={`flex relative w-full items-center justify-center mb-3`}>
+                
+                <Logo />
 
                 <div id={`${componentId}-createComponents`}
-                    className="flex col-start-3 row-start-1 bg-slate-100 rounded">
+                    className="flex col-start-3 row-start-1 rounded">
 
                 { !fightStart ?
                     (<>
