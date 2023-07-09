@@ -164,7 +164,6 @@ const Home: NextPage<homeProps> = ({ results }) => {
           <div id={`Home-Navbar-wrapper`}
             className="flex fixed z-60 top-0 items-center justify-center">
             <Navbar
-              styling={``}
               parentState={{
                 boxerSelected,
                 showAddModal,

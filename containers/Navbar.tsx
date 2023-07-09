@@ -10,7 +10,7 @@ import Logo from '../components/Logo';
 
 
 interface NavbarT {
-    styling: string,
+    styling?: string,
     components?: {
     },
     parentState: {
@@ -34,8 +34,10 @@ const Navbar = ({
 
     useEffect(() => boxerSelected.length < 2 ? setDisabledState(false) : setDisabledState(true), [boxerSelected])
 
+    console.log(fightStart)
+
     return (
-    <div id={componentId} className={`${styling}
+    <div id={componentId} className={`
         flex flex-row fixed z-51 top-0 w-[100vw] h-[20vh] py-5 shadow-md text-white ${fightStart ? `bg-[#352c2c]` : `bg-[#1f2957]`}
        `}>
         <div id={`${componentId}-wrapper`} className={`relative w-full items-center justify-center pb-56`}>
@@ -72,13 +74,13 @@ const Navbar = ({
                 </div>
             </div>
 
-            <section id="ticker" className='flex relative bg-gray h-[20%] w-[80%] mx-auto items-center justify-center'>
+            <section id="ticker" className='flex relative bg-gray h-[20%] w-[80%] mt-6 mx-auto items-center justify-center'>
 
                 {/* <Ticker>
                     { () =>  */}
                      {/* (<> */}
                             <h1 className={`relative font-bold mr-2`}> Updates 7/2/23:</h1>
-                            <h5 className={`relative text-[12px]`}>Currently focusing on persisting pre-fight events, loading boxers and building server logic for the actual fight engine. UI is definitely not complete (mostly wireframes). </h5>
+                            <h5 className={`relative text-[11px]`}>Currently focusing on persisting pre-fight events, loading boxers and building server logic for the actual fight engine. UI is definitely not complete (mostly wireframes). </h5>
                     {/* </>) */}
                     {/* }
                 </Ticker> */}
