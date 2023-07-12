@@ -27,7 +27,7 @@ const RoundStart = () => {
             })
           ]).then(values => {
             const getResults = values[0].data.damageOutputResults //THIS IS THE PBP
-            console.log(`get results length`, typeof getResults, typeof fightData)
+            console.log(`get results length`, typeof getResults, getResults)
             try {
                 setFightData((prev: any) => [ ...prev, { ...getResults[0] }]);
                 getResults.forEach((scrap: any) => {

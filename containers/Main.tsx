@@ -75,12 +75,13 @@ export const Main = ({
 
   return (
         <div id="Main-content"
-            className={`relative
-            grid px-4 ml-[8%] md:ml-[5%] xl:ml-[7%] 3xl:ml-16 mb-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5
+            className={`relative mb-5 px-4 ml-[8%] grid
+            md:ml-[5%] xl:ml-[7%] 3xl:ml-16
             ${ boxerSelected.length === 2 && `bg-slate-100`}`}>
             {boxers?.map((boxer: Boxer, index: Key | null | undefined) => (
               <AnimatePresence>
-                <motion.div 
+                <motion.div
+                  className={`bg-slate-200 border-2 border-white shadow-md px-2 grid grid-cols-4`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0, transition: { duration: 0.18, delay: 0.09} }}
                   exit={{ opacity: 0.3, x: -100 }}>
@@ -97,11 +98,16 @@ export const Main = ({
                     setBoxerSelected={setBoxerSelected}
                     checkBoxerCardAlreadyClicked={checkBoxerCardAlreadyClicked}
                     styleProps={
-                        { cardBgColor: `green-500`,
-                          // gridPosition: `col-start-${index}`
+                        {
+                          cardBgColor: `green-500`,
+                          gridPosition: `col-span-1 col-start-1`
                         }
                     }
                   />
+
+                   <div id={`extra-stats`} className={`col-start-2 col-span-2 flex relative h-[60%] w-full  py-2 bg-white`}>
+                    Extra Stats drawer later
+                  </div>
                   </motion.div>
               </AnimatePresence>
             ))}

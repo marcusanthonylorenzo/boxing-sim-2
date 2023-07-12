@@ -5,7 +5,7 @@ import { fight } from "../../../controllers/FightController"
 import next, { NextApiRequest, NextApiResponse } from 'next';
 import axios from "axios";
 
-const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/boxers";
+const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_stats";
 const headersConfig = {
     'last_name-Type': 'application/json',
     apiKey:  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqeHV1aXBrc2x6YmN1ZnNnbGR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU5ODcyNzYsImV4cCI6MjAwMTU2MzI3Nn0.O9oHaGdbL9cG3DC2JroEB3x5PZRmL9RYfmko_0UKGGc`,
@@ -20,15 +20,24 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { boxerOne, boxerTwo } = req.body;
-  console.log(`posthandler`, boxerOne, boxerTwo)
+  // console.log(`posthandler`, boxerOne, boxerTwo)
 
   try {
       const damageOutputResults = await fight(boxerOne, boxerTwo)
 
-  //   await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_history', req.body,
-  //   { headers: headersConfig })
+      await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_history',
+      {
+        play_by_play: damageOutputResults
+      },
+      { headers: headersConfig })
+
+      // data ? console.log(data) : console.log(`no data in post req fight_history`)
       
-      res.status(200) ? res.json({ damageOutputResults }) : console.log(res.status)
+      if (res.status(200)) {
+        res.json({ damageOutputResults })       
+      } else {
+        // console.log(res.status)
+      }
 
   } catch (error) {
     console.log(error)
