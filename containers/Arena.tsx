@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import axios from 'axios'
 import { Boxer } from '../constants/BoxerModel'
 import Image from 'next/image'
 import useFightStartContext from '../hooks/useFightStart'
@@ -24,6 +25,29 @@ const Arena = ({
 } : ArenaPropT ) => {
 
     const { fightStart } = useFightStartContext();
+
+    useEffect(() => {
+
+      const createFightNightRecord = async () => {
+        const data = await axios.post('/api/fight_night', {
+          boxerOne: boxerSelected[0],
+          boxerTwo: boxerSelected[1]
+        });
+        
+        return data
+      };
+
+    try {
+      const createRecord = createFightNightRecord()
+      .then(val => {
+        console.log(val.data)
+        return val
+      })
+      console.log(`Arena post req on render`, createRecord)
+    } catch (err) {
+      console.log(err)
+    }
+    }, [])
   
     // console.log(`Arena top level`, boxerSelected)
 

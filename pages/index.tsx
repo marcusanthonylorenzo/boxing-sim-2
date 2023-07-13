@@ -162,7 +162,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
       <main className={styles.main + ``}>
 
           <div id={`Home-Navbar-wrapper`}
-            className="flex fixed z-60 top-0 items-center justify-center">
+            className="flex absolute z-60 top-0 items-center justify-center">
             <Navbar
               parentState={{
                 boxerSelected,
@@ -196,7 +196,9 @@ const Home: NextPage<homeProps> = ({ results }) => {
             )
           }
 
-          {/* <div className="h-[10vh] w-full" /> */}
+
+          <div id={`Home-content-main`} className="flex relative z-59 items-center justify-center top-[40vh] h-[70%] w-full">
+
                       
           <div id="Home-content-corner-1">
             { boxerSelected.length >= 1 &&
@@ -215,7 +217,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           </div>
 
           <div id="Home-Main-wrapper"
-            className={`relative top-6 mt-[20vh] z-48 w-[55vw] h-[65vh] rounded-md
+            className={`relative top-6 mt-[20%] z-48 w-[55vw] h-[65vh] rounded-md
      
             ${ boxers.length > 2 && `overflow-y-scroll overflow-x-hidden`}
             ${ fightStart ? `bg-[#fcfcfce6] duration-300` : `bg-white`}`}>
@@ -268,6 +270,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
               }
             </div>
             
+            </div>
         </main>  
     </div>
   );

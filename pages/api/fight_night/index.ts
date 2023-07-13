@@ -20,29 +20,44 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { boxerOne, boxerTwo } = req.body;
-  // console.log(`posthandler`, boxerOne, boxerTwo)
+  console.log(`posthandler`, boxerOne, boxerTwo)
 
   try {
-      const damageOutputResults = await fight(boxerOne, boxerTwo)
-
       await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_history',
       {
-        play_by_play: damageOutputResults
+        boxer_1: boxerOne.id,
+        boxer_2: boxerTwo.id
       },
       { headers: headersConfig })
-
-      // data ? console.log(data) : console.log(`no data in post req fight_history`)
       
       if (res.status(200)) {
-        res.json({ damageOutputResults })       
+        console.log(`fight record successfully created`, res)
       } else {
-        // console.log(res.status)
+        console.log(res.status)
       }
 
   } catch (error) {
     console.log(error)
   }
-  res.status(200).json({ message: 'POST request handled successfully' })
+  res.status(200).json({ message: 'POST request handled successfully'})
+};
+
+const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { boxerOne, boxerTwo, id} = req.body;
+  const damageOutputResults = await fight(boxerOne, boxerTwo)
+
+  try {
+    const { data } = await axios.patch(supabaseAPI + `fight_night?id=eq.${id}`,
+    {
+      play_by_play: damageOutputResults
+    },
+    { headers: headersConfig });
+
+    res.status(200) ? res.status(200).json(data) : console.log(res.status)
+
+  } catch (error) {
+    console.log(`fight_night patch req error`, error)
+  }
 };
 
 // API route handler
@@ -50,9 +65,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'GET') {
     getHandler(req, res);
-    // await axios.get(supabaseAPI, { headers: headersConfig }).then(response => response.data)
   } else if (req.method === 'POST') {
     postHandler(req, res);
+  } else if (req.method === `PATCH`) {
+    patchHandler(req, res)
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
   }
