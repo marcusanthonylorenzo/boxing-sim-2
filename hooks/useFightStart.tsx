@@ -5,6 +5,7 @@ import { DamageOutputT } from '../controllers/FightController'
 const FightStartContext = createContext<any>("default")
 
 export const FightStartProvider = ({ children }: any) => {
+  const [ fightId, setFightId ] = useState<string>(``)
   const [ boxerSelected, setBoxerSelected ] = useState<Array<Boxer | null>>([])
   const [ fightStart, setFightStart ] = useState<boolean>(false)
   const [ round, setRound ] = useState<number>(0);
@@ -41,6 +42,7 @@ export const FightStartProvider = ({ children }: any) => {
 
 return (
     <FightStartContext.Provider value={{
+      fightId, setFightId,
       fightStart, setFightStart,
       round, progressRound,
       fightOver,

@@ -24,33 +24,31 @@ const Arena = ({
 
 } : ArenaPropT ) => {
 
-    const { fightStart } = useFightStartContext();
+    const { fightStart, fightId, setFightId } = useFightStartContext();
+    
+    useEffect(() => console.log(`fight Id`, fightId), [fightId])
 
     useEffect(() => {
-
       const createFightNightRecord = async () => {
         const data = await axios.post('/api/fight_night', {
           boxerOne: boxerSelected[0],
           boxerTwo: boxerSelected[1]
-        });
-        
+        });   
         return data
       };
 
     try {
       const createRecord = createFightNightRecord()
       .then(val => {
-        console.log(val.data)
-        return val
+        console.log(`fight night creation response`, val.data)
+        setFightId(val.data.id)
       })
-      console.log(`Arena post req on render`, createRecord)
+      // console.log(`Arena post req on render`, createRecord)
     } catch (err) {
       console.log(err)
     }
     }, [])
   
-    // console.log(`Arena top level`, boxerSelected)
-
     // 1. Client: load boxers in Client, send boxers props to SSR
     // 2. Client: Add subscription here in Client, to listen to Server for roundUpdates
     // 3. Server: run method roundStart, emitting data to Client

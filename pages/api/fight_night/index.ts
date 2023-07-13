@@ -4,6 +4,7 @@
 import { fight } from "../../../controllers/FightController"
 import next, { NextApiRequest, NextApiResponse } from 'next';
 import axios from "axios";
+import { randomUUID } from "crypto";
 
 const supabaseAPI = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_stats";
 const headersConfig = {
@@ -21,10 +22,12 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { boxerOne, boxerTwo } = req.body;
   console.log(`posthandler`, boxerOne, boxerTwo)
+  const newId = randomUUID();
 
   try {
       await axios.post('https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_history',
       {
+        id: newId,
         boxer_1: boxerOne.id,
         boxer_2: boxerTwo.id
       },
@@ -39,7 +42,10 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error) {
     console.log(error)
   }
-  res.status(200).json({ message: 'POST request handled successfully'})
+  res.status(200).json({
+    message: 'POST request handled successfully',
+    id: newId
+  })
 };
 
 const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -60,9 +66,7 @@ const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-// API route handler
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
   if (req.method === 'GET') {
     getHandler(req, res);
   } else if (req.method === 'POST') {
@@ -73,3 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(405).json({ error: 'Method Not Allowed' });
   }
 }
+function uuid() {
+  throw new Error("Function not implemented.");
+}
+
