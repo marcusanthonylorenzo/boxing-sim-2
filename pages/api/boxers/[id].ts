@@ -15,6 +15,7 @@ const headersConfig = {
 // Controller methods
 const getHandler = (req: NextApiRequest, res: NextApiResponse) => {
   // Handle GET request logic here
+  
   res.status(200).json({ message: 'GET request handled successfully' });
 };
 

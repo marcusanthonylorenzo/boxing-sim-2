@@ -24,9 +24,21 @@ const Arena = ({
 
 } : ArenaPropT ) => {
 
-    const { fightStart, fightId, setFightId } = useFightStartContext();
+    const { fightStart, fightId, setFightId, fightIntros, setFightIntros, round, setFightOver, refreshFightData } = useFightStartContext();
+
+  useEffect(() => {
+
+
+    if (round > 12) {
+      setFightOver(true)
+    } else {
+      refreshFightData(fightId)
+        .then((val: any) => console.log(`refreshFightData promise`, val))
+    }
+  }, [round])
     
-    useEffect(() => console.log(`fight Id`, fightId), [fightId])
+    //if rounds have not started, fightIntros true, once rounds have started, fightIntros are always false
+    useEffect(() =>  round === 0 ? setFightIntros(true) : setFightIntros(false), [round])
 
     useEffect(() => {
       const createFightNightRecord = async () => {
@@ -38,12 +50,11 @@ const Arena = ({
       };
 
     try {
-      const createRecord = createFightNightRecord()
-      .then(val => {
-        console.log(`fight night creation response`, val.data)
-        setFightId(val.data.id)
-      })
-      // console.log(`Arena post req on render`, createRecord)
+      round === 0 && createFightNightRecord()
+        .then(val => {
+          console.log(`fight night creation response`, val.data)
+          setFightId(val.data.id)
+        })
     } catch (err) {
       console.log(err)
     }
@@ -75,19 +86,21 @@ const Arena = ({
 
 
           <div id={`Arena-content`}
-            className={`flex flex-col relative w-full h-full items-center justify-center bg-slate-100 text-zinc-600 font-semibold px-4 py-3 my-6 overflow-y-auto overflow-x-hidden`}>
+            className={`flex flex-col relative w-full justify-center bg-slate-100 text-zinc-600 font-semibold px-4 py-3 my-6 overflow-y-auto overflow-x-hidden`}>
               {/* <h2 className='relative mb-10'>
               Welcome to the Arena, fights are not yet available.<br/>
               Fight Logic and realtime round-by-round display now currently in-development!
              </h2> */}
 
              <FightUpdates />
+
+             <div id={`Arena-RoundStart`}
+              className={`flex relative top-0`}>
+                <RoundStart />
+            </div>
           </div>
 
-          <div id={`Arena-RoundStart`}
-            className={`relative `}>
-              <RoundStart />
-          </div>
+
               
       </motion.div>
       </AnimatePresence>

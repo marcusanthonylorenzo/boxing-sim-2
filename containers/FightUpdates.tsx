@@ -42,14 +42,16 @@ const FightUpdates = () => {
 
     const { fightData } = useFightStartContext();
     
-    useEffect(() => console.log(`fightUpdates fightData`, fightData) , [fightData])
+    useEffect(() => {
+        console.log(`fightUpdates fightData`, fightData)
+    }, [fightData])
 
   return (
     <div id={`FightUpdates-main`}
         className={`bg-black h-full w-full absolute mx-auto items-center justify-center flex flex-col`}>
 
                 { //Map play_by_play here
-                    fightData && fightData.map((eachPlay: DamageOutputT) => {
+                    fightData.play_by_play && fightData.play_by_play.map((eachPlay: DamageOutputT) => {
                         return (
                             <div id={`FightUpdates-play_by_play`}
                                 className={`relative`}>

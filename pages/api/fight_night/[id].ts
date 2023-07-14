@@ -2,7 +2,6 @@
 import { fight } from "../../../controllers/FightController"
 import next, { NextApiRequest, NextApiResponse } from 'next';
 import axios from "axios";
-import { randomUUID } from "crypto";
 
 const supabaseAPI_fight_history = "https://cjxuuipkslzbcufsgldx.supabase.co/rest/v1/fight_history";
 const headersConfig = {
@@ -13,36 +12,34 @@ const headersConfig = {
 
 // Controller methods
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { data } = await axios.get(supabaseAPI_fight_history, { headers: headersConfig });
-  res.status(200).json(data);
+
+    const { id } = req.body
+    const { data } = await axios.get(supabaseAPI_fight_history + `?id=eq.${id}`, { headers: headersConfig });
+    console.log(`[id] get req`, id, data)
+    res.status(200).json(data);
 };
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.count(`post handler ran`)
-  const { boxerOne, boxerTwo } = req.body;
-  console.log(`posthandler`, boxerOne, boxerTwo)
-  const newId = randomUUID();
 
   try {
-      await axios.post(supabaseAPI_fight_history,
-      {
-        id: newId,
-        boxer_1: boxerOne.id,
-        boxer_2: boxerTwo.id
-      },
-      { headers: headersConfig })
+    //   await axios.post(supabaseAPI_fight_history,
+    //   {
+    //     id: newId,
+    //     boxer_1: boxerOne.id,
+    //     boxer_2: boxerTwo.id
+    //   },
+    //   { headers: headersConfig })
       
-      if (res.status(200)) {
-        console.log(`fight record successfully created`, res)
-      } else {
-        console.log(res.status)
-      }
+    //   if (res.status(200)) {
+    //     console.log(`fight record successfully created`, res)
+    //   } else {
+    //     console.log(res.status)
+    //   }
   } catch (error) {
     console.log(error)
   }
   res.status(200).json({
     message: 'POST request handled successfully',
-    id: newId
   })
 };
 
@@ -78,8 +75,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
   }
-}
-function uuid() {
-  throw new Error("Function not implemented.");
 }
 

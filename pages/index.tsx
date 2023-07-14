@@ -151,7 +151,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
 
   return (
     <div className={styles.container + 
-      `${ boxerSelected.length === 2 && `bg-slate-50`} overflow-y-hidden w-full
+      `${ boxerSelected.length === 2 && `bg-slate-50`} overflow-y-scroll w-full
       ${fightStart && `bg-[#040404f6]  delay-100 duration-200`}`}>
 
       <Head>
@@ -197,7 +197,7 @@ const Home: NextPage<homeProps> = ({ results }) => {
           }
 
 
-          <div id={`Home-content-main`} className="flex relative z-59 items-center justify-center top-[40vh] h-[70%] w-full">
+          <div id={`Home-content-main`} className="flex relative z-59 items-center justify-center top-[20vh] h-full w-full">
 
                       
           <div id="Home-content-corner-1">
