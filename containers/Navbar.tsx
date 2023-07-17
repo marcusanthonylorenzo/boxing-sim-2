@@ -38,7 +38,7 @@ const Navbar = ({
 
     return (
     <div id={componentId} className={`
-        flex flex-row fixed z-51 top-0 w-[100vw] h-[20vh] py-3 shadow-md text-white ${fightStart ? `bg-[#352c2c]` : `bg-[#1f2957]`}
+        flex flex-row absolute z-51 top-0 w-[100vw] h-[20vh] py-3 shadow-md text-white ${fightStart ? `bg-[#352c2c]` : `bg-[#1f2957]`}
        `}>
         <div id={`${componentId}-wrapper`} className={`relative w-full items-center justify-center pb-56`}>
 
