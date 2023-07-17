@@ -46,7 +46,15 @@ export const FightStartProvider = ({ children }: any) => {
     const { data } = await axios.get(supabaseAPI_fight_history + `?id=eq.${id}&select=*`, {
       headers: headersConfig
     })
-    await setFightData(data)
+    if (fightData.length === 0) {
+      await setFightData([...data[0].play_by_play ] )
+      console.log(`fightData length is 0`)
+    } else if (fightData.length > 0) {
+      data[0].play_by_play.forEach((play: DamageOutputT) => {
+        setFightData((prev) => [...prev, play ] )
+        console.log(`fightData length is greater than 0`)
+      })
+    }
   };
 
   const progressRound = () => {

@@ -33,24 +33,31 @@ const RoundStart = () => {
             })
           ]).then(values => {
             console.log(`32: values`, values)
-            // refreshFightData(fightId)
+            refreshFightData(fightId)
               // .then((value: any) => {
-              //   // setGetResults(value)
+              //   setGetResults(value)
+              //   console.log(`roundStart: 39, setting Get Results`, value)
               // })
+            .finally(() => {
+                console.log(`after .then fightData`, fightData)
 
-            const getResults = values[0].data.damageOutputResults //THIS IS THE PBP
-            console.log(`get results length`, typeof getResults, getResults)
-            try {
-                setFightData((prev: any) => [ ...prev, { ...getResults[0] }]);
-                getResults ?
-                getResults.forEach((scrap: any) => {
-                    scrap.damage <= 0 ? console.log(`${scrap.defender} uses their footwork to keep range`) : console.log(scrap)
-                })
-                : console.log(`no get results`)
-            } catch (err: unknown) {
-                console.log(err)
-            }
-            progressRound();
+                if (getResults !== undefined) {
+                  // const getResults = values[0].data.damageOutputResults //THIS IS THE PBP
+                  try {
+                      setFightData((prev: any) => [ ...prev, { ...getResults[0] }]);
+                      // getResults ?
+                      // getResults.forEach((scrap: any) => {
+                      //     scrap.damage <= 0 ? console.log(`${scrap.defender} uses their footwork to keep range`) : console.log(scrap)
+                      // })
+                      // : console.log(`no get results`)
+                  } catch (err: unknown) {
+                      console.log(err)
+                  }
+                }
+
+                progressRound();
+
+            })
           })
         }
       })
